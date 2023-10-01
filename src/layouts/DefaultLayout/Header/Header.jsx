@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import "../../../assets/scss/layout/Header.scss";
 import { DarkModeToggle } from "react-dark-mode-toggle-2";
+import { NavLink } from "react-router-dom";
 const Header = () => {
   const [theme, setTheme] = useState(false);
   return (
@@ -37,13 +37,28 @@ const Header = () => {
         </div>
         <p className="brand-text">CCD</p>
         <div className="second-logo">
-          <img src="/public/assets/images/logo.png" alt="" srcSet="" />
+          <img src="/assets/images/logo.png" alt="" srcSet="" />
         </div>
       </div>
       <div className="nav-bar">
-        <Link to="/">HOME</Link>
-        <Link to="/">DATA ACCESS</Link>
-        <Link to="/">ARTICLES</Link>
+        <NavLink
+          to="/"
+          className={({ isActive }) => (isActive ? "link-active" : "link")}
+        >
+          HOME
+        </NavLink>
+        <NavLink
+          to="/dataaccess"
+          className={({ isActive }) => (isActive ? "link-active" : "link")}
+        >
+          DATA ACCESS
+        </NavLink>
+        <NavLink
+          to="/articles"
+          className={({ isActive }) => (isActive ? "link-active" : "link")}
+        >
+          ARTICLES
+        </NavLink>
       </div>
       <div className="theme-toggle">
         <DarkModeToggle size={50} onChange={setTheme} isDarkMode={theme} />

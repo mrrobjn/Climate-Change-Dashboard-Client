@@ -17,7 +17,13 @@ function App() {
                 <Page />
               </Layout>
             }
-          />
+          >
+            {route.children?.map((childRoute, i) => {
+              return (
+                <Route path={childRoute.path} element={<childRoute.component/>} key={i}/>
+              );
+            })}
+          </Route>
         );
       })}
     </Routes>

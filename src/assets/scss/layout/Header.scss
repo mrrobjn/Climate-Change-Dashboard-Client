@@ -47,9 +47,20 @@
       left: 0;
       background-color: black;
       visibility: hidden;
-      transition: all 0.3s ease-in-out;
+      transition: all 0.4s ease-in-out;
     }
     a:hover::after {
+      visibility: visible;
+      width: 100%;
+    }
+    .link-active::before{
+      content: "";
+      position: absolute;
+      width: 0;
+      height: 3px;
+      bottom: -10px;
+      left: 0;
+      background-color: black;
       visibility: visible;
       width: 100%;
     }

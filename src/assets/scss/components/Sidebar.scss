@@ -1,0 +1,37 @@
+@import "../GlobalStyle.scss";
+.data-access-side-bar {
+  display: flex;
+  flex-direction: column;
+  background: $light-theme-main-color;
+  width: 250px;
+  align-items: center;
+  padding: 10px;
+  border-right: 1px solid #ccc;
+  a {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    width: 100%;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: $main-border-radius;
+    img {
+      width: 20px;
+      height: 20px;
+      color: $highlight-text-color;
+    }
+    p {
+      margin-left: 20px;
+      color: $light-theme-text-color;
+    }
+  }
+  a:hover {
+    background: $highlight-element-color;
+    transition: 0.4s;
+    p{
+        color: $highlight-text-color;
+    transition: 0.4s;
+
+    }
+  }
+}
