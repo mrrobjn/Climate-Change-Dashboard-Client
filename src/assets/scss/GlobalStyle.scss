@@ -1,10 +1,25 @@
 $light-theme-main-color: #fff;
+$dark-theme-main-color: #333;
 
 // text color 
 $highlight-text-color: #007bff;
 $light-theme-text-color: #000;
 $dark-theme-text-color: #fff;
 
+// element color
 $highlight-element-color: #e9f2fa;
 
-$main-border-radius: 5px
+// input color
+$focus-input-color:#66afe9;
+$input-boder-color: #ccc;
+
+// border
+$main-border-radius: 5px;
+$main-border-color: #ccc;
+
+// button
+$primary-button-color:#007bff;
+
+$light-button-background-color:#fff;
+$dark-button-background-color:#333;
+

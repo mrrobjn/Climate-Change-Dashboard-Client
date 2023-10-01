@@ -1,0 +1,45 @@
+@import "../GlobalStyle.scss";
+
+.check-box-container {
+  display: flex;
+  flex-wrap: wrap;
+  .check-box-item {
+    flex-basis: 33.3%;
+    display: flex;
+    margin-bottom: 10px;
+    align-items: center;
+    input {
+      width: 20px;
+      height: 20px;
+      border-radius: 30%;
+      appearance: none;
+      border: 1px solid $input-boder-color;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      &:checked {
+        background-color: $highlight-text-color;
+        border-color: $highlight-text-color;
+        &:after {
+          content: "";
+          display: block;
+          width: 3px;
+          height: 7px;
+          border: solid #fff;
+          border-width: 0 2px 2px 0;
+          transform: rotate(45deg);
+        }
+      }
+      &:focus {
+        transition: 0.3s;
+        border-color: $highlight-text-color;
+        outline: 0;
+        box-shadow: 0 0 10px $highlight-text-color;
+      }
+    }
+
+    label {
+      margin-left: 10px;
+    }
+  }
+}

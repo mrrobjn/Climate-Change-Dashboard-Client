@@ -3,10 +3,15 @@
   display: flex;
   flex-direction: column;
   background: $light-theme-main-color;
-  width: 250px;
   align-items: center;
   padding: 10px;
-  border-right: 1px solid #ccc;
+  position: sticky;
+  top: 0;
+  align-self: flex-start;
+  height: 100%;
+  transition: 0.4s;
+  width: 60px;
+  overflow: hidden;
   a {
     display: flex;
     align-items: center;
@@ -23,15 +28,35 @@
     p {
       margin-left: 20px;
       color: $light-theme-text-color;
+      text-wrap: nowrap;
     }
   }
   a:hover {
     background: $highlight-element-color;
     transition: 0.4s;
-    p{
-        color: $highlight-text-color;
-    transition: 0.4s;
-
+    p {
+      color: $highlight-text-color;
+      transition: 0.4s;
+    }
+  }
+  .link-active {
+    background: $highlight-element-color;
+    p {
+      color: $highlight-text-color;
+    }
+  }
+  &.expanded{
+    width: 250px;
+  }
+  button{
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &.expanded{
+      transform: rotate(180deg);
     }
   }
 }

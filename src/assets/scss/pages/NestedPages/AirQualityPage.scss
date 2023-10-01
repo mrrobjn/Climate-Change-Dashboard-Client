@@ -1,0 +1,11 @@
+@import "../../GlobalStyle.scss";
+.air-quality-container{
+  .single-input-field {
+    width: 500px;
+  }
+  .chart-container{
+    height: 400px;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+}

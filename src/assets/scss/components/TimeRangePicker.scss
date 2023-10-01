@@ -1,0 +1,10 @@
+.date-picker-container{
+    display: flex;
+    width: 600px;
+    .date-picker-item{
+        flex-basis: 50%;
+        label{
+            margin-right: 10px;
+        }
+    }
+}

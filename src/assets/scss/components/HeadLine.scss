@@ -1,0 +1,11 @@
+@import '../GlobalStyle.scss';
+
+h2{
+margin: 10px 0;
+}
+.light{
+    color: $light-theme-text-color;
+}
+.dark{
+    color: $dark-theme-text-color;
+}

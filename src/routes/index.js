@@ -1,8 +1,9 @@
-import AirQualityPage from "../pages/AirQualityPage";
-import DataAccessPage from "../pages/DataAccessPage";
 import HomePage from "../pages/HomePage";
-import WeatherForcastPage from "../pages/WeatherForcastPage";
-import HistoricalWeatherPage from "../pages/HistoricalWeatherPage";
+import DataAccessPage from "../pages/DataAccessPage";
+import ArticlesPage from "../pages/ArticlesPage";
+import AirQualityPage from "../pages/NestedPage/AirQualityPage";
+import WeatherForcastPage from "../pages/NestedPage/WeatherForcastPage";
+import HistoricalWeatherPage from "../pages/NestedPage/HistoricalWeatherPage";
 
 const publicRoutes = [
     { path: "/", component: HomePage },
@@ -14,8 +15,8 @@ const publicRoutes = [
             { path: "historicalweather", component: HistoricalWeatherPage },
             { path: "airquality", component: AirQualityPage }
         ]
-    }
-    
+    },
+    { path: "/articles", component: ArticlesPage },
 ]
 const privateRoutes = [
 ]
