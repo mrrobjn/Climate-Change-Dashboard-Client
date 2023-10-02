@@ -9,7 +9,7 @@ import CSVButton from "../../components/CSVButton";
 Chart.register(...registerables);
 
 const AirQualityPage = () => {
-  const checkboxData = [
+  const checkBoxData = [
     { label: "Particulate Matter PM10", value: "pm10" },
     { label: "Particulate Matter PM2.5", value: "pm2_5" },
     { label: "Carbon Monoxide CO", value: "co" },
@@ -112,16 +112,14 @@ const AirQualityPage = () => {
         <TextInput placeholder={"Search for location"} />
       </div>
       <HeadLine text={"Hourly Air Quality Variables"} />
-      <div>
-        <CheckBox data={checkboxData} />
-      </div>
+      <CheckBox data={checkBoxData} />
       <HeadLine text={"Settings"} />
       <TimeRangePicker />
       <HeadLine text={"Preview Chart"} />
       <div className="chart-container">
         <Line options={options} data={chartData} />
       </div>
-      <CSVButton/>
+      <CSVButton />
     </div>
   );
 };
