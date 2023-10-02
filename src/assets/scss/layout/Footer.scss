@@ -1,0 +1,132 @@
+@import '../GlobalStyle.scss';
+.footer {
+  width: 100%;
+  height: 372px;
+  //height: 300px;
+  background-color: $footer-background;
+  color: $dark-theme-text-color;
+  font-family: 'Nunito Sans';
+
+  .container {
+    display: flex;
+    justify-content: space-between;
+
+    padding-top: 4rem;
+    padding-left: 5rem;
+    padding-right: 5rem;
+  
+    .navigate {
+  
+      .title {
+        font-size: 25;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+  
+      .body {
+        display: flex;
+        width: 240px;
+        justify-content: space-between;
+  
+        .body-left {
+          height: 130px;
+          $margin-item: 15px;
+  
+          .home {
+            //margin-top: $margin-item;
+          }
+          .news {
+            margin-top: $margin-item;
+          }
+          .data {
+            margin-top: $margin-item;
+          }
+          .support {
+            margin-top: $margin-item;
+          }
+        }
+  
+        .body-right {
+  
+        }
+      }
+    }
+  
+    .stay-connected {
+      .title {
+        font-size: 25;
+        font-weight: bold;
+        margin-bottom: 20px;
+        padding-left: 2px;
+      }
+  
+      .body {
+        display: flex;
+        justify-content: space-between;
+        width: 120px;
+  
+        $height-icon: 30px;
+        $width-icon: 30px;
+  
+        .github {
+          width: $width-icon;
+          height: $height-icon;
+        }
+        .twitter {
+          width: $width-icon;
+          height: $height-icon;
+        }
+        .mail {
+          width: $width-icon;
+          height: $height-icon;
+        }
+      }
+    }
+  
+    .notifications {
+      .title {
+        font-size: 25;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+  
+      .body {
+        width: 368px;
+        display: flex;
+        $border-size: 35px;
+        .input-text {
+          width: 224px;
+          height: 55px;
+          border-top-left-radius: $border-size;
+          border-bottom-left-radius: $border-size;
+          border-top-right-radius: 0;
+          border-bottom-right-radius: 0;
+          background-color: transparent;
+          border-color:$primary-button-color;
+          padding-left: 18px;
+          &::placeholder {
+            color: $dark-theme-text-color;
+          }
+        }
+        .button-notify-me {
+          width: 144px;
+          text-align: center;
+          font-size: 15px;
+          padding-top: 18px;
+          background-color: $primary-button-color;
+          border-top-right-radius: $border-size;
+          border-bottom-right-radius: $border-size;
+          border-top-left-radius: 0;
+          border-bottom-left-radius: 0;
+        }
+      }
+    }
+  }
+  .endLine {
+    width: 90%;
+    height: 1px;
+    background-color: $light-theme-main-color;
+    margin: auto;
+    margin-top: 30px;
+  }
+}
