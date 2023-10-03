@@ -45,13 +45,13 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      
+
       </div>
       <div className="endLine">
 
       </div>
     </div>
-   
+
   )
 }
 
