@@ -1,22 +1,23 @@
-import React from 'react'
+import React, { useState }  from 'react'
 import "../../../assets/scss/layout/Footer.scss";
 
 const Footer = () => {
+  const [dartTheme, setDartTheme] = useState(true);
   return (
-    <div className='footer'>
+    <div className={`footer ${dartTheme ? "dark" : ""}`}>
       <div className='container'>
       <div className='navigate'>
-        <div className='title-footer'>
+        <div className={`title-footer ${dartTheme ? "dark" : ""}`}>
             NAVIGATE
         </div>
         <div className='body'>
           <div className='body-left'>
-            <a className='home'>Home</a>
-            <a className='news'>News</a>
-            <a className='data'>Data</a>
+            <a className={`home ${dartTheme ? "dark" : ""}`}>Home</a>
+            <a className={`news ${dartTheme ? "dark" : ""}`}>News</a>
+            <a className={`data ${dartTheme ? "dark" : ""}`}>Data</a>
           </div>
           <div className='body-right'>
-            <a className='support'>Support</a>
+            <a className={`support ${dartTheme ? "dark" : ""}`}>Support</a>
           </div>
         </div>
       </div>
@@ -36,14 +37,14 @@ const Footer = () => {
         </div>
         <div className='body'>
           <input className='input-text' type="search" placeholder="Email Address" />
-          <div className='button-notify-me'>
+          <button className='button-notify-me'>
             NOTIFY ME
-          </div>
+          </button>
         </div>
       </div>
 
       </div>
-      <div className="endLine">
+      <div className="footer-line">
 
       </div>
     </div>
