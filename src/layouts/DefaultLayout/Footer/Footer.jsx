@@ -1,31 +1,30 @@
 import React from 'react'
 import "../../../assets/scss/layout/Footer.scss";
-// import { DarkModeToggle } from "react-dark-mode-toggle-2";
-// import { NavLink } from "react-router-dom";
+
 const Footer = () => {
   return (
     <div className='footer'>
       <div className='container'>
       <div className='navigate'>
-        <div className='title'>
+        <div className='title-footer'>
             NAVIGATE
         </div>
         <div className='body'>
           <div className='body-left'>
-            <div className='home'>Home</div>
-            <div className='news'>News</div>
-            <div className='data'>Data</div>
-            <div className='support'>Support</div>
+            <a className='home'>Home</a>
+            <a className='news'>News</a>
+            <a className='data'>Data</a>
+            <a className='support'>Support</a>
           </div>
           <div className='body-right'>
-            <div className='airQuality'>Air Quality</div>
-            <div className='wheatherForecast'>Wheather Forecast</div>
-            <div className='historicalWheather'>Historical Wheather</div>
+            <a className='airQuality'>Air Quality</a>
+            <a className='wheatherForecast'>Wheather Forecast</a>
+            <a className='historicalWheather'>Historical Wheather</a>
           </div>
         </div>
       </div>
       <div className='stay-connected'>
-        <div className='title'>
+        <div className='title-footer'>
             STAY CONNECTED
         </div>
         <div className='body'>
@@ -35,7 +34,7 @@ const Footer = () => {
         </div>
       </div>
       <div className='notifications'>
-        <div className='title'>
+        <div className='title-footer'>
             NOTIFICATIONS
         </div>
         <div className='body'>
