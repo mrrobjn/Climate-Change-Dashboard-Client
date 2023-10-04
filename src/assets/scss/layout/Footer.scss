@@ -22,7 +22,7 @@
 
       .body {
         display: flex;
-        width: 240px;
+        width: 150px;
         justify-content: space-between;
 
         .body-left {
@@ -115,6 +115,7 @@
           border-top-left-radius: 0;
           border-bottom-left-radius: 0;
           font-weight: 700;
+          color: $light-button-background-color;
         }
       }
     }

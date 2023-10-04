@@ -14,12 +14,9 @@ const Footer = () => {
             <a className='home'>Home</a>
             <a className='news'>News</a>
             <a className='data'>Data</a>
-            <a className='support'>Support</a>
           </div>
           <div className='body-right'>
-            <a className='airQuality'>Air Quality</a>
-            <a className='wheatherForecast'>Wheather Forecast</a>
-            <a className='historicalWheather'>Historical Wheather</a>
+            <a className='support'>Support</a>
           </div>
         </div>
       </div>
