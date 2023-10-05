@@ -10,23 +10,25 @@ import { useState } from "react";
 import { getAirQuality } from "../../api";
 import { useSelector } from "react-redux";
 import { climateDataForm } from "../../redux/selector";
+import { groupByTimePeriod } from "../../utility/groupByTimePeriod";
 Chart.register(...registerables);
 
 const AirQualityPage = () => {
   const [locations, setLocations] = useState([]);
+  const [data, setData] = useState({});
   const dataForm = useSelector(climateDataForm);
   const checkBoxData = [
     { label: "Particulate Matter PM10", value: "pm10" },
     { label: "Particulate Matter PM2.5", value: "pm2_5" },
-    { label: "Carbon Monoxide CO", value: "co" },
-    { label: "Nitrogen Dioxide NO2", value: "no2" },
-    { label: "Sulphur Dioxide SO2", value: "so2" },
-    { label: "Ozone O3", value: "o3" },
-    { label: "Aerosol Optical Depth", value: "aod" },
+    { label: "Carbon Monoxide CO", value: "carbon_monoxide" },
+    { label: "Nitrogen Dioxide NO2", value: "nitrogen_dioxide" },
+    { label: "Sulphur Dioxide SO2", value: "sulphur_dioxide" },
+    { label: "Ozone O3", value: "ozone" },
+    { label: "Aerosol Optical Depth", value: "aerosol_optical_depth" },
     { label: "Dust", value: "dust" },
     { label: "UV Index", value: "uv_index" },
     { label: "UV Index Clear Sky", value: "uv_index_clear_sky" },
-    { label: "Ammonia NH3 (*)", value: "nh3" },
+    { label: "Ammonia NH3 (*)", value: "ammonia" },
     { label: "Alder Pollen (*)", value: "alder_pollen" },
     { label: "Birch Pollen (*)", value: "birch_pollen" },
     { label: "Grass Pollen (*)", value: "grass_pollen" },
@@ -34,86 +36,64 @@ const AirQualityPage = () => {
     { label: "Olive Pollen (*)", value: "olive_pollen" },
     { label: "Ragweed Pollen (*)", value: "ragweed_pollen" },
   ];
-  const europeanAirQualityData = [
-    {
-      pollutant: "PM2.5",
-      timespan: "24h",
-      good: "0-10",
-      fair: "10-20",
-      moderate: "20-25",
-      poor: "25-50",
-      veryPoor: "50-75",
-      extremelyPoor: "75-800",
-    },
-    {
-      pollutant: "PM10",
-      timespan: "24h",
-      good: "0-20",
-      fair: "20-40",
-      moderate: "40-50",
-      poor: "50-100",
-      veryPoor: "100-150",
-      extremelyPoor: "150-1200",
-    },
-    {
-      pollutant: "NO2",
-      timespan: "1h",
-      good: "0-40",
-      fair: "40-90",
-      moderate: "90-120",
-      poor: "120-230",
-      veryPoor: "230-340",
-      extremelyPoor: "340-1000",
-    },
-    {
-      pollutant: "O3",
-      timespan: "1h",
-      good: "0-50",
-      fair: "50-100",
-      moderate: "100-130",
-      poor: "130-240",
-      veryPoor: "240-380",
-      extremelyPoor: "380-800",
-    },
-    {
-      pollutant: "SO2",
-      timespan: "1h",
-      good: "0-100",
-      fair: "100-200",
-      moderate: "200-350",
-      poor: "350-500",
-      veryPoor: "500-750",
-      extremelyPoor: "750-1250",
-    },
+
+  const colors = [
+    "rgb(255, 0, 0)",
+    "rgb(0, 255, 0)",
+    "rgb(0, 0, 255)",
+    "rgb(255, 255, 0)",
+    "rgb(0, 255, 255)",
+    "rgb(255, 0, 255)",
+    "rgb(192, 192, 192)",
+    "rgb(128, 0, 0)",
+    "rgb(128, 128, 0)",
+    "rgb(0, 128, 0)",
+    "rgb(128, 0, 128)",
+    "rgb(0, 128, 128)",
+    "rgb(0, 0, 128)",
+    "rgb(255, 165, 0)",
+    "rgb(255, 192, 203)",
+    "rgb(165, 42, 42)",
+    "rgb(255, 255, 240)",
+    "rgb(240, 230, 140)",
+    "rgb(230, 230, 250)",
   ];
+
   const options = {
     responsive: true,
     plugins: {
       legend: {
         position: "top",
       },
-      // title: {
-      //   display: currentCity !== "null" && !isLoading,
-      //   text: `Average temperature of ${currentCity} (°C) in ${
-      //     monthNames[month - 1]
-      //   }`,
-      // },
+      title: {
+        display: true,
+        text:
+          dataForm.currentLocation.name +
+          " - " +
+          dataForm.currentLocation.country,
+      },
     },
   };
   const chartData = {
-    labels: [2016, 2017, 2018, 2019, 2020, 2021, 2022],
-    datasets: [
-      {
-        label: `test`,
-        data: [25, 23, 24, 23, 26, 27, 29],
-        borderColor: "rgb(255, 99, 132)",
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
-      },
-    ],
+    labels:
+      Object.keys(data).length > 0
+        ? groupByTimePeriod(data.hourly, dataForm.hourly).time
+        : [],
+    datasets:
+      Object.keys(data).length > 0
+        ? dataForm.hourly.map((key, i) => {
+            return {
+              label: key,
+              data: groupByTimePeriod(data.hourly, dataForm.hourly)[key],
+              borderColor: colors[i],
+              backgroundColor: colors[i],
+            };
+          })
+        : [],
   };
   const requestData = async () => {
     const { currentLocation, hourly, startDate, endDate } = dataForm;
-    console.log(
+    setData(
       await getAirQuality(
         currentLocation.latitude,
         currentLocation.longitude,
@@ -141,10 +121,14 @@ const AirQualityPage = () => {
       <button onClick={() => requestData()} className="primary-btn light">
         Reload Chart
       </button>
-      <div className="chart-container">
-        <Line options={options} data={chartData} />
-      </div>
-      <CSVButton />
+      {Object.keys(data).length > 0 && (
+        <>
+          <div className="chart-container">
+            <Line options={options} data={chartData} />
+          </div>
+          <CSVButton data={groupByTimePeriod(data.hourly, dataForm.hourly)}/>
+        </>
+      )}
     </div>
   );
 };

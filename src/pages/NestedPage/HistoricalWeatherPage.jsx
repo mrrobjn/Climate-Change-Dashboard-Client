@@ -116,7 +116,7 @@ const HistoricalWeatherPage = () => {
       <div className="chart-container">
         <Line options={options} data={chartData} />
       </div>
-      <CSVButton />
+      <CSVButton data={{}}/>
     </div>
   );
 };

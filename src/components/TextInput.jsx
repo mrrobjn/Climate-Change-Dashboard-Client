@@ -5,12 +5,16 @@ import { getLocations } from "../api";
 const TextInput = ({ placeholder, locations, setLocations }) => {
   const dispatch = useDispatch();
   const handleChange = async (value) => {
-    setLocations(await getLocations(value));
+    if (value === "") {
+      setLocations([]);
+    } else {
+      setLocations(await getLocations(value));
+    }
   };
   const handleClick = (index) => {
     const { name, latitude, longitude, country } = locations[index];
-    dispatch(getLocation({name, latitude, longitude, country}));
-    setLocations([])
+    dispatch(getLocation({ name, latitude, longitude, country }));
+    setLocations([]);
   };
   return (
     <div className="search-location-input">

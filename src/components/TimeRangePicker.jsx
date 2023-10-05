@@ -1,14 +1,19 @@
 import DatePicker from "react-date-picker";
 import "react-date-picker/dist/DatePicker.css";
 import "react-calendar/dist/Calendar.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../assets/scss/components/TimeRangePicker.scss";
 import { useDispatch } from "react-redux";
-import { addEndDate, addStartDate } from "../redux/slides/ClimateDataFormSlice";
+import { addEndDate, addStartDate, resetState } from "../redux/slides/ClimateDataFormSlice";
 const TimeRangePicker = () => {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(resetState())
+    dispatch(addStartDate(convertISOToYYYYMMDD(startDate)));
+    dispatch(addEndDate(convertISOToYYYYMMDD(endDate)));
+  }, []);
   const onChangeStartDate = (date) => {
     setStartDate(date);
     dispatch(addStartDate(convertISOToYYYYMMDD(date)));

@@ -4,7 +4,14 @@ import TextInput from "../../components/TextInput";
 import TimeRangePicker from "../../components/TimeRangePicker";
 import CSVButton from "../../components/CSVButton";
 import CheckBox from "../../components/CheckBox";
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import { climateDataForm } from "../../redux/selector";
 const WeatherForcastPage = () => {
+  const [locations, setLocations] = useState([]);
+  const [data, setData] = useState({});
+  const dataForm = useSelector(climateDataForm);
+
   const checkBoxData = [
     { label: "Temperature (2 m)", value: "temperature_2m" },
     { label: "Relative Humidity (2 m)", value: "relative_humidity_2m" },
@@ -77,19 +84,40 @@ const WeatherForcastPage = () => {
     {label: "Shortwave Radiation Sum", value: "shortwave_radiation_sum"},
     {label: "Reference Evapotranspiration (ET₀)", value: "reference_evapotranspiration"}
   ]
-  
+  const colors = [
+    "rgb(255, 0, 0)",
+    "rgb(0, 255, 0)",
+    "rgb(0, 0, 255)",
+    "rgb(255, 255, 0)",
+    "rgb(0, 255, 255)",
+    "rgb(255, 0, 255)",
+    "rgb(192, 192, 192)",
+    "rgb(128, 0, 0)",
+    "rgb(128, 128, 0)",
+    "rgb(0, 128, 0)",
+    "rgb(128, 0, 128)",
+    "rgb(0, 128, 128)",
+    "rgb(0, 0, 128)",
+    "rgb(255, 165, 0)",
+    "rgb(255, 192, 203)",
+    "rgb(165, 42, 42)",
+    "rgb(255, 255, 240)",
+    "rgb(240, 230, 140)",
+    "rgb(230, 230, 250)",
+  ];
   const options = {
     responsive: true,
     plugins: {
       legend: {
         position: "top",
       },
-      // title: {
-      //   display: currentCity !== "null" && !isLoading,
-      //   text: `Average temperature of ${currentCity} (°C) in ${
-      //     monthNames[month - 1]
-      //   }`,
-      // },
+      title: {
+        display: true,
+        text:
+          dataForm.currentLocation.name +
+          " - " +
+          dataForm.currentLocation.country,
+      },
     },
   };
   const chartData = {
@@ -102,6 +130,18 @@ const WeatherForcastPage = () => {
         backgroundColor: "rgba(255, 99, 132, 0.5)",
       },
     ],
+  };
+  const requestData = async () => {
+    const { currentLocation, hourly, startDate, endDate } = dataForm;
+    setData(
+      await getAirQuality(
+        currentLocation.latitude,
+        currentLocation.longitude,
+        hourly.join(","),
+        startDate,
+        endDate
+      )
+    );
   };
   return (
     <div>
@@ -116,10 +156,13 @@ const WeatherForcastPage = () => {
       <HeadLine text={"Setting"} />
       <TimeRangePicker />
       <HeadLine text={"Preview Chart"} />
+      <button onClick={() => requestData()} className="primary-btn light">
+        Reload Chart
+      </button>
       <div className="chart-container">
         <Line options={options} data={chartData} />
       </div>
-      <CSVButton />
+      <CSVButton data={{}}/>
     </div>
   );
 };

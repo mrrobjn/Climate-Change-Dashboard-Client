@@ -15,10 +15,7 @@ const Footer = () => {
             <div className='body-left'>
               <Link to="/" className={`home ${dartTheme ? "dark" : "light"}`}>Home</Link>
               <Link to="/dataaccess" className={`news ${dartTheme ? "dark" : "light"}`}>News</Link>
-              <Link to="/articles" className={`data ${dartTheme ? "dark" : "light"}`}>Data</Link>
-            </div>
-            <div className='body-right'>
-              <a className={`support ${dartTheme ? "dark" : "light"}`}>Support</a>
+              <Link to="/articles" className={`data ${dartTheme ? "dark" : "light"}`}>Articles</Link>
             </div>
           </div>
         </div>

@@ -1,19 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+const initialState = {
+  currentLocation: {
+    name: "",
+    latitude: "",
+    longitude: "",
+    country: "",
+  },
+  hourly: [],
+  daily: [],
+  startDate: "",
+  endDate: "",
+};
 const climateDataFormSlice = createSlice({
   name: "climateDataForm",
-  initialState: {
-    currentLocation: {
-      name: "",
-      latitude: "",
-      longitude: "",
-      country: "",
-    },
-    hourly: [],
-    daily: [],
-    startDate: "",
-    endDate: "",
-  },
+  initialState,
   reducers: {
     getLocation: (state, action) => {
       state.currentLocation = action.payload;
@@ -36,6 +36,7 @@ const climateDataFormSlice = createSlice({
     addEndDate: (state, action) => {
       state.endDate = action.payload;
     },
+    resetState: () => initialState,
   },
 });
 
@@ -47,6 +48,7 @@ export const {
   deleteDaily,
   addEndDate,
   addStartDate,
+  resetState,
 } = climateDataFormSlice.actions;
 
 export default climateDataFormSlice.reducer;
