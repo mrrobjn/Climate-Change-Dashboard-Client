@@ -6,6 +6,7 @@ const Header = () => {
   const [theme, setTheme] = useState(false);
   return (
     <div className="header">
+      <div className="header-container">
       <div className="logo-container">
         <div className="logo-icon">
           <svg
@@ -62,6 +63,7 @@ const Header = () => {
       </div>
       <div className="theme-toggle">
         <DarkModeToggle size={50} onChange={setTheme} isDarkMode={theme} />
+      </div>
       </div>
     </div>
   );
