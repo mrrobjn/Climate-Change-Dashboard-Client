@@ -4,9 +4,8 @@
   color: $light-theme-text-color;
   padding-bottom: 20px;
   &.light {
-    background-color: $light-theme-main-color;
+    background-color: $light-theme-secondary-color;
     color: $light-theme-text-color;
-    border-top: 1px solid $main-border-color;
   }
   &.dark {
     background-color: $dark-theme-main-color;
@@ -103,7 +102,7 @@
         .input-text {
           width: 224px;
           height: 55px;
-          background-color: $light-theme-secondary-color;
+          background-color: $light-theme-main-color;
           border-top-left-radius: $border-size;
           border-bottom-left-radius: $border-size;
           border-top-right-radius: 0;
