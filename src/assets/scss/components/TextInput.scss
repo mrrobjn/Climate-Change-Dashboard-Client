@@ -1,15 +1,31 @@
 @import "../GlobalStyle.scss";
 
-.input-text {
-  padding: 10px;
-  border: 2px solid $input-boder-color;
-  border-radius: $main-border-radius;
-  width: 100%;
-  font-size: 16px;
-}
-.input-text:focus {
-  transition: 0.4s;
-  border-color: $focus-input-color;
-  outline: 0;
-  box-shadow: 0 0 10px $focus-input-color;
+.search-location-input {
+  position: relative;
+  .input-text {
+    padding: 10px;
+    border: 2px solid $input-boder-color;
+    border-radius: $main-border-radius;
+    width: 100%;
+    font-size: 16px;
+  }
+  .input-text:focus {
+    transition: 0.4s;
+    border-color: $focus-input-color;
+    outline: 0;
+    box-shadow: 0 0 10px $focus-input-color;
+  }
+  .search-result {
+    position: absolute;
+    width: 100%;
+    p{
+      padding: 10px;
+      cursor: pointer;
+      background: $light-theme-main-color;
+      &:hover{
+        transition: 0.4s;
+        background: $light-theme-secondary-color;
+      }
+    }
+  }
 }

@@ -6,9 +6,15 @@ import TimeRangePicker from "../../components/TimeRangePicker";
 import { Line } from "react-chartjs-2";
 import { Chart, registerables } from "chart.js";
 import CSVButton from "../../components/CSVButton";
+import { useState } from "react";
+import { getAirQuality } from "../../api";
+import { useSelector } from "react-redux";
+import { climateDataForm } from "../../redux/selector";
 Chart.register(...registerables);
 
 const AirQualityPage = () => {
+  const [locations, setLocations] = useState([]);
+  const dataForm = useSelector(climateDataForm);
   const checkBoxData = [
     { label: "Particulate Matter PM10", value: "pm10" },
     { label: "Particulate Matter PM2.5", value: "pm2_5" },
@@ -105,17 +111,36 @@ const AirQualityPage = () => {
       },
     ],
   };
+  const requestData = async () => {
+    const { currentLocation, hourly, startDate, endDate } = dataForm;
+    console.log(
+      await getAirQuality(
+        currentLocation.latitude,
+        currentLocation.longitude,
+        hourly.join(","),
+        startDate,
+        endDate
+      )
+    );
+  };
   return (
     <div className="air-quality-container">
       <HeadLine text={"Select Location"} />
       <div className="single-input-field">
-        <TextInput placeholder={"Search for location"} />
+        <TextInput
+          placeholder={"Search for location"}
+          setLocations={setLocations}
+          locations={locations}
+        />
       </div>
       <HeadLine text={"Hourly Air Quality Variables"} />
       <CheckBox data={checkBoxData} />
       <HeadLine text={"Settings"} />
       <TimeRangePicker />
       <HeadLine text={"Preview Chart"} />
+      <button onClick={() => requestData()} className="primary-btn light">
+        Reload Chart
+      </button>
       <div className="chart-container">
         <Line options={options} data={chartData} />
       </div>

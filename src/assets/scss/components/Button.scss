@@ -5,6 +5,7 @@
   border-radius: $main-border-radius;
   color: $primary-button-color;
   border: 1px solid $primary-button-color;
+  font-size: 16px;
   cursor: pointer;
   &.light {
     background: $light-button-background-color;
