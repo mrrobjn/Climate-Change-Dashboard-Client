@@ -2,6 +2,17 @@ import React from 'react'
 import Banner from '../components/Banner'
 import '../assets/scss/pages/HomePage.scss'
 
+
+const feedCart = () => {
+  return <div  className='feed'>
+            <img className='feed-image' src="https://image2.slideserve.com/5236252/climate-graphs-l.jpg" alt="" />
+            <div className='feed-information'>
+              <div className='date'> 14 SEPTEMBER , 2021</div>
+              <div className='title'>Climate change is affecting Vietnam Climate change is affecting Vietnam Climate change is affecting Vietnam</div>
+            </div>
+          </div>
+}
+
 const HomePage = () => {
   return (
     <>
@@ -26,18 +37,9 @@ const HomePage = () => {
             <img className='feed-image' src="https://image2.slideserve.com/5236252/climate-graphs-l.jpg" alt="" />
           </div>
           <div className='block-feed'>
-            <div  className='feed'>
-              feed 1
-            </div>
-            <div className='feed'>
-              feed 2
-            </div>
-            <div className='feed'>
-              feed 3
-            </div>
-            <div className='feed'>
-              feed 4
-            </div>
+            {feedCart()}
+            {feedCart()}
+            {feedCart()}
           </div>
           <div className='button-container'>
             <button className='button-view'>
