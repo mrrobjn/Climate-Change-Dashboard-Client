@@ -12,12 +12,65 @@
             font-weight: bold;
         }
         .new-feed{
-            display: block;
+            display: flex;
             background-color: $focus-input-color;
             width: 80%;
-            height:300px;
+            height: 315px;
             margin: 100px auto;
-            padding-left: 5%;
+            position: relative;
+
+            .feed-information {
+                background-color: #fff;
+                flex: 1;
+                padding: 1.5rem;
+                border: 1px solid $dark-theme-main-color;
+                .date {
+                    font-size: 15px;
+                    font-weight: bold;
+                    line-height: 20px;
+                }
+                .title {
+                    font-size: 25px;
+                    font-weight: bold;
+                    line-height: 34px;
+                    margin-top: 17px;
+                }
+                .line {
+                    width: 131px;
+                    height: 5px;
+                    background-color: $highlight-text-color;
+                }
+                .content {
+                    margin-top: 20px;
+                    font-size: 13px;
+                    line-height: 18px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    display: -webkit-box;
+                    -webkit-box-orient: vertical;
+                    -webkit-line-clamp: 3;
+                }
+                .read-more {
+                    font-size: 13px;
+                    line-height: 18px;
+                    color:$highlight-text-color ;
+                    position: absolute;
+                    bottom: 2rem;
+                    svg {
+                        width: 19px;
+                        height: 14px;
+                        position: relative;
+                        top: 3px;
+                        margin-left: 8px;
+                    }
+                }
+            }
+
+            .feed-image {
+                flex: 2;
+                height: 100%;
+            }
+
         }
 
         .block-feed{
