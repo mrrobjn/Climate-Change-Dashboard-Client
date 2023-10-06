@@ -1,0 +1,76 @@
+@import '../GlobalStyle.scss';
+
+    .container{
+        width: 100%;
+        padding: auto;
+        margin-top: 42px;
+
+        .featured-news{
+            text-align: center;
+            width: 100%;
+            font-size: 50px;
+            font-weight: bold;
+        }
+        .new-feed{
+            display: block;
+            background-color: $focus-input-color;
+            width: 80%;
+            height:300px;
+            margin: 100px auto;
+            padding-left: 5%;
+        }
+
+        .block-feed{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin: auto;
+            width: 80%;
+            //height: 15rem;
+            margin-bottom: 15px;
+            row-gap: 50px;
+            color:$dark-theme-text-color;
+            .feed{
+                background-color: $dark-theme-main-color;
+                width: 30%;
+                height: 266px;
+            }
+        }
+        .button-container{
+            width: 100%;
+            text-align: center;
+            border-radius: $main-border-radius;
+            .button-view{
+                padding: 20px;
+                transition: 0.4s;
+                border-radius: $main-border-radius;
+                background-color: $primary-button-color;
+                color: #fff;
+                border: 1px solid $primary-button-color;
+                font-size: 16px;
+                border-radius: 20px;
+                font-size: 23px;
+                font-weight: bold;
+                line-height: 30px;
+                margin-bottom: 92px;
+                width: 278px;
+                height: 67px;
+                cursor: pointer;
+                &.light {
+                  background: $light-button-background-color;
+                }
+                &.dark {
+                  background: $dark-button-background-color;
+                }
+                &:hover {
+                  background: $dark-theme-text-color;
+                  color: $highlight-text-color;
+                }
+
+            }
+            
+
+        }
+
+    }
+

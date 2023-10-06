@@ -1,33 +1,38 @@
 import React from 'react'
 import Banner from '../components/Banner'
+import '../assets/scss/pages/HomePage.scss'
 
 const HomePage = () => {
   return (
     <>
       <Banner/>
-      <div>
-        <div>Featured News</div>
+      <div className='container'>
+        <div className='featured-news'>
+          Featured News
+        </div>
         <div>
-          <div>
+          <div className='new-feed'>
             news feed
           </div>
-          <div>
-            <div>
+          <div className='block-feed'>
+            <div  className='feed'>
               feed 1
             </div>
-            <div>
+            <div className='feed'>
               feed 2
             </div>
-            <div>
+            <div className='feed'>
               feed 3
             </div>
-            <div>
+            <div className='feed'>
               feed 4
             </div>
           </div>
-          <button>
-            View more News
-          </button>
+          <div className='button-container'>
+            <button className='button-view'>
+              View more News
+            </button>
+          </div>
         </div>
       </div>
     </>
