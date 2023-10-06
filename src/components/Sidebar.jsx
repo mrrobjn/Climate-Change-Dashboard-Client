@@ -6,7 +6,7 @@ const Sidebar = () => {
   const datalist = [
     {
       name: "Weather Forecast",
-      path: "weatherforcast",
+      path: "weatherforecast",
       icon: "/assets/icon/cloudy.png",
     },
     {

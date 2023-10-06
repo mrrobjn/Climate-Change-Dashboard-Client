@@ -11,7 +11,7 @@ const publicRoutes = [
         path: "/dataaccess",
         component: DataAccessPage,
         children: [
-            { path: "weatherforcast", component: WeatherForcastPage },
+            { path: "weatherforecast", component: WeatherForcastPage },
             { path: "historicalweather", component: HistoricalWeatherPage },
             { path: "airquality", component: AirQualityPage }
         ]
