@@ -125,7 +125,7 @@ const WeatherForcastPage = () => {
     },
   };
   const chartData = {
-    labels: Object.keys(data).length > 0 ? convertToDate(data.hourly.time) : [],
+    labels: Object.keys(data).length > 0 ? data.hourly.time : [],
     datasets: [
       ...(Object.keys(data).length > 0
         ? dataForm.hourly.map((key, i) => {
@@ -145,7 +145,7 @@ const WeatherForcastPage = () => {
               label: key + ` (${data.daily_units && data.daily_units[key]})`,
               data:
                 data.daily &&
-                convertDailyMatchHourLy(data.daily[key], convertToDate(data.hourly.time)),
+                convertDailyMatchHourLy(data.daily[key], data.hourly.time),
               borderColor: colors[i],
               backgroundColor: colors[i],
               pointRadius: 0,

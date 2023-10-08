@@ -5,7 +5,7 @@ export const getLocations = async (value) => {
     const reponse = await axios.get(
       `http://localhost:5000/location?name=${value}`
     );
-    return reponse.data.results;
+    return reponse.data;
   } catch (err) {
     console.error(err);
   }
