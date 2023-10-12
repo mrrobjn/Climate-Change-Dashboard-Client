@@ -4,119 +4,191 @@ import TextInput from "../../components/TextInput";
 import TimeRangePicker from "../../components/TimeRangePicker";
 import CSVButton from "../../components/CSVButton";
 import CheckBox from "../../components/CheckBox";
+import { useState } from "react";
+import {  useSelector } from "react-redux";
+import { climateDataForm } from "../../redux/selector";
+import { getHistoricalWeather } from "../../api";
+import {
+  convertDailyMatchHourLy,
+  convertToDate,
+  groupByTimePeriod,
+} from "../../utility/groupByTimePeriod";
+import colors from "../../utility/chartColor";
+const checkBoxData = [
+  { label: "Temperature (2 m)", value: "temperature_2m" },
+  { label: "Relative Humidity (2 m)", value: "relativehumidity_2m" },
+  { label: "Dewpoint (2 m)", value: "dewpoint_2m" },
+  { label: "Apparent Temperature", value: "apparent_temperature" },
+  { label: "Precipitation", value: "precipitation" },
+  { label: "Rain", value: "rain" },
+  { label: "Snowfall", value: "snowfall" },
+  { label: "Weathercode", value: "weathercode" },
+  { label: "Sealevel Pressure", value: "pressure_msl" },
+  { label: "Surface Pressure", value: "surface_pressure" },
+  { label: "Cloudcover Total", value: "cloudcover" },
+  { label: "Cloudcover Low", value: "cloudcover_low" },
+  { label: "Cloudcover Mid", value: "cloudcover_mid" },
+  { label: "Cloudcover High", value: "cloudcover_high" },
+  {
+    label: "Reference Evapotranspiration (ET₀)",
+    value: "et0_fao_evapotranspiration",
+  },
+  { label: "Vapor Pressure Deficit", value: "vapor_pressure_deficit" },
+  { label: "Wind Speed (10 m)", value: "windspeed_10m" },
+  { label: "Wind Speed (100 m)", value: "windspeed_100m" },
+  { label: "Wind Direction (10 m)", value: "winddirection_10m" },
+  { label: "Wind Direction (100 m)", value: "winddirection_100m" },
+  { label: "Wind Gusts (10 m)", value: "windgusts_10m" },
+  { label: "Soil Temperature (0-7 cm)", value: "soil_temperature_0_to_7cm" },
+  { label: "Soil Temperature (7-28 cm)", value: "soil_temperature_7_to_28cm" },
+  {
+    label: "Soil Temperature (28-100 cm)",
+    value: "soil_temperature_28_to_100cm",
+  },
+  {
+    label: "Soil Temperature (100-255 cm)",
+    value: "soil_temperature_100_to_255cm",
+  },
+  { label: "Soil Moisture (0-7 cm)", value: "soil_moisture_0_to_7cm" },
+  { label: "Soil Moisture (7-28 cm)", value: "soil_moisture_7_to_28cm" },
+  { label: "Soil Moisture (28-100 cm)", value: "soil_moisture_28_to_100cm" },
+  { label: "Soil Moisture (100-255 cm)", value: "soil_moisture_100_to_255cm" },
+];
+
+const checkBoxData2 = [
+  { label: "Weathercode", value: "weathercode" },
+  { label: "Maximum Temperature (2 m)", value: "temperature_2m_max" },
+  { label: "Minimum Temperature (2 m)", value: "temperature_2m_min" },
+  { label: "Mean Temperature (2 m)", value: "temperature_2m_mean" },
+  {
+    label: "Maximum Apparent Temperature (2 m)",
+    value: "apparent_temperature_max",
+  },
+  {
+    label: "Minimum Apparent Temperature (2 m)",
+    value: "apparent_temperature_min",
+  },
+  {
+    label: "Mean Apparent Temperature (2 m)",
+    value: "apparent_temperature_mean",
+  },
+  { label: "Sunrise", value: "sunrise" },
+  { label: "Sunset", value: "sunset" },
+  { label: "Precipitation Sum", value: "precipitation_sum" },
+  { label: "Rain Sum", value: "rain_sum" },
+  { label: "Snowfall Sum", value: "snowfall_sum" },
+  { label: "Precipitation Hours", value: "precipitation_hours" },
+  { label: "Maximum Wind Speed (10 m)", value: "windspeed_10m_max" },
+  { label: "Maximum Wind Gusts (10 m)", value: "windgusts_10m_max" },
+  {
+    label: "Dominant Wind Direction (10 m)",
+    value: "winddirection_10m_dominant",
+  },
+  { label: "Shortwave Radiation Sum", value: "shortwave_radiation_sum" },
+  {
+    label: "Reference Evapotranspiration (ET₀)",
+    value: "et0_fao_evapotranspiration",
+  },
+];
 
 const HistoricalWeatherPage = () => {
-  const checkBoxData = [
-    {label: "Temperature (2 m)", value: "temperature_2m"},
-    {label: "Relative Humidity (2 m)", value: "relative_humidity_2m"},
-    {label: "Dewpoint (2 m)", value: "dewpoint_2m"},
-    {label: "Apparent Temperature", value: "apparent_temperature"},
-    {label: "Precipitation (rain + snow)", value: "total_precipitation"},
-    {label: "Rain", value: "rain"},
-    {label: "Snowfall", value: "snowfall"},
-    {label: "Weathercode", value: "weathercode"},
-    {label: "Sealevel Pressure", value: "sealevel_pressure"},
-    {label: "Surface Pressure", value: "surface_pressure"},
-    {label: "Cloudcover Total", value: "total_cloudcover"},
-    {label: "Cloudcover Low", value: "low_cloudcover"},
-    {label: "Cloudcover Mid", value: "mid_cloudcover"},
-    {label: "Cloudcover High", value: "high_cloudcover"},
-    {label: "Reference Evapotranspiration (ET₀)", value: "reference_evapotranspiration"},
-    {label: "Vapor Pressure Deficit", value: "vapor_pressure_deficit"},
-    {label: "Wind Speed (10 m)", value: "wind_speed_10m"},
-    {label: "Wind Speed (100 m)", value: "wind_speed_100m"},
-    {label: "Wind Direction (10 m)", value: "wind_direction_10m"},
-    {label: "Wind Direction (100 m)", value: "wind_direction_100m"},
-    {label: "Wind Gusts (10 m)", value: "wind_gusts_10m"},
-    {label: "Soil Temperature (0-7 cm)", value: "soil_temperature_0_7cm"},
-    {label: "Soil Temperature (7-28 cm)", value: "soil_temperature_7_28cm"},
-    {label: "Soil Temperature (28-100 cm)", value: "soil_temperature_28_100cm"},
-    {label: "Soil Temperature (100-255 cm)", value: "soil_temperature_100_255cm"},
-    {label: "Soil Moisture (0-7 cm)", value: "soil_moisture_0_7cm"},
-    {label: "Soil Moisture (7-28 cm)", value: "soil_moisture_7_28cm"},
-    {label: "Soil Moisture (28-100 cm)", value: "soil_moisture_28_100cm"},
-    {label: "Soil Moisture (100-255 cm)", value: "soil_moisture_100_255cm"}
-  ]
-  
-  const checkBoxData2 = [
-    { label: "Weathercode", value: "weathercode" },
-    { label: "Maximum Temperature (2 m)", value: "max_temp_2m" },
-    { label: "Minimum Temperature (2 m)", value: "min_temp_2m" },
-    { label: "Mean Temperature (2 m)", value: "mean_temp_2m" },
-    {
-      label: "Maximum Apparent Temperature (2 m)",
-      value: "max_apparent_temp_2m",
-    },
-    {
-      label: "Minimum Apparent Temperature (2 m)",
-      value: "min_apparent_temp_2m",
-    },
-    {
-      label: "Mean Apparent Temperature (2 m)",
-      value: "mean_apparent_temp_2m",
-    },
-    { label: "Sunrise", value: "sunrise" },
-    { label: "Sunset", value: "sunset" },
-    { label: "Precipitation Sum", value: "precipitation_sum" },
-    { label: "Rain Sum", value: "rain_sum" },
-    { label: "Snowfall Sum", value: "snowfall_sum" },
-    { label: "Precipitation Hours", value: "precipitation_hours" },
-    { label: "Maximum Wind Speed (10 m)", value: "max_wind_speed_10m" },
-    { label: "Maximum Wind Gusts (10 m)", value: "max_wind_gusts_10m" },
-    {
-      label: "Dominant Wind Direction (10 m)",
-      value: "dominant_wind_direction_10m",
-    },
-    { label: "Shortwave Radiation Sum", value: "shortwave_radiation_sum" },
-    {
-      label: "Reference Evapotranspiration (ET₀)",
-      value: "reference_evapotranspiration",
-    },
-  ];
-
+  const [locations, setLocations] = useState([]);
+  const [data, setData] = useState({});
+  const dataForm = useSelector(climateDataForm);
   const options = {
     responsive: true,
     plugins: {
       legend: {
         position: "top",
       },
-      // title: {
-      //   display: currentCity !== "null" && !isLoading,
-      //   text: `Average temperature of ${currentCity} (°C) in ${
-      //     monthNames[month - 1]
-      //   }`,
-      // },
+      title: {
+        display: true,
+        text:
+          dataForm.currentLocation.name +
+          " - " +
+          dataForm.currentLocation.country,
+      },
     },
   };
   const chartData = {
-    labels: [2016, 2017, 2018, 2019, 2020, 2021, 2022],
+    labels: Object.keys(data).length > 0 ? convertToDate(data.hourly.time) : [],
     datasets: [
-      {
-        label: `test`,
-        data: [25, 23, 24, 23, 26, 27, 29],
-        borderColor: "rgb(255, 99, 132)",
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
-      },
+      ...(Object.keys(data).length > 0
+        ? dataForm.hourly.map((key, i) => {
+            return {
+              label: key + ` (${data.hourly_units[key]})`,
+              data: data.hourly[key],
+              borderColor: colors[i],
+              backgroundColor: colors[i],
+              pointRadius: 0,
+              borderWidth: 1,
+            };
+          })
+        : []),
+      ...(Object.keys(data).length > 0
+        ? dataForm.daily?.map((key, i) => {
+            return {
+              label: key + ` (${data.daily_units && data.daily_units[key]})`,
+              data:
+                data.daily &&
+                convertDailyMatchHourLy(
+                  data.daily[key],
+                  convertToDate(data.hourly.time)
+                ),
+              borderColor: colors[i],
+              backgroundColor: colors[i],
+              pointRadius: 0,
+              borderWidth: 1,
+            };
+          })
+        : []),
     ],
+  };
+  const requestData = async () => {
+    const { currentLocation, hourly, daily,startDate,endDate } = dataForm;
+    if (currentLocation.name !== "") {
+      setData(
+        await getHistoricalWeather(
+          currentLocation.latitude,
+          currentLocation.longitude,
+          startDate,
+          endDate,
+          hourly.join(","),
+          daily.join(",")
+        )
+      );
+    } else {
+      alert("PLEASE SELECT LOCATION");
+    }
   };
   return (
     <div>
       <HeadLine text={"Select Location"} />
       <div className="single-input-field">
-        <TextInput placeholder={"Search for location"} />
+        <TextInput
+          placeholder={"Search for location"}
+          locations={locations}
+          setLocations={setLocations}
+        />
       </div>
-      <HeadLine text={"Specify Time Interval"} />
-      <TimeRangePicker />
       <HeadLine text={"Hourly Weather Variables"} />
-      <CheckBox data={checkBoxData} />
+      <CheckBox data={checkBoxData} type={"hourly"} />
       <HeadLine text={"Daily Weather Variables"} />
-      <CheckBox data={checkBoxData2} />
+      <CheckBox data={checkBoxData2} type={"daily"} />
       <HeadLine text={"Setting"} />
+      <TimeRangePicker />
       <HeadLine text={"Preview Chart"} />
-      <div className="chart-container">
-        <Line options={options} data={chartData} />
-      </div>
-      <CSVButton data={{}}/>
+      <button onClick={() => requestData()} className="primary-btn light">
+        Reload Chart
+      </button>
+      {Object.keys(data).length > 0 && (
+        <>
+          <div className="chart-container">
+            <Line options={options} data={chartData} />
+          </div>
+          <CSVButton data={groupByTimePeriod(data.hourly, dataForm.hourly)} />
+        </>
+      )}
     </div>
   );
 };

@@ -2,18 +2,22 @@ import { useDispatch } from "react-redux";
 import "../assets/scss/components/TextInput.scss";
 import { getLocation } from "../redux/slides/ClimateDataFormSlice";
 import { getLocations } from "../api";
+import { useState } from "react";
 const TextInput = ({ placeholder, locations, setLocations }) => {
+  const [input, setInput] = useState("");
   const dispatch = useDispatch();
   const handleChange = async (value) => {
-    if (value === "") {
+    setInput(value);
+    if (input === "") {
       setLocations([]);
     } else {
-      setLocations(await getLocations(value));
+      setLocations(await getLocations(input));
     }
   };
   const handleClick = (index) => {
     const { name, latitude, longitude, country } = locations[index];
     dispatch(getLocation({ name, latitude, longitude, country }));
+    setInput(locations[index].name + " - " + locations[index].country);
     setLocations([]);
   };
   return (
@@ -21,6 +25,7 @@ const TextInput = ({ placeholder, locations, setLocations }) => {
       <input
         className="input-text"
         type="search"
+        value={input}
         placeholder={placeholder}
         onChange={(e) => handleChange(e.target.value)}
       />
