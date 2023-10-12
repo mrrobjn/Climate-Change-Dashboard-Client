@@ -1,13 +1,27 @@
 import "../assets/scss/components/CheckBox.scss";
 import { useDispatch } from "react-redux";
-import { addHourly, deleteHourly } from "../redux/slides/ClimateDataFormSlice";
-const CheckBox = ({ data }) => {
+import {
+  addDaily,
+  addHourly,
+  deleteDaily,
+  deleteHourly,
+} from "../redux/slides/ClimateDataFormSlice";
+const CheckBox = ({ data, type }) => {
   const dispatch = useDispatch();
   const handleChange = (e) => {
-    if (e.target.checked) {
-      dispatch(addHourly(e.target.value))
+    if (type === "hourly") {
+      if (e.target.checked) {
+        dispatch(addHourly(e.target.value));
+      } else {
+        dispatch(deleteHourly(e.target.value));
+      }
     } else {
-      dispatch(deleteHourly(e.target.value))
+      if (e.target.checked) {
+        dispatch(addDaily(e.target.value));
+      } else {
+        dispatch(deleteDaily(e.target.value));
+      }
+      
     }
   };
 
@@ -17,12 +31,11 @@ const CheckBox = ({ data }) => {
         <div className="check-box-item" key={index}>
           <input
             type="checkbox"
-            id={item.value}
-            name={item.value}
             value={item.value}
             onChange={(e) => handleChange(e)}
+            name={item.label}
           />
-          <label htmlFor={item.value}>{item.label}</label>
+          <label>{item.label}</label>
         </div>
       ))}
     </div>

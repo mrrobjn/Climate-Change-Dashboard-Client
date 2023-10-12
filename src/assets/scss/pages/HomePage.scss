@@ -16,7 +16,7 @@
             background-color: $focus-input-color;
             width: 80%;
             height: 315px;
-            margin: 100px auto;
+            margin: 80px auto;
             position: relative;
 
             .feed-information {
@@ -29,7 +29,7 @@
                     font-weight: bold;
                     line-height: 20px;
                 }
-                .title {
+                .title-nf {
                     font-size: 25px;
                     font-weight: bold;
                     line-height: 34px;
@@ -89,7 +89,7 @@
             row-gap: 50px;
             color:$dark-theme-text-color;
             .feed{
-                background-color: $dark-theme-main-color;
+                background-color: $dark-theme-text-color;
                 width: 30%;
                 height: 266px;
 
@@ -104,7 +104,7 @@
                     height: 147px;
                     margin: auto;
                     position: relative;
-                    top: -75px;
+                    top: -78px;
                     border: 1px solid $dark-theme-main-color;
                     padding: 1rem;
 
@@ -134,6 +134,7 @@
             text-align: center;
             border-radius: $main-border-radius;
             .button-view{
+                margin-top: 80px;
                 padding: 20px;
                 transition: 0.4s;
                 border-radius: $main-border-radius;

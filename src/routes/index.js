@@ -4,6 +4,7 @@ import ArticlesPage from "../pages/ArticlesPage";
 import AirQualityPage from "../pages/NestedPage/AirQualityPage";
 import WeatherForcastPage from "../pages/NestedPage/WeatherForcastPage";
 import HistoricalWeatherPage from "../pages/NestedPage/HistoricalWeatherPage";
+import NewsPage from "../pages/NewsPage";
 
 const publicRoutes = [
     { path: "/", component: HomePage },
@@ -11,12 +12,13 @@ const publicRoutes = [
         path: "/dataaccess",
         component: DataAccessPage,
         children: [
-            { path: "weatherforcast", component: WeatherForcastPage },
+            { path: "weatherforecast", component: WeatherForcastPage },
             { path: "historicalweather", component: HistoricalWeatherPage },
             { path: "airquality", component: AirQualityPage }
         ]
     },
     { path: "/articles", component: ArticlesPage },
+    { path: "/news", component: NewsPage },
 ]
 const privateRoutes = [
 ]

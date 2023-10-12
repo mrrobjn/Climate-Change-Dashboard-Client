@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import "../assets/scss/components/Sidebar.scss";
+import { useDispatch } from "react-redux";
+import { resetState } from "../redux/slides/ClimateDataFormSlice";
 const Sidebar = () => {
   const [isExpand, setIsExpand] = useState(true);
+  const dispatch = useDispatch()
   const datalist = [
     {
       name: "Weather Forecast",
-      path: "weatherforcast",
+      path: "weatherforecast",
       icon: "/assets/icon/cloudy.png",
     },
     {
@@ -28,6 +31,7 @@ const Sidebar = () => {
             to={"/dataaccess/" + data.path}
             key={i}
             className={({ isActive }) => (isActive ? "link-active" : "link")}
+            onClick={()=>dispatch(resetState())}
           >
             <img src={data.icon} />
             <p>{data.name}</p>

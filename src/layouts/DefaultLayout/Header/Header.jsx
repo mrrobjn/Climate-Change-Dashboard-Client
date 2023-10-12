@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import "../../../assets/scss/layout/Header.scss";
 import { DarkModeToggle } from "react-dark-mode-toggle-2";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 const Header = () => {
   const [theme, setTheme] = useState(false);
+  const navigate = useNavigate()
   return (
     <div className="header">
       <div className="header-container">
