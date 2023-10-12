@@ -3,19 +3,14 @@ import TextInput from "../../components/TextInput";
 import "../../assets/scss/pages/NestedPages/AirQualityPage.scss";
 import CheckBox from "../../components/CheckBox";
 import TimeRangePicker from "../../components/TimeRangePicker";
-import { Line } from "react-chartjs-2";
-import { Chart, registerables } from "chart.js";
+
 import CSVButton from "../../components/CSVButton";
 import { useState } from "react";
 import { getAirQuality } from "../../api";
 import { useSelector } from "react-redux";
 import { climateDataForm } from "../../redux/selector";
-import {
-  convertToDate,
-  groupByTimePeriod,
-} from "../../utility/groupByTimePeriod";
-import colors from "../../utility/chartColor";
-Chart.register(...registerables);
+import ChartContainer from "../../components/ChartContainer";
+
 const checkBoxData = [
   { label: "Particulate Matter PM10", value: "pm10" },
   { label: "Particulate Matter PM2.5", value: "pm2_5" },
@@ -40,38 +35,6 @@ const AirQualityPage = () => {
   const [locations, setLocations] = useState([]);
   const [data, setData] = useState({});
   const dataForm = useSelector(climateDataForm);
-
-  const options = {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: "top",
-      },
-      title: {
-        display: true,
-        text:
-          dataForm.currentLocation.name +
-          " - " +
-          dataForm.currentLocation.country,
-      },
-    },
-  };
-  const chartData = {
-    labels: Object.keys(data).length > 0 ? convertToDate(data.hourly.time) : [],
-    datasets:
-      Object.keys(data).length > 0
-        ? dataForm.hourly.map((key, i) => {
-            return {
-              label: key + ` (${data.hourly_units[key]})`,
-              data: data.hourly[key],
-              borderColor: colors[i],
-              backgroundColor: colors[i],
-              pointRadius: 0,
-              borderWidth: 1,
-            };
-          })
-        : [],
-  };
   const requestData = async () => {
     const { currentLocation, hourly, startDate, endDate } = dataForm;
     if (currentLocation.name !== "") {
@@ -106,14 +69,8 @@ const AirQualityPage = () => {
       <button onClick={() => requestData()} className="primary-btn light">
         Reload Chart
       </button>
-      {Object.keys(data).length > 0 && (
-        <>
-          <div className="chart-container">
-            <Line options={options} data={chartData} />
-          </div>
-          <CSVButton data={groupByTimePeriod(data.hourly, dataForm.hourly)} />
-        </>
-      )}
+      <ChartContainer data={data} />
+      <CSVButton data={{}} />
     </div>
   );
 };

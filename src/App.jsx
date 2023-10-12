@@ -3,6 +3,7 @@ import "./App.css";
 import { publicRoutes } from "./routes";
 import { DefaultLayout } from "./layouts/";
 function App() {
+  
   return (
     <Routes>
       {publicRoutes.map((route, index) => {
@@ -20,7 +21,11 @@ function App() {
           >
             {route.children?.map((childRoute, i) => {
               return (
-                <Route path={childRoute.path} element={<childRoute.component/>} key={i}/>
+                <Route
+                  path={childRoute.path}
+                  element={<childRoute.component />}
+                  key={i}
+                />
               );
             })}
           </Route>

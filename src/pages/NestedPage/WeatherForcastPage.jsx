@@ -104,11 +104,6 @@ const WeatherForcastPage = () => {
   const [locations, setLocations] = useState([]);
   const [data, setData] = useState({});
   const dataForm = useSelector(climateDataForm);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(resetState());
-  }, []);
-
   const options = {
     responsive: true,
     plugins: {

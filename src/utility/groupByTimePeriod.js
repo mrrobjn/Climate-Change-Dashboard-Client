@@ -38,7 +38,7 @@ export const groupByTimePeriod = (data, hourly, period) => {
   }
 
   result["time"].push(
-    new Date(data.time[data.time.length - 1]).toISOString().split("T")[0]
+    new Date(data.time[data.time.length - 1])?.toISOString().split("T")[0]
   );
   hourly.forEach((key) => {
     if (sum[key] && count[key]) {

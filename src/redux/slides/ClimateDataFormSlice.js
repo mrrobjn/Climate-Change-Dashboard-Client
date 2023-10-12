@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { convertISOToYYYYMMDD } from "../../utility/convertISO";
 const initialState = {
   currentLocation: {
     name: "",
@@ -8,8 +9,8 @@ const initialState = {
   },
   hourly: [],
   daily: [],
-  startDate: "",
-  endDate: "",
+  startDate: convertISOToYYYYMMDD(new Date),
+  endDate: convertISOToYYYYMMDD(new Date),
 };
 const climateDataFormSlice = createSlice({
   name: "climateDataForm",
