@@ -2,7 +2,6 @@
 .data-access-side-bar {
   display: flex;
   flex-direction: column;
-  background: $light-theme-main-color;
   align-items: center;
   padding: 10px;
   position: sticky;
@@ -13,7 +12,12 @@
   width: 60px;
   overflow: hidden;
   border-right: 1px solid $main-border-color;
-
+  &.light {
+    background: $light-theme-main-color;
+  }
+  &.dark {
+    background: $dark-theme-main-color;
+  }
   a {
     display: flex;
     align-items: center;
@@ -47,17 +51,17 @@
       color: $highlight-text-color;
     }
   }
-  &.expanded{
+  &.expanded {
     width: 250px;
   }
-  button{
+  button {
     border-radius: 50%;
     width: 35px;
     height: 35px;
     display: flex;
     justify-content: center;
     align-items: center;
-    &.expanded{
+    &.expanded {
       transform: rotate(180deg);
     }
   }

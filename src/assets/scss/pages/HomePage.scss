@@ -1,14 +1,12 @@
 @import '../GlobalStyle.scss';
 
-    .container{
+    .news-container{
         width: 100%;
-        padding: auto;
         margin-top: 42px;
-
         .featured-news{
             text-align: center;
             width: 100%;
-            font-size: 50px;
+            font-size: 30px;
             font-weight: bold;
         }
         .new-feed{
@@ -134,32 +132,25 @@
             text-align: center;
             border-radius: $main-border-radius;
             .button-view{
-                margin-top: 80px;
-                padding: 20px;
-                transition: 0.4s;
-                border-radius: $main-border-radius;
-                background-color: $primary-button-color;
+                padding: 15px 50px;
+                border-radius: 30px;
+                border: none;
+                background: $primary-button-color;
                 color: #fff;
-                border: 1px solid $primary-button-color;
-                font-size: 16px;
-                border-radius: 20px;
-                font-size: 23px;
+                font-size: 20px;
                 font-weight: bold;
-                line-height: 30px;
-                margin-bottom: 92px;
-                width: 278px;
-                height: 67px;
                 cursor: pointer;
+                margin: 40px 0;
                 &.light {
                   background: $light-button-background-color;
                 }
                 &.dark {
                   background: $dark-button-background-color;
                 }
-                &:hover {
-                  background: $dark-theme-text-color;
-                  color: $highlight-text-color;
-                }
+                // &:hover {
+                //   background: $dark-theme-text-color;
+                //   color: $highlight-text-color;
+                // }
 
             }
 
