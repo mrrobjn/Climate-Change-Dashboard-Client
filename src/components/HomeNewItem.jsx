@@ -1,5 +1,5 @@
 import React from "react";
-
+import '../assets/scss/components/HomeNewItem.scss'
 const HomeNewItem = () => {
   return (
     <a className="feed">

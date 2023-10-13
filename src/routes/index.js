@@ -9,12 +9,12 @@ import NewsPage from "../pages/NewsPage";
 const publicRoutes = [
     { path: "/", component: HomePage },
     {
-        path: "/dataaccess",
+        path: "/data",
         component: DataAccessPage,
         children: [
-            { path: "weatherforecast", component: WeatherForcastPage },
-            { path: "historicalweather", component: HistoricalWeatherPage },
-            { path: "airquality", component: AirQualityPage }
+            { path: "forecast", component: WeatherForcastPage },
+            { path: "historical", component: HistoricalWeatherPage },
+            { path: "air-quality", component: AirQualityPage }
         ]
     },
     { path: "/articles", component: ArticlesPage },

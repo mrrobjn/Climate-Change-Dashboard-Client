@@ -14,6 +14,18 @@ const Header = () => {
   const handleChange = (item) => {
     localStorage.setItem("darkTheme", JSON.stringify(item));
     setTheme(item);
+    const storageEvent = document.createEvent("StorageEvent");
+    storageEvent.initStorageEvent(
+      "storage",
+      false,
+      false,
+      "darkTheme",
+      theme,
+      !theme,
+      null,
+      localStorage
+    );
+    window.dispatchEvent(storageEvent);
   };
   return (
     <div className={`header ${theme ? "dark" : "light"}`}>
@@ -49,7 +61,11 @@ const Header = () => {
           </div>
           <p className={`brand-text ${theme ? "dark" : "light"}`}>CCD</p>
           <div className="second-logo">
-            <img src="/assets/images/logo.png" alt="" srcSet="" />
+            <img
+              src={`/assets/images/${theme ? "logo.png" : "logo2.png"}`}
+              alt=""
+              srcSet=""
+            />
           </div>
         </div>
         <div className="nav-bar">
@@ -64,7 +80,7 @@ const Header = () => {
             HOME
           </NavLink>
           <NavLink
-            to="/dataaccess"
+            to="/data"
             className={({ isActive }) =>
               isActive
                 ? `link-active ${theme ? "dark" : "light"}`

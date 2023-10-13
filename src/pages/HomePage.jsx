@@ -1,17 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Banner from "../components/Banner";
 import HomeNewItem from "../components/HomeNewItem";
 import "../assets/scss/pages/HomePage.scss";
+import getInitialTheme from "../utility/getInitialTheme";
+import { NavLink } from "react-router-dom";
 
 const HomePage = () => {
+  const [theme, setTheme] = useState(getInitialTheme);
+  useEffect(() => {
+    window.addEventListener("storage", () => {
+      setTheme(JSON.parse(localStorage.getItem("darkTheme")) || false);
+    });
+  }, []);
   return (
-    <>
+    <div className={`home-container ${theme ? "dark" : "light"}`}>
       <Banner />
-      <div className="news-container">
-        <div className="featured-news">Featured News</div>
+      <div className={`news-container ${theme ? "dark" : "light"}`}>
+        <div className={`featured-news ${theme ? "dark" : "light"}`}>
+          Featured News
+        </div>
         <div>
           <div className="new-feed">
-            <div className="feed-information">
+            <div className={`feed-information ${theme ? "dark" : "light"}`}>
               <div className="date"> 14 SEPTEMBER , 2021</div>
               <div className="title-nf">
                 Climate change is affecting Vietnam
@@ -82,7 +92,6 @@ const HomePage = () => {
               src="https://image2.slideserve.com/5236252/climate-graphs-l.jpg"
               alt=""
             />
-            {/* <img className='feed-image' src="https://image2.slideserve.com/5236252/climate-graphs-l.jpg" alt="" /> */}
           </div>
           <div className="block-feed">
             <HomeNewItem />
@@ -90,11 +99,13 @@ const HomePage = () => {
             <HomeNewItem />
           </div>
           <div className="button-container">
-            <button className="button-view">View more News</button>
+            <NavLink to="articles" className="button-view">
+              Explore
+            </NavLink>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

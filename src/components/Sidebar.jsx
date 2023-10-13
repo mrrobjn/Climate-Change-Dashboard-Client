@@ -7,28 +7,26 @@ import getInitialTheme from "../utility/getInitialTheme";
 const Sidebar = () => {
   const [isExpand, setIsExpand] = useState(true);
   const [theme, setTheme] = useState(getInitialTheme);
-  const [initialTheme, setInitialTheme] = useState(getInitialTheme); // New state variable
-
   const dispatch = useDispatch();
   useEffect(() => {
-    const currentTheme = getInitialTheme();
-    setInitialTheme(currentTheme); // Update initialTheme state variable
-    setTheme(currentTheme); // Update theme state variable
-  }, [initialTheme]); 
+    window.addEventListener("storage", () => {
+      setTheme(JSON.parse(localStorage.getItem("darkTheme")) || false);
+    });
+  }, []);
   const datalist = [
     {
       name: "Weather Forecast",
-      path: "weatherforecast",
+      path: "forecast",
       icon: "/assets/icon/cloudy.png",
     },
     {
       name: "Historical Weather",
-      path: "historicalweather",
+      path: "historical",
       icon: "/assets/icon/history.png",
     },
     {
       name: "Air quality",
-      path: "airquality",
+      path: "air-quality",
       icon: "/assets/icon/wind-sign.png",
     },
   ];
@@ -41,18 +39,22 @@ const Sidebar = () => {
       {datalist.map((data, i) => {
         return (
           <NavLink
-            to={"/dataaccess/" + data.path}
+            to={"/data/" + data.path}
             key={i}
-            className={({ isActive }) => (isActive ? "link-active" : "link")}
+            className={({ isActive }) =>
+              (isActive ? "link-active" : "link") +
+              " " +
+              (theme ? "dark" : "light")
+            }
             onClick={() => dispatch(resetState())}
           >
             <img src={data.icon} />
-            <p>{data.name}</p>
+            <p className={theme ? "dark" : "light"}>{data.name}</p>
           </NavLink>
         );
       })}
       <button
-        className={`primary-btn light ${isExpand ? "expanded" : "collapse"}`}
+        className={`primary-btn ${theme ? "dark" : "light"} ${isExpand ? "expanded" : "collapse"}`}
         onClick={() => setIsExpand(!isExpand)}
       >
         <i className="fa-solid fa-chevron-right"></i>
