@@ -12,7 +12,8 @@
     background: $light-button-background-color;
   }
   &.dark {
-    background: $dark-button-background-color;
+    background: $dark-theme-third-color;
+    border: 1px solid $dark-theme-third-color;
   }
   &:hover {
     background: $primary-button-color;

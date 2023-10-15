@@ -17,17 +17,17 @@ const Sidebar = () => {
     {
       name: "Weather Forecast",
       path: "forecast",
-      icon: "/assets/icon/cloudy.png",
+      icon: "fa-solid fa-cloud",
     },
     {
       name: "Historical Weather",
       path: "historical",
-      icon: "/assets/icon/history.png",
+      icon: "fa-solid fa-clock-rotate-left",
     },
     {
       name: "Air quality",
       path: "air-quality",
-      icon: "/assets/icon/wind-sign.png",
+      icon: "fa-solid fa-wind",
     },
   ];
   return (
@@ -48,7 +48,7 @@ const Sidebar = () => {
             }
             onClick={() => dispatch(resetState())}
           >
-            <img src={data.icon} />
+            <i class={data.icon}></i>
             <p className={theme ? "dark" : "light"}>{data.name}</p>
           </NavLink>
         );

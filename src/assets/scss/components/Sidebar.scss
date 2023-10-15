@@ -14,57 +14,68 @@
   &.light {
     background: $light-theme-main-color;
     border-right: 1px solid $main-border-color;
+    a {
+      border: 1px solid $light-theme-main-color;
+    }
+   i, p{
+      color: $light-theme-text-color;
+    }
   }
   &.dark {
-    background: $dark-theme-main-color;
+    background: $dark-theme-secondary-color;
     border-right: 1px solid $dark-theme-secondary-color;
+    a {
+      border: 1px solid $dark-theme-secondary-color;
+    }
+   i, p{
+      color: $dark-theme-text-color;
+
+    }
   }
   a {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
-    width: 100%;
     font-weight: bold;
+    overflow: hidden;
+    width: 100%;
     padding: 10px;
     border-radius: $main-border-radius;
     transition: 0.4s;
-    img {
+    i {
       width: 20px;
       height: 20px;
-      color: $highlight-text-color;
-    }
-    p {
-      margin-left: 20px;
-      text-wrap: nowrap;
       transition: 0.4s;
     }
     p {
-      &.light {
-        color: $light-theme-text-color;
-      }
-      &.dark {
-        color: $dark-theme-text-color;
-      }
+      text-wrap: nowrap;
+      transition: 0.4s;
+      margin-left: 20px;
     }
     &.light:hover {
       background: $highlight-element-color;
+      i,
       p {
         color: $highlight-text-color;
       }
     }
     &.dark:hover {
-      background: $dark-theme-third-color;
     }
   }
   .link-active {
     &.light {
       background: $highlight-element-color;
+      i,
       p {
         color: $highlight-text-color;
       }
     }
     &.dark {
-      background: $dark-theme-third-color;
+      border: 1px solid $dark-theme-text-color;
+      i,
+      p {
+        color: $dark-theme-text-color;
+      }
     }
   }
   &.expanded {
@@ -80,7 +91,7 @@
     &.expanded {
       transform: rotate(180deg);
     }
-    &.dark{
+    &.dark {
       border: 1px solid $dark-theme-third-color;
     }
   }

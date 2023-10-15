@@ -5,11 +5,12 @@ import CheckBox from "../../components/CheckBox";
 import TimeRangePicker from "../../components/TimeRangePicker";
 
 import CSVButton from "../../components/CSVButton";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getAirQuality } from "../../api";
 import { useSelector } from "react-redux";
 import { climateDataForm } from "../../redux/selector";
 import ChartContainer from "../../components/ChartContainer";
+import getInitialTheme from "../../utility/getInitialTheme";
 
 const checkBoxData = [
   { label: "Particulate Matter PM10", value: "pm10" },
@@ -30,11 +31,16 @@ const checkBoxData = [
   { label: "Olive Pollen (*)", value: "olive_pollen" },
   { label: "Ragweed Pollen (*)", value: "ragweed_pollen" },
 ];
-
 const AirQualityPage = () => {
   const [locations, setLocations] = useState([]);
   const [data, setData] = useState({});
   const dataForm = useSelector(climateDataForm);
+  const [theme, setTheme] = useState(getInitialTheme);
+  useEffect(() => {
+    window.addEventListener("storage", () => {
+      setTheme(JSON.parse(localStorage.getItem("darkTheme")) || false);
+    });
+  }, []);
   const requestData = async () => {
     const { currentLocation, hourly, startDate, endDate } = dataForm;
     if (currentLocation.name !== "") {
@@ -66,7 +72,10 @@ const AirQualityPage = () => {
       <HeadLine text={"Settings"} />
       <TimeRangePicker />
       <HeadLine text={"Preview Chart"} />
-      <button onClick={() => requestData()} className="primary-btn light">
+      <button
+        onClick={() => requestData()}
+        className={`primary-btn ${theme ? "dark" : "light"}`}
+      >
         Reload Chart
       </button>
       <ChartContainer data={data} />

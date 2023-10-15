@@ -1,6 +1,14 @@
 import { CSVLink } from "react-csv";
 import "../assets/scss/components/Button.scss";
+import { useEffect, useState } from "react";
+import getInitialTheme from "../utility/getInitialTheme";
 const CSVButton = ({ data }) => {
+  const [theme, setTheme] = useState(getInitialTheme);
+  useEffect(() => {
+    window.addEventListener("storage", () => {
+      setTheme(JSON.parse(localStorage.getItem("darkTheme")) || false);
+    });
+  }, []);
   const formatData = (data) => {
     let arr = [];
     let keys = Object.keys(data);
@@ -16,7 +24,7 @@ const CSVButton = ({ data }) => {
   };
   return (
     <CSVLink
-      className="primary-btn light"
+      className={`primary-btn ${theme ? "dark" : "light"}`}
       data={formatData(data)}
       filename="archive"
     >

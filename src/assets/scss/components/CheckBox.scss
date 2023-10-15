@@ -37,10 +37,15 @@
         box-shadow: 0 0 10px $highlight-text-color;
       }
     }
-
     label {
       margin-left: 10px;
       flex: 1;
+      transition: 0.4s;
+    }
+    &.dark{
+      label{
+        color: $dark-theme-text-color;
+      }
     }
   }
 }

@@ -8,10 +8,14 @@
   border: 1px solid $primary-button-color;
   outline: none;
   transition: 0.4s;
-  margin: 10px;
-  &.light {
+  margin-left: 10px;
+  width: 150px;
+  cursor: pointer;
+  &.dark {
+    border: 1px solid $dark-theme-third-color;
+    background: $dark-theme-third-color;
   }
-  option{
-    
+  option {
+    cursor: pointer;
   }
 }

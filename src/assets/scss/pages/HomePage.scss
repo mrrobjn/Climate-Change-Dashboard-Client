@@ -5,7 +5,7 @@
     background: $light-theme-main-color;
   }
   &.dark {
-    background: $dark-theme-main-color;
+    background: $dark-theme-secondary-color;
   }
   .news-container {
     width: 100%;
@@ -16,7 +16,7 @@
       background: $light-theme-main-color;
     }
     &.dark {
-      background: $dark-theme-secondary-color;
+      background: $dark-theme-main-color;
     }
     .featured-news {
       text-align: center;
@@ -24,7 +24,7 @@
       font-size: 30px;
       font-weight: bold;
       transition: 0.4s;
-      padding: 20px 0;
+      padding: 40px 0;
       &.light {
         color: $light-theme-text-color;
       }
