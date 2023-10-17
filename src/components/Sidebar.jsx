@@ -48,7 +48,7 @@ const Sidebar = () => {
             }
             onClick={() => dispatch(resetState())}
           >
-            <i class={data.icon}></i>
+            <i className={data.icon}></i>
             <p className={theme ? "dark" : "light"}>{data.name}</p>
           </NavLink>
         );
@@ -56,6 +56,7 @@ const Sidebar = () => {
       <button
         className={`primary-btn ${theme ? "dark" : "light"} ${isExpand ? "expanded" : "collapse"}`}
         onClick={() => setIsExpand(!isExpand)}
+        type="button"
       >
         <i className="fa-solid fa-chevron-right"></i>
       </button>

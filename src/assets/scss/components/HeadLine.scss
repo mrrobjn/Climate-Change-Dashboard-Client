@@ -2,6 +2,7 @@
 
 h2 {
   margin: 10px 0;
+  transition: 0.4s;
   &.light {
     color: $light-theme-text-color;
   }

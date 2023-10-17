@@ -1,1 +1,27 @@
 @import '../GlobalStyle.scss';
+.chart-select-container{
+    width: fit-content;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    ul{
+        display: flex;
+        border: 2px solid #007bff;
+        border-radius: $main-border-radius;
+        li{
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: 0.4s;
+            &.active{
+                background-color: #007bff;
+                color: #fff;
+            }
+        }
+    }
+    &.dark{
+        i{
+            transition: 0.4s;
+            color: $dark-theme-text-color;
+        }
+    }
+}
