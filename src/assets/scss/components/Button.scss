@@ -3,20 +3,10 @@
   padding: 10px;
   transition: 0.4s;
   border-radius: $main-border-radius;
-  color: $primary-button-color;
-  border: 1px solid $primary-button-color;
+  color: $dark-theme-text-color;
+  background: $primary-button-color;
+  border: none;
   font-size: 16px;
   cursor: pointer;
   margin-bottom: 10px;
-  &.light {
-    background: $light-button-background-color;
-  }
-  &.dark {
-    background: $dark-theme-third-color;
-    border: 1px solid $dark-theme-third-color;
-  }
-  &:hover {
-    background: $primary-button-color;
-    color: #fff;
-  }
 }

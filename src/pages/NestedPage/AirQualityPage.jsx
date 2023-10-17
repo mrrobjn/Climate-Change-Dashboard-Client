@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 import { climateDataForm } from "../../redux/selector";
 import ChartContainer from "../../components/ChartContainer";
 import getInitialTheme from "../../utility/getInitialTheme";
+import ChartSelect from "../../components/ChartSelect";
 
 const checkBoxData = [
   { label: "Particulate Matter PM10", value: "pm10" },
@@ -71,6 +72,7 @@ const AirQualityPage = () => {
       <CheckBox data={checkBoxData} type={"hourly"} />
       <HeadLine text={"Settings"} />
       <TimeRangePicker />
+      <ChartSelect/>
       <HeadLine text={"Preview Chart"} />
       <button
         onClick={() => requestData()}
