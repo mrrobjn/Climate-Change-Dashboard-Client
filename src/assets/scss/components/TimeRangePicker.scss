@@ -2,7 +2,7 @@
 .date-picker-container {
   display: flex;
   width: 600px;
-  margin-bottom: 10px;
+  margin: 10px 0;
   .date-picker-item {
     flex-basis: 50%;
     label {
@@ -24,4 +24,8 @@
       }
     }
   }
+}
+.react-date-picker__wrapper{
+  padding: 5px;
+  border-radius: $main-border-radius;
 }
