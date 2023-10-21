@@ -28,7 +28,7 @@ const ChartContainer = ({ data }) => {
     },
   };
   const chartData = {
-    labels: Object.keys(data).length > 0 ? data.hourly.time : [],
+    labels: Object.keys(data)?.length > 0 ? data.hourly.time : [],
     datasets:
       Object.keys(data).length > 0
         ? dataForm.hourly.map((key, i) => {

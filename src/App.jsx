@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import "./App.css";
+import "./App.scss";
 import { publicRoutes } from "./routes";
 import { DefaultLayout } from "./layouts/";
 function App() {
