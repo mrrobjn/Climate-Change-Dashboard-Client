@@ -12,6 +12,7 @@ import { climateDataForm } from "../../redux/selector";
 import ChartContainer from "../../components/ChartContainer";
 import getInitialTheme from "../../utility/getInitialTheme";
 import ChartSelect from "../../components/ChartSelect";
+import Plot from 'react-plotly.js';
 
 const checkBoxData = [
   { label: "Particulate Matter PM10", value: "pm10" },
@@ -37,11 +38,15 @@ const AirQualityPage = () => {
   const [data, setData] = useState({});
   const dataForm = useSelector(climateDataForm);
   const [theme, setTheme] = useState(getInitialTheme);
-  const [imageBase64, setImage] = useState("");
+  const [imageBase64, setImage] = useState({});
   useEffect(() => {
     window.addEventListener("storage", () => {
       setTheme(JSON.parse(localStorage.getItem("darkTheme")) || false);
     });
+    const fetch =async ()=>{
+      setImage(JSON.parse(await getBase64()))
+    }
+    fetch()
   }, []);
   const requestData = async () => {
     const { currentLocation, hourly, startDate, endDate } = dataForm;
@@ -81,8 +86,11 @@ const AirQualityPage = () => {
       >
         Reload Chart
       </button>
-      <div style={{ width: "100%" }}>
-        <img style={{ width: "100%" }} src={`data:image/png;base64,${data}`} alt="" />
+      <div style={{ width: "fit-content",border:"1px solid #333" }}>
+      <Plot
+      data={imageBase64.data}
+      layout={imageBase64.layout}
+    />
       </div>
       {/* {data.hourly && <CSVButton data={data.hourly} />} */}
     </div>
