@@ -6,7 +6,7 @@ import TimeRangePicker from "../../components/TimeRangePicker";
 
 import CSVButton from "../../components/CSVButton";
 import { useEffect, useState } from "react";
-import { getAirQuality } from "../../api";
+import { getAirQuality, getBase64 } from "../../api";
 import { useSelector } from "react-redux";
 import { climateDataForm } from "../../redux/selector";
 import ChartContainer from "../../components/ChartContainer";
@@ -37,6 +37,7 @@ const AirQualityPage = () => {
   const [data, setData] = useState({});
   const dataForm = useSelector(climateDataForm);
   const [theme, setTheme] = useState(getInitialTheme);
+  const [imageBase64, setImage] = useState("");
   useEffect(() => {
     window.addEventListener("storage", () => {
       setTheme(JSON.parse(localStorage.getItem("darkTheme")) || false);
@@ -72,7 +73,7 @@ const AirQualityPage = () => {
       <CheckBox data={checkBoxData} type={"hourly"} />
       <HeadLine text={"Settings"} />
       <TimeRangePicker />
-      <ChartSelect/>
+      <ChartSelect />
       <HeadLine text={"Preview Chart"} />
       <button
         onClick={() => requestData()}
@@ -80,8 +81,10 @@ const AirQualityPage = () => {
       >
         Reload Chart
       </button>
-      <ChartContainer data={data} />
-      <CSVButton data={{}} />
+      <div style={{ width: "100%" }}>
+        <img style={{ width: "100%" }} src={`data:image/png;base64,${data}`} alt="" />
+      </div>
+      {/* {data.hourly && <CSVButton data={data.hourly} />} */}
     </div>
   );
 };
