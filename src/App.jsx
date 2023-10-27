@@ -3,7 +3,6 @@ import "./App.scss";
 import { publicRoutes } from "./routes";
 import { DefaultLayout } from "./layouts/";
 function App() {
-  
   return (
     <Routes>
       {publicRoutes.map((route, index) => {

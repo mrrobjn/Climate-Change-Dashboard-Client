@@ -26,6 +26,22 @@ export const getAirQuality = async (
     console.error(err);
   }
 };
+export const downloadAirQuality = async (
+  latitude,
+  longitude,
+  hourly,
+  startDate,
+  endDate
+) => {
+  try {
+    const response = await axios.get(
+      `http://localhost:5000/air-quality/download?latitude=${latitude}&longitude=${longitude}&hourly=${hourly}&start_date=${startDate}&end_date=${endDate}`
+    );
+    return response.data;
+  } catch (err) {
+    console.error(err);
+  }
+};
 export const getWeatherForCast = async (latitude, longitude, hourly, daily) => {
   try {
     const response = await axios.get(
@@ -81,7 +97,7 @@ export const getArticleDetail = async (article_id) => {
     console.error(err);
   }
 };
-export const getBase64 = async (article_id) => {
+export const getBase64 = async () => {
   try {
     const response = await axios.get(`http://localhost:5000/lida/get`);
     return response.data;

@@ -3,16 +3,14 @@ import TextInput from "../../components/TextInput";
 import "../../assets/scss/pages/NestedPages/AirQualityPage.scss";
 import CheckBox from "../../components/CheckBox";
 import TimeRangePicker from "../../components/TimeRangePicker";
-
 import CSVButton from "../../components/CSVButton";
 import { useEffect, useState } from "react";
-import { getAirQuality, getBase64 } from "../../api";
+import { downloadAirQuality, getAirQuality } from "../../api";
 import { useSelector } from "react-redux";
 import { climateDataForm } from "../../redux/selector";
-import ChartContainer from "../../components/ChartContainer";
 import getInitialTheme from "../../utility/getInitialTheme";
 import ChartSelect from "../../components/ChartSelect";
-import Plot from 'react-plotly.js';
+import Plot from "react-plotly.js";
 
 const checkBoxData = [
   { label: "Particulate Matter PM10", value: "pm10" },
@@ -38,26 +36,24 @@ const AirQualityPage = () => {
   const [data, setData] = useState({});
   const dataForm = useSelector(climateDataForm);
   const [theme, setTheme] = useState(getInitialTheme);
-  const [imageBase64, setImage] = useState({});
+  const [jsonPlot, setJsonPlot] = useState([]);
   useEffect(() => {
     window.addEventListener("storage", () => {
       setTheme(JSON.parse(localStorage.getItem("darkTheme")) || false);
     });
-    const fetch =async ()=>{
-      setImage(JSON.parse(await getBase64()))
-    }
-    fetch()
   }, []);
   const requestData = async () => {
     const { currentLocation, hourly, startDate, endDate } = dataForm;
     if (currentLocation.name !== "") {
-      setData(
-        await getAirQuality(
-          currentLocation.latitude,
-          currentLocation.longitude,
-          hourly.join(","),
-          startDate,
-          endDate
+      setJsonPlot(
+        JSON.parse(
+          await getAirQuality(
+            currentLocation.latitude,
+            currentLocation.longitude,
+            hourly.join(","),
+            startDate,
+            endDate
+          )
         )
       );
     } else {
@@ -86,13 +82,20 @@ const AirQualityPage = () => {
       >
         Reload Chart
       </button>
-      <div style={{ width: "fit-content",border:"1px solid #333" }}>
-      <Plot
-      data={imageBase64.data}
-      layout={imageBase64.layout}
-    />
+      <div >
+        <Plot data={jsonPlot} layout={{ width: 1000, height: 600 }} />
       </div>
-      {/* {data.hourly && <CSVButton data={data.hourly} />} */}
+      {/* <CSVButton
+        data={async () =>
+          await downloadAirQuality(
+            currentLocation.latitude,
+            currentLocation.longitude,
+            hourly.join(","),
+            startDate,
+            endDate
+          )
+        }
+      /> */}
     </div>
   );
 };
