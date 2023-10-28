@@ -83,7 +83,9 @@ export const getArticles = async () => {
 };
 export const getSingleArticle = async (article_id) => {
   try {
-    const response = await axios.get(`http://localhost:5000/articles/find?id=${article_id}`);
+    const response = await axios.get(
+      `http://localhost:5000/articles/find?id=${article_id}`
+    );
     return response.data;
   } catch (err) {
     console.error(err);
@@ -91,15 +93,25 @@ export const getSingleArticle = async (article_id) => {
 };
 export const getArticleDetail = async (article_id) => {
   try {
-    const response = await axios.get(`http://localhost:5000/articles/find_detail?id=${article_id}`);
+    const response = await axios.get(
+      `http://localhost:5000/articles/find_detail?id=${article_id}`
+    );
     return response.data;
   } catch (err) {
     console.error(err);
   }
 };
-export const getBase64 = async () => {
+export const uploadCSV = async (formData) => {
   try {
-    const response = await axios.get(`http://localhost:5000/lida/get`);
+    const response = await axios.post(
+      `http://localhost:5000/lida/post`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
     return response.data;
   } catch (err) {
     console.error(err);
