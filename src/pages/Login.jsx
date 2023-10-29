@@ -15,11 +15,11 @@ const Login = () => {
   }, []);
   return (
     <div className={`container-login ${theme ? "dark" : "light"}`}>
-      <img className="img" src="/../../public/assets/images/login-regis-background.png" alt="" />
-      <div className="container">
-        <div className="container-left">
+      <img className="container-login-img" src="/../../public/assets/images/login-regis-background.png" alt="" />
+      <div className="container-login-container">
+        <div className="container-login-container-left">
 
-            <div className="logo-icon">
+            <div className="container-login-container-left-logo-icon">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="63"
@@ -47,10 +47,65 @@ const Login = () => {
                 />
               </svg>
             </div>
-
+            <div className="welcome-to-ccd">
+                Welcome to CCD
+            </div>
+            <div className="signupnow">
+                Sign Up now to discover the full experience
+            </div>
         </div>
-        <div className="container-right">
-          right
+        <div className="container-login-container-right">
+          <div className="block-login">
+            <div className="title-login">
+              Log in
+            </div>
+            <div className="title-username">
+              Username
+            </div>
+            <div className="username-bar">
+              <input type="text" className="input-username" placeholder="Username"></input>
+            </div>
+            <div className="title-password">
+              Password
+            </div>
+            <div className="password-bar">
+              {/* <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><path d="M144 144v48H304V144c0-44.2-35.8-80-80-80s-80 35.8-80 80zM80 192V144C80 64.5 144.5 0 224 0s144 64.5 144 144v48h16c35.3 0 64 28.7 64 64V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V256c0-35.3 28.7-64 64-64H80z"/></svg> */}
+              <input type="password" className="input-password" placeholder="Password">
+                
+              </input>
+            </div>
+            <div className="container-checkbox">
+              <input className="cb-remember" type="checkbox"/>
+              <div className="title-remember">
+                remember me
+              </div>
+            </div>
+            <div className='button-login'>
+            <button className='button-login-your-account'>
+              Log In to your account
+            </button>
+          </div>
+          <div className="title-or">
+            or
+          </div>
+          <div className='button-continue-gg'>
+            <button className='button-continue-with-gg'>
+              Continue with Google
+            </button>
+          </div>
+          <div className="title-create">
+            Create new account
+          </div>
+          <div className="forgot-password">
+            <div className="title-forgot-password">
+              Forgot password?
+            </div>
+            <div className="title-recover">
+              Recover my password
+            </div>
+          </div>
+          
+        </div>
         </div>
       </div>
     </div>
