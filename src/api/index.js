@@ -117,3 +117,19 @@ export const uploadCSV = async (formData) => {
     console.error(err);
   }
 };
+export const postSingleGoal = async (path, goal) => {
+  try {
+    const response = await axios.post(
+      `http://localhost:5000/lida/post_goal`,
+      { path, goal },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    return response.data;
+  } catch (err) {
+    console.error(err);
+  }
+};

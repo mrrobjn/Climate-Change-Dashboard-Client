@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react";
 import "../../assets/scss/pages/admin/CreateArticlePage.scss";
-import { uploadCSV } from "../../api/index.js";
+import { postSingleGoal, uploadCSV } from "../../api/index.js";
 const CreateArticlePage = () => {
   const [data, setData] = useState({});
+  const [goal, setGoal] = useState("");
   const handleCSVInput = async (e) => {
     const formData = new FormData();
     formData.append("file", e.target.files[0]);
     setData(await uploadCSV(formData));
+  };
+  const handleGoalInput = async (goal) => {
+    console.log(await postSingleGoal(data.path, goal));
   };
   return (
     <div className="create-article-container">
@@ -56,13 +60,17 @@ const CreateArticlePage = () => {
       </div>
       <div className="goals-header">
         <i className="fa-solid fa-angle-up"></i> Goals (
-        {data && data.goal ? data.goals?.length : 0})
+        {data && data.goals ? data.goals?.length : 0})
       </div>
       <div className="goals-container">
         {data && data.goals
           ? data.goals.map((goal, i) => {
               return (
-                <div className="goal-item" key={i}>
+                <div
+                  className="goal-item"
+                  key={i}
+                  onClick={() => handleGoalInput(goal.question)}
+                >
                   <h4>
                     {i + 1}. {goal.question}
                   </h4>
@@ -72,6 +80,38 @@ const CreateArticlePage = () => {
               );
             })
           : ""}
+      </div>
+      <div className="title">
+        <i className="fa-solid fa-chart-pie fa-lg"></i>
+        <h2>Visualization</h2>
+      </div>
+
+      <div className="visualize-container">
+        <div className="custom-goal-input">
+          <input
+            type="text"
+            name=""
+            id=""
+            onChange={(e) => setGoal(e.target.value)}
+          />
+          <button type="button" onClick={() => handleGoalInput(goal)}>
+            <i className="fa-solid fa-angles-right"></i> Generate
+          </button>
+        </div>
+        <div className="goal-visualized">
+          {/* {data && data.charts
+          ? data.charts.map((chart, i) => {
+              return (
+                <div className="chart-item" key={i}>
+                  <img
+                    src={`data:image/jpeg;base64,${chart}`}
+                    alt=""
+                  />
+                </div>
+              );
+            })
+          : ""} */}
+        </div>
       </div>
     </div>
   );

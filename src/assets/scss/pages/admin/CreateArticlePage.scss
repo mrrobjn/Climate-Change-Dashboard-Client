@@ -19,10 +19,15 @@
       padding: 10px;
       border-radius: $main-border-radius;
       background: $light-theme-secondary-color;
-      border: 1px dashed $main-border-color;
+      border: 2px dashed $main-border-color;
+      cursor: pointer;
+      transition: 0.4s;
       i {
         padding: 20px;
         height: fit-content;
+      }
+      &:hover {
+        background: #ccc;
       }
     }
   }
@@ -39,7 +44,6 @@
     border-top-right-radius: $main-border-radius;
     padding: 20px 10px;
     background: $light-theme-third-color;
-    border-bottom: 1px solid $main-border-color;
   }
   .summary-container {
     display: flex;
@@ -51,6 +55,7 @@
     justify-content: space-evenly;
     margin-bottom: 10px;
     padding-top: 10px;
+    transition: height 0.2s ease-out;
     .field-item {
       background: $light-theme-third-color;
       padding: 10px;
@@ -95,12 +100,12 @@
   }
   .goals-container {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     width: 100%;
     background: $light-theme-secondary-color;
     border-bottom-left-radius: $main-border-radius;
     border-bottom-right-radius: $main-border-radius;
-    padding-top: 10px;
+    padding: 10px 10px 0 10px;
     justify-content: space-evenly;
     margin-bottom: 10px;
     .goal-item {
@@ -126,6 +131,47 @@
       }
       p {
         font-size: 14px;
+      }
+    }
+  }
+  .visualize-container {
+    display: flex;
+    flex-direction: column;
+    .custom-goal-input {
+      padding: 10px;
+      border-radius: $main-border-radius;
+      border: 1px solid $main-border-color;
+      display: flex;
+      input {
+        padding: 10px;
+        border: 1px solid $main-border-color;
+        background: $light-theme-secondary-color;
+        border-radius: $main-border-radius;
+        outline-style: none;
+        flex: 1;
+        margin-right: 10px;
+        font-size: 16px;
+      }
+      button {
+        padding: 15px 20px;
+        color: $dark-theme-text-color;
+        background: $csv-color;
+        border: none;
+        border-radius: $main-border-radius;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+    }
+    .goal-visualized {
+      display: flex;
+      flex-direction: column;
+      .chart-item {
+        width: 800px;
+        border: 1px solid $main-border-color;
+        img {
+          width: 100%;
+        }
       }
     }
   }
