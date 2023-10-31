@@ -1,9 +1,9 @@
 @import "../../GlobalStyle.scss";
 .create-article-container {
-  width: 100%;
-  max-width: 1400px;
   margin: auto;
-  padding-top: 10px;
+  padding: 20px 10px 0 10px;
+  flex: 1;
+  overflow-y: auto;
   .file-input {
     width: 100%;
     margin-bottom: 10px;
@@ -66,7 +66,6 @@
       flex-direction: column;
       transition: 0.4s;
       border: 1px solid $light-theme-third-color;
-
       &:hover {
         border: 1px solid $csv-color;
       }
@@ -142,6 +141,7 @@
       border-radius: $main-border-radius;
       border: 1px solid $main-border-color;
       display: flex;
+      margin-bottom: 10px;
       input {
         padding: 10px;
         border: 1px solid $main-border-color;
@@ -167,12 +167,40 @@
       display: flex;
       flex-direction: column;
       .chart-item {
-        width: 800px;
-        border: 1px solid $main-border-color;
-        img {
-          width: 100%;
+        display: flex;
+        margin-bottom: 10px;
+        background: $light-theme-third-color;
+          border-radius: $main-border-radius;
+          padding: 10px;
+        .img-container {
+          border: 1px solid $main-border-color;
+          border-radius: $main-border-radius;
+          width: 600px;
+          img {
+            width: 100%;
+            border-radius: $main-border-radius;
+          }
+        }
+        .modify-input {
+          padding: 10px;
+          border-radius: $main-border-radius;
+          background: $light-theme-main-color;
+          display: flex;
+          height: fit-content;
+          flex: 1;
+          margin-left: 10px;
+          input {
+            padding: 10px;
+            border: 1px solid $main-border-color;
+            background: $light-theme-main-color;
+            border-radius: $main-border-radius;
+            outline-style: none;
+            font-size: 16px;
+            width: 100%;
+          }
         }
       }
     }
   }
 }
+

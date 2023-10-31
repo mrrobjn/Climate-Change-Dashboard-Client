@@ -24,7 +24,8 @@ const publicRoutes = [
     // children: [{ path: ":articles_id", component: SingleArticlePage }],
   },
   { path: "/articles/:article_id", component: SingleArticlePage },
+];
+const privateRoutes = [
   { path: "/create_article", component: CreateArticlePage },
 ];
-const privateRoutes = [];
 export { privateRoutes, publicRoutes };

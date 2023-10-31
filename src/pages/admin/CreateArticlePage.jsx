@@ -4,14 +4,17 @@ import { postSingleGoal, uploadCSV } from "../../api/index.js";
 const CreateArticlePage = () => {
   const [data, setData] = useState({});
   const [goal, setGoal] = useState("");
+  const [charts, setChart] = useState([]);
   const handleCSVInput = async (e) => {
     const formData = new FormData();
     formData.append("file", e.target.files[0]);
     setData(await uploadCSV(formData));
   };
   const handleGoalInput = async (goal) => {
-    console.log(await postSingleGoal(data.path, goal));
+    const currentChart = await postSingleGoal(data.path, goal);
+    setChart((prevChart) => [...prevChart, currentChart]);
   };
+console.log(charts)
   return (
     <div className="create-article-container">
       <div className="file-input">
@@ -99,18 +102,18 @@ const CreateArticlePage = () => {
           </button>
         </div>
         <div className="goal-visualized">
-          {/* {data && data.charts
-          ? data.charts.map((chart, i) => {
-              return (
-                <div className="chart-item" key={i}>
-                  <img
-                    src={`data:image/jpeg;base64,${chart}`}
-                    alt=""
-                  />
+          {charts.map((path, i) => {
+            return (
+              <div className="chart-item" key={i}>
+                <div className="img-container">
+                  <img src={`data:image/jpeg;base64,${path}`} alt="" />
                 </div>
-              );
-            })
-          : ""} */}
+                <div className="modify-input">
+                  <input type="text" name="" id="" placeholder="Modify chart with natural language commands."/>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>
