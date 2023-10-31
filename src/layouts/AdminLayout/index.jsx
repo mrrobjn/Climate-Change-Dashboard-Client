@@ -11,16 +11,14 @@ const AdminLayout = ({ children }) => {
     });
   }, []);
   return (
-    <div
-      className="admin-container"
-      style={{ display: "flex", height: "100vh", width: "100%" }}
-    >
+    <div className="admin-container" style={{ height: "100vh",display:"flex" }}>
       <AdminSidebar />
       <div
         className={`content ${theme ? "dark" : "light"}`}
-        style={{ flex: 1 ,overflowY:"scroll"}}
+        style={{ height: "100vh",overflowY:"scroll" }}
       >
-        <AdminHeader /> {children}
+        <AdminHeader />
+        {children}
       </div>
     </div>
   );

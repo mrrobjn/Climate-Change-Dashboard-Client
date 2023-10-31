@@ -6,6 +6,7 @@ import WeatherForcastPage from "../pages/NestedPage/WeatherForcastPage";
 import HistoricalWeatherPage from "../pages/NestedPage/HistoricalWeatherPage";
 import SingleArticlePage from "../pages/SingleArticlePage";
 import CreateArticlePage from "../pages/admin/CreateArticlePage";
+import AdminPage from "../pages/admin/AdminPage";
 
 const publicRoutes = [
   { path: "/", component: HomePage },
@@ -21,11 +22,14 @@ const publicRoutes = [
   {
     path: "/articles",
     component: ArticlesPage,
-    // children: [{ path: ":articles_id", component: SingleArticlePage }],
   },
   { path: "/articles/:article_id", component: SingleArticlePage },
 ];
 const privateRoutes = [
-  { path: "/create_article", component: CreateArticlePage },
+  {
+    path: "/admin",
+    component: AdminPage,
+    children: [{ path: "create_article", component: CreateArticlePage }],
+  },
 ];
 export { privateRoutes, publicRoutes };

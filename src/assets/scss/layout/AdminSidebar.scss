@@ -1,6 +1,27 @@
-@import '../GlobalStyle.scss';
-.admin-side-bar{
-    width: 80px;
-    background: $light-theme-secondary-color;
-    height: 100%;
+@import "../GlobalStyle.scss";
+.admin-side-bar {
+  background: $light-theme-main-color;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  align-items: center;
+  .logo-icon {
+    svg {
+      width: 30px;
+    }
+  }
+  a {
+    border-radius: $main-border-radius;
+    padding: 20px;
+    margin-bottom: 10px;
+    transition: 0.4s;
+    color: #ccc;
+    &.link-active {
+      color: $light-theme-text-color;
+    }
+    &:hover {
+      color: $light-theme-text-color;
+    }
+  }
 }
