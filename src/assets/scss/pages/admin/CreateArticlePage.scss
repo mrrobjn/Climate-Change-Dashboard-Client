@@ -1,7 +1,8 @@
 @import "../../GlobalStyle.scss";
 .create-article-container {
+  width: 1000px;
   margin: auto;
-  padding: 20px 10px 0 10px;
+  padding: 20px 20px 0 20px;
   flex: 1;
   overflow-y: auto;
   .file-input {
@@ -38,6 +39,7 @@
       margin-right: 10px;
     }
   }
+
   .summary-header,
   .goals-header {
     border-top-left-radius: $main-border-radius;
@@ -168,14 +170,16 @@
       flex-direction: column;
       .chart-item {
         display: flex;
-        margin-bottom: 10px;
-        background: $light-theme-third-color;
-          border-radius: $main-border-radius;
-          padding: 10px;
+        flex-direction: column;
+        padding-bottom: 20px;
+        margin-bottom: 20px;
+        border-bottom: 1px solid $main-border-color;
         .img-container {
           border: 1px solid $main-border-color;
           border-radius: $main-border-radius;
-          width: 600px;
+          width: 100%;
+          margin-bottom: 10px;
+          min-height: 300px;
           img {
             width: 100%;
             border-radius: $main-border-radius;
@@ -184,11 +188,10 @@
         .modify-input {
           padding: 10px;
           border-radius: $main-border-radius;
-          background: $light-theme-main-color;
+          background: $light-theme-third-color;
           display: flex;
           height: fit-content;
           flex: 1;
-          margin-left: 10px;
           input {
             padding: 10px;
             border: 1px solid $main-border-color;
@@ -196,11 +199,19 @@
             border-radius: $main-border-radius;
             outline-style: none;
             font-size: 16px;
-            width: 100%;
+            flex: 1;
+            margin-right: 10px;
+          }
+          button {
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            background: $csv-color;
+            color: $dark-theme-text-color;
+            border-radius: $main-border-radius;
           }
         }
       }
     }
   }
 }
-

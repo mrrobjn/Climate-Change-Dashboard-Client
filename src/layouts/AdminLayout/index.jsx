@@ -18,7 +18,7 @@ const AdminLayout = ({ children }) => {
       <AdminSidebar />
       <div
         className={`content ${theme ? "dark" : "light"}`}
-        style={{ flex: 1 }}
+        style={{ flex: 1 ,overflowY:"scroll"}}
       >
         <AdminHeader /> {children}
       </div>

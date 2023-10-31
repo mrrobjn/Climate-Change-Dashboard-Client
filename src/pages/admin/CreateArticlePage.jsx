@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import "../../assets/scss/pages/admin/CreateArticlePage.scss";
-import { postSingleGoal, uploadCSV } from "../../api/index.js";
+import { modifyGoal, postSingleGoal, uploadCSV } from "../../api/index.js";
 const CreateArticlePage = () => {
   const [data, setData] = useState({});
   const [goal, setGoal] = useState("");
   const [charts, setChart] = useState([]);
+  const [modify, setModify] = useState("");
+  const [modifies, setModifies] = useState([]);
   const handleCSVInput = async (e) => {
     const formData = new FormData();
     formData.append("file", e.target.files[0]);
@@ -14,7 +16,10 @@ const CreateArticlePage = () => {
     const currentChart = await postSingleGoal(data.path, goal);
     setChart((prevChart) => [...prevChart, currentChart]);
   };
-console.log(charts)
+  const handleGoalModify = async (goal, modify) => {
+    console.log(await modifyGoal(data.path, goal, [...modifies, modify]));
+    setModifies((prevModify) => [...prevModify, modify]);
+  };
   return (
     <div className="create-article-container">
       <div className="file-input">
@@ -102,14 +107,26 @@ console.log(charts)
           </button>
         </div>
         <div className="goal-visualized">
-          {charts.map((path, i) => {
+          {charts.map((chart, i) => {
             return (
               <div className="chart-item" key={i}>
                 <div className="img-container">
-                  <img src={`data:image/jpeg;base64,${path}`} alt="" />
+                  <img src={`data:image/jpeg;base64,${chart.base64}`} alt="" />
                 </div>
                 <div className="modify-input">
-                  <input type="text" name="" id="" placeholder="Modify chart with natural language commands."/>
+                  <input
+                    type="text"
+                    name=""
+                    id=""
+                    placeholder="Modify chart with natural language commands."
+                    onChange={(e) => setModify(e.target.value)}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => handleGoalModify(chart.goal, modify)}
+                  >
+                    <i className="fa-solid fa-rotate-right"></i>
+                  </button>
                 </div>
               </div>
             );
