@@ -8,7 +8,7 @@ const HeadLine = ({ text }) => {
       setTheme(JSON.parse(localStorage.getItem("darkTheme")) || false);
     });
   }, []);
-  return <h2 className={`${theme ? "dark" : "light"}`}>{text}</h2>;
+  return <h2 className={`data-title ${theme ? "dark" : "light"}`}>{text}</h2>;
 };
 
 export default HeadLine;

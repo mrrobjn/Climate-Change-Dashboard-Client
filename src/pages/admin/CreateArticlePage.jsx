@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "../../assets/scss/pages/admin/CreateArticlePage.scss";
 import { modifyGoal, postSingleGoal, uploadCSV } from "../../api/index.js";
+import FieldItem from "../../components/admin/FieldItem";
 const CreateArticlePage = () => {
   const [data, setData] = useState({});
   const [goal, setGoal] = useState("");
@@ -14,6 +15,7 @@ const CreateArticlePage = () => {
   };
   const handleGoalInput = async (goal) => {
     const currentChart = await postSingleGoal(data.path, goal);
+    console.log(currentChart);
     setChart((prevChart) => [...prevChart, currentChart]);
   };
   const handleGoalModify = async (goal, modify) => {
@@ -43,24 +45,9 @@ const CreateArticlePage = () => {
       <div className="summary-container">
         {data && data.summary
           ? data.summary.fields.map((field, i) => {
-              return (
-                <div className="field-item" key={i}>
-                  <h4>#{field.column}</h4>
-                  <p>Type: {field.properties.dtype}</p>
-                  <p># Unique value: {field.properties.num_unique_values}</p>
-                  <div className="samples-list">
-                    {field.properties.samples.map((sample, i) => {
-                      return (
-                        <div className="sample-item" key={i}>
-                          {sample}
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-              );
+              return <FieldItem field={field} key={i} />;
             })
-          : ""}
+          : null}
       </div>
       <div className="title">
         <i className="fa-regular fa-lightbulb fa-lg"></i>{" "}
@@ -93,7 +80,6 @@ const CreateArticlePage = () => {
         <i className="fa-solid fa-chart-pie fa-lg"></i>
         <h2>Visualization</h2>
       </div>
-
       <div className="visualize-container">
         <div className="custom-goal-input">
           <input
@@ -101,6 +87,7 @@ const CreateArticlePage = () => {
             name=""
             id=""
             onChange={(e) => setGoal(e.target.value)}
+            placeholder="Describe a new visualization goal to generate a visualization"
           />
           <button type="button" onClick={() => handleGoalInput(goal)}>
             <i className="fa-solid fa-angles-right"></i> Generate
@@ -108,10 +95,22 @@ const CreateArticlePage = () => {
         </div>
         <div className="goal-visualized">
           {charts.map((chart, i) => {
+            const { question, visualization, rationale } = chart.goal;
             return (
               <div className="chart-item" key={i}>
-                <div className="img-container">
-                  <img src={`data:image/jpeg;base64,${chart.base64}`} alt="" />
+                <div className="visualize-output">
+                  <div className="explain">
+                    <h3>Topic: {question}</h3>
+                    <p>Rationale: {rationale}</p>
+                    <p className="visualization">Visualization: {visualization}</p>
+                    <textarea cols="30" rows="10"></textarea>
+                  </div>
+                  <div className="img-container">
+                    <img
+                      src={`data:image/jpeg;base64,${chart.base64}`}
+                      alt=""
+                    />
+                  </div>
                 </div>
                 <div className="modify-input">
                   <input
