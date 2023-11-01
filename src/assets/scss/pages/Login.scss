@@ -1,175 +1,242 @@
 @import "../GlobalStyle.scss";
 .container-login {
-  &-img{
+  &-img {
     position: absolute;
+    width: 100%;
   }
-  &-container{
-    
-      display: flex;
-      position: relative;
-      // top: 0;
-      &-left {
-        width: 47%;
-        
-        &-logo-icon {
-          padding-top: 342px;
-          padding-bottom: 30px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          & svg {
-            width: 163px;
-            height: 109px;
-          }
-          &-logo-icon {
-            width: 100%;
-            text-align: center;
-            svg {
-              width: 40px;
-              flex-shrink: 0;
-            }
-          }
-          &-brand-text {
-            font-size: 25px;
-            font-weight: bold;
-            padding: 10px;
-            &.light {
-              border-right: 3px solid #000;
-              color: $light-theme-text-color;
-            }
-            &.dark {
-              border-right: 3px solid #fff;
-              color: $dark-theme-text-color;
-            }
-          }
-          &-second-logo {
-            margin-left: 10px;
-            width: 100px;
-            height: 50px;
-            img {
-              width: 100%;
-              height: 100%;
-              transition: 0.4s;
-              object-fit: contain;
-            }
-          }
+  &-container {
+    display: flex;
+    position: relative;
+    &-left {
+      width: 47%;
+      &-logo-icon {
+        padding-top: 342px;
+        padding-bottom: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        & svg {
+          width: 163px;
+          height: 109px;
         }
-        .welcome-to-ccd{
+        &-logo-icon {
           width: 100%;
           text-align: center;
-          color: #fff;
-          font-weight: 700;
-          font-size: 62px;
-          
+          svg {
+            width: 40px;
+            flex-shrink: 0;
+          }
         }
-        .signupnow{
-          width: 100%;
-          text-align: center; 
-          color: #fff;
-          font-size: 26px;
+        &-brand-text {
+          font-size: 25px;
+          font-weight: bold;
+          padding: 10px;
+          &.light {
+            border-right: 3px solid #000;
+            color: $light-theme-text-color;
+          }
+          &.dark {
+            border-right: 3px solid #fff;
+            color: $dark-theme-text-color;
+          }
+        }
+        &-second-logo {
+          margin-left: 10px;
+          width: 100px;
+          height: 50px;
+          img {
+            width: 100%;
+            height: 100%;
+            transition: 0.4s;
+            object-fit: contain;
+          }
         }
       }
-    
-      &-right {
-        .block-login{
-          padding: 25px 0px 0px 107px;
-          width: 744px;
-          height: 746px;
-          background-color: #fff;
-          margin-top: 142px;
-          border-radius: 15px;
-          .title-login{
-            padding-bottom: 46px;
-            font-weight: 600;
-            font-size: 36px;
-          }
-          .title-username{
-            padding-bottom: 12px;
-            font-weight: 600;
-            font-size: 17px;
-          }
-          .input-username{
-            width: 528px;
-            height: 52px;
-            &::placeholder {
-              padding-left: 10px;
-              font-size: 14px;
-            }
-          }
-          .input-password{
-            width: 528px;
-            height: 52px;
-            border-radius: 10px;
-            border-color: #D9E1E7;
-            outline: none;
-            left: 0;
-          }
-          .password-bar {
-            & svg {
-              position: relative;
-              left: 30px;
-            }
-          }
-          .title-password{
-            padding:29px 0px 12px 0px;
-            font-weight: 600;
-            font-size: 17px;
-          }
-          .container-checkbox {
-            display: flex;
-            .cb-remember {
-
-            }
-            .title-remember{
-              font-size: 16px;
-              color: $input-boder-color;
-            } 
-          }
-          
-          .button-login-your-account{
-            background-color: #000;
-            font-weight: 800;
-            width: 528px;
-            height: 52px;
-            color: #fff;
-            border-radius: 15px;
-            outline: none;
-          }
-          .button-continue-with-gg{
-            background-color: $highlight-element-color;
-            font-weight: 800;
-            width: 528px;
-            height: 52px;
-            color: $dark-theme-main-color;
-            border-radius: 15px;
-            border-color: $light-button-background-color;
-          }
-          .title-create{
-            text-align: center;
-            font-weight: 700;
-            font-size: 15px;
-            padding-top: 81px;
-          }
-          .forgot-password{
-            display: flex;
-            text-align: center;
-            justify-content: center;
-            padding-top: 10px;
-            .title-forgot-password{
-              color:$input-boder-color ;
-            .title-recover{
-              font-weight: 900;
-              font-size: 50px;
-            }
-            }
-          
-          }
-
-        }
-        
-        
+      .welcome-to-ccd {
+        width: 100%;
+        text-align: center;
+        color: #fff;
+        font-weight: 700;
+        font-size: 62px;
+      }
+      .title-sign-up-now {
+        width: 100%;
+        text-align: center;
+        color: #fff;
+        font-size: 26px;
       }
     }
-  
-}
 
+    &-right {
+      .block-login {
+        justify-content: space-between;
+        padding: 25px 108px 53px 108px;
+        width: 100%;
+        height: 746px;
+        background-color: #fff;
+        margin-top: 142px;
+        border-radius: 15px;
+        position: relative;
+        .close-button {
+          border-radius: 7px;
+          border: 1px solid #f6f4f4;
+          width: 46px;
+          height: 46px;
+          background-color: #fff;
+          outline: none;
+          position: absolute;
+          top: 10px;
+          right: 10px;
+
+          & svg {
+            width: 20px;
+            height: 20px;
+          }
+        }
+        .title-login {
+          padding-bottom: 46px;
+          font-weight: 600;
+          font-size: 36px;
+        }
+        .title-username {
+          padding-bottom: 12px;
+          font-weight: 600;
+          font-size: 17px;
+        }
+        .input-username {
+          padding-left: 10px;
+          width: 100%;
+          height: 52px;
+          border-radius: 10px;
+          font-size: 17px;
+          border: 1px solid #e4dcdc;
+        }
+        .input-password {
+          width: 100%;
+          height: 52px;
+          padding-left: 10px;
+          font-size: 30px;
+          border-radius: 10px;
+          &::placeholder {
+            font-size: 30px;
+            position: absolute;
+            top: 10px;
+          }
+          left: 0;
+          border: 1px solid #e4dcdc;
+        }
+        .password-bar {
+          position: relative;
+
+          &-eyeIcon {
+            position: absolute;
+
+            right: 20px;
+            margin-top: 11px;
+            margin-top: 17px;
+            border: none;
+            & svg {
+              width: 22px;
+              height: 22px;
+              background-color: #fff;
+              border: none;
+            }
+          }
+        }
+        .title-password {
+          padding: 29px 0px 12px 0px;
+          font-weight: 600;
+          font-size: 17px;
+        }
+        .container-checkbox {
+          display: flex;
+          padding: 31px 0px 31px 0px;
+          & label {
+            border-radius: 15px;
+          }
+          .cb-remember {
+            width: 20px;
+            height: 20px;
+            border-radius: 1px solid #d9e1e7;
+          }
+          .title-remember {
+            font-size: 16px;
+            color: #d9e1e7;
+            margin-left: 12px;
+          }
+        }
+        .button-login-your-account {
+          background-color: #000;
+          font-weight: 700;
+          width: 100%;
+          height: 52px;
+          color: #fff;
+          border-radius: 12px;
+          outline: none;
+          font-size: 16px;
+        }
+        .title-or {
+          display: flex;
+          color: #d9e1e7;
+          align-items: center;
+          font-size: 16px;
+          padding: 23px 0px 23px 0px;
+          .line1 {
+            width: 244px;
+            height: 1px;
+            background-color: #d9e1e7;
+          }
+          .line2 {
+            width: 244px;
+            height: 1px;
+            background-color: #d9e1e7;
+          }
+          .text-or {
+            margin-left: 10px;
+            margin-right: 10px;
+          }
+        }
+        .button-continue-with-gg {
+          display: flex;
+          background-color: $highlight-element-color;
+          font-weight: 700;
+          width: 100%;
+          height: 52px;
+          color: $dark-theme-main-color;
+          border-radius: 12px;
+          outline: none;
+          border: none;
+          & svg {
+            margin-left: 161px;
+            margin-top: 12px;
+          }
+          .text-ctn-gg {
+            font-size: 16px;
+            margin-top: 16px;
+            margin-left: 15px;
+          }
+        }
+        .title-create {
+          text-align: center;
+          font-weight: 700;
+          font-size: 15px;
+          padding-top: 81px;
+        }
+        .forgot-password {
+          display: flex;
+          text-align: center;
+          justify-content: center;
+          padding-top: 10px;
+          font-size: 15px;
+          .title-forgot-password {
+            color: #d9e1e7;
+          }
+          .title-recover {
+            font-weight: 700;
+            padding-left: 10px;
+          }
+        }
+      }
+    }
+  }
+}
