@@ -1,31 +1,29 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "../../assets/scss/pages/admin/CreateArticlePage.scss";
-import { modifyGoal, postSingleGoal, uploadCSV } from "../../api/index.js";
+import { uploadCSV } from "../../api/index.js";
 import FieldItem from "../../components/admin/FieldItem";
+import ChartItem from "../../components/admin/ChartItem";
+import GoalsItem from "../../components/admin/GoalsItem";
+import { useDispatch, useSelector } from "react-redux";
+import { getSummary } from "../../redux/slides/DataSummarySlice";
+import { dataSummary, visualizeForm } from "../../redux/selector";
 const CreateArticlePage = () => {
-  const [data, setData] = useState({});
   const [goal, setGoal] = useState("");
-  const [charts, setChart] = useState([]);
-  const [modify, setModify] = useState("");
-  const [modifies, setModifies] = useState([]);
+  const [isLoading, setIsLoadin] = useState(false);
+  const dispatch = useDispatch();
+  const data = useSelector(dataSummary);
+  const charts = useSelector(visualizeForm).charts;
   const handleCSVInput = async (e) => {
     const formData = new FormData();
     formData.append("file", e.target.files[0]);
-    setData(await uploadCSV(formData));
+    const res = await uploadCSV(formData);
+    dispatch(getSummary(res));
   };
-  const handleGoalInput = async (goal) => {
-    const currentChart = await postSingleGoal(data.path, goal);
-    console.log(currentChart);
-    setChart((prevChart) => [...prevChart, currentChart]);
-  };
-  const handleGoalModify = async (goal, modify) => {
-    console.log(await modifyGoal(data.path, goal, [...modifies, modify]));
-    setModifies((prevModify) => [...prevModify, modify]);
-  };
+
   return (
     <div className="create-article-container">
       <div className="file-input">
-        <input
+        {/* <input
           type="file"
           accept=".csv"
           id="csv_input"
@@ -34,7 +32,7 @@ const CreateArticlePage = () => {
         <label htmlFor="csv_input">
           <i className="fa-solid fa-arrow-up-from-bracket fa-2xl"></i>{" "}
           <p>Upload .csv file to generate visualization</p>
-        </label>
+        </label> */}
       </div>
       <div className="title">
         <i className="fa-regular fa-clipboard fa-lg"></i> <h2>Data Summary</h2>
@@ -61,17 +59,7 @@ const CreateArticlePage = () => {
         {data && data.goals
           ? data.goals.map((goal, i) => {
               return (
-                <div
-                  className="goal-item"
-                  key={i}
-                  onClick={() => handleGoalInput(goal.question)}
-                >
-                  <h4>
-                    {i + 1}. {goal.question}
-                  </h4>
-                  <p className="visualization">{goal.visualization}</p>
-                  <p>{goal.rationale}</p>
-                </div>
+                <GoalsItem goal={goal} key={i} index={i} filePath={data.path} />
               );
             })
           : ""}
@@ -95,40 +83,7 @@ const CreateArticlePage = () => {
         </div>
         <div className="goal-visualized">
           {charts.map((chart, i) => {
-            const { question, visualization, rationale } = chart.goal;
-            return (
-              <div className="chart-item" key={i}>
-                <div className="visualize-output">
-                  <div className="explain">
-                    <h3>Topic: {question}</h3>
-                    <p>Rationale: {rationale}</p>
-                    <p className="visualization">Visualization: {visualization}</p>
-                    <textarea cols="30" rows="10"></textarea>
-                  </div>
-                  <div className="img-container">
-                    <img
-                      src={`data:image/jpeg;base64,${chart.base64}`}
-                      alt=""
-                    />
-                  </div>
-                </div>
-                <div className="modify-input">
-                  <input
-                    type="text"
-                    name=""
-                    id=""
-                    placeholder="Modify chart with natural language commands."
-                    onChange={(e) => setModify(e.target.value)}
-                  />
-                  <button
-                    type="button"
-                    onClick={() => handleGoalModify(chart.goal, modify)}
-                  >
-                    <i className="fa-solid fa-rotate-right"></i>
-                  </button>
-                </div>
-              </div>
-            );
+            return <ChartItem chart={chart} key={i} index={i} />;
           })}
         </div>
       </div>

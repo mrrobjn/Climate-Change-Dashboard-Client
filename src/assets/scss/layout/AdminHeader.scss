@@ -1,11 +1,14 @@
 @import "../GlobalStyle.scss";
 .admin-header {
-//   border-bottom: 1px solid $main-border-color;
-background: $light-theme-secondary-color;
+  //   border-bottom: 1px solid $main-border-color;
+  background: $light-theme-main-color;
   padding: 10px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: sticky;
+  top: 0;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   .right-nav {
     display: flex;
     align-items: center;

@@ -132,8 +132,8 @@
   }
   .visualize-container {
     display: flex;
-      border-radius: $main-border-radius;
-      flex-direction: column;
+    border-radius: $main-border-radius;
+    flex-direction: column;
     .custom-goal-input {
       padding: 10px;
       border-radius: $main-border-radius;
@@ -169,7 +169,7 @@
         margin-bottom: 20px;
         border-radius: $main-border-radius;
         background: $light-theme-main-color;
-        padding: 10px;
+        padding: 20px;
         .visualize-output {
           display: flex;
           justify-content: space-between;
@@ -178,15 +178,25 @@
             width: 50%;
             display: flex;
             flex-direction: column;
-            h3,p{
+            .control-bar {
+              text-align: right;
+              button {
+                margin-bottom: 10px;
+                background: none;
+                border: none;
+                cursor: pointer;
+              }
+            }
+            h3,
+            p {
               margin-bottom: 10px;
             }
-            .visualization{
+            .visualization {
               color: $csv-color;
             }
-            textarea{
+            textarea {
               border: 1px solid $main-border-color;
-              flex:1;
+              flex: 1;
               resize: none;
               padding: 10px;
               font-size: 16px;
