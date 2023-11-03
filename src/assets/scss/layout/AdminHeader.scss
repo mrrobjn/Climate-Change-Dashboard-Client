@@ -1,6 +1,5 @@
 @import "../GlobalStyle.scss";
 .admin-header {
-  //   border-bottom: 1px solid $main-border-color;
   background: $light-theme-main-color;
   padding: 10px 20px;
   display: flex;
@@ -9,6 +8,16 @@
   position: sticky;
   top: 0;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  .left-nav{
+    input{
+      width: 400px;
+      padding: 10px;
+      border-radius: $main-border-radius;
+      border: 1px solid $main-border-color;
+      outline: none;
+      font-size: 16px;
+    }
+  }
   .right-nav {
     display: flex;
     align-items: center;

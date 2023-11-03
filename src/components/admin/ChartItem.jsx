@@ -1,14 +1,14 @@
-import React from "react";
 import { useState } from "react";
 import { modifyGoal } from "../../api";
 import { useDispatch } from "react-redux";
 import { removeChart } from "../../redux/slides/VisualizeFormSlice";
+import '../../assets/scss/components/admin/ChartItem.scss'
 
 const ChartItem = ({ chart, index }) => {
   const [modify, setModify] = useState("");
   const [modifies, setModifies] = useState([]);
   const dispatch = useDispatch();
-  const { question, visualization, rationale } = chart.goal;
+  const { question, visualization, rationale } = chart;
   const handleGoalModify = async (goal, modify) => {
     console.log(await modifyGoal(data.path, goal, [...modifies, modify]));
     setModifies((prevModify) => [...prevModify, modify]);

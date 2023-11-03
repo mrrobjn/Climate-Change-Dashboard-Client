@@ -1,4 +1,4 @@
-import React from "react";
+import '../../assets/scss/components/admin/FieldItem.scss'
 
 const FieldItem = ({ field }) => {
   return (

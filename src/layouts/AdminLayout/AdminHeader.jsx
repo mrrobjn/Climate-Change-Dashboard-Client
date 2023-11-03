@@ -1,19 +1,18 @@
-import { DarkModeToggle } from "react-dark-mode-toggle-2";
 import "../../assets/scss/layout/AdminHeader.scss";
-import { useState } from "react";
+import ThemeToggle from "../../components/ThemeToggle";
 const AdminHeader = () => {
-  const [theme, setTheme] = useState(false);
   return (
     <div className="admin-header">
-      <div className="logo"></div>
+      <div className="left-nav">
+        <input type="text" />
+      </div>
       <div className="right-nav">
-        <DarkModeToggle
-          size={50}
-          onChange={(e) => setTheme(!theme)}
-          isDarkMode={theme}
-        />
+        <ThemeToggle />
         <div className="user-avatar">
-          <img src="https://static.primorske.si/foto/highres/GnWeb/CRISTIANO-1.jpg" alt=""/>
+          <img
+            src="https://th.bing.com/th/id/OIP.LtawM41T1wQdDmNquDaAVgHaEK?w=307&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7"
+            alt=""
+          />
         </div>
       </div>
     </div>

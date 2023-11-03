@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import "../assets/scss/components/Sidebar.scss";
-import { useDispatch } from "react-redux";
-import { resetState } from "../redux/slides/ClimateDataFormSlice";
 import getInitialTheme from "../utility/getInitialTheme";
 const Sidebar = () => {
   const [isExpand, setIsExpand] = useState(true);
   const [theme, setTheme] = useState(getInitialTheme);
-  const dispatch = useDispatch();
   useEffect(() => {
     window.addEventListener("storage", () => {
       setTheme(JSON.parse(localStorage.getItem("darkTheme")) || false);
@@ -46,7 +43,6 @@ const Sidebar = () => {
               " " +
               (theme ? "dark" : "light")
             }
-            onClick={() => dispatch(resetState())}
           >
             <i className={data.icon}></i>
             <p className={theme ? "dark" : "light"}>{data.name}</p>

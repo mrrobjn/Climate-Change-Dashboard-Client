@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux";
 import { postSingleGoal } from "../../api";
 import { addChart } from "../../redux/slides/VisualizeFormSlice";
+import '../../assets/scss/components/admin/GoalItem.scss'
 
 const GoalsItem = ({ goal, index, filePath }) => {
   const dispatch = useDispatch();

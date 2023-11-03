@@ -3,11 +3,11 @@ import "../../assets/scss/layout/AdminSidebar.scss";
 
 const paths = [
   {
-    url: "users",
+    url: "/users",
     icon: "fa-regular fa-user",
   },
   {
-    url: "create_article",
+    url: "/articles",
     icon: "fa-regular fa-newspaper",
   },
 ];
@@ -58,7 +58,7 @@ const AdminSidebar = () => {
       </div>
       <div className="bottom">
         <NavLink
-          to="setting"
+          to="/setting"
           className={({ isActive }) => (isActive ? "link-active" : "link")}
         >
           <i className="fa-solid fa-gear"></i>{" "}

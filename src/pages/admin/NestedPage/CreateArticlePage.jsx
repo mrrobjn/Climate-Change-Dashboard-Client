@@ -1,29 +1,51 @@
 import { useState } from "react";
-import "../../assets/scss/pages/admin/CreateArticlePage.scss";
-import { uploadCSV } from "../../api/index.js";
-import FieldItem from "../../components/admin/FieldItem";
-import ChartItem from "../../components/admin/ChartItem";
-import GoalsItem from "../../components/admin/GoalsItem";
+import "../../../assets/scss/pages/admin/CreateArticlePage.scss";
+import { uploadCSV } from "../../../api/index.js";
+import FieldItem from "../../../components/admin/FieldItem.jsx";
+import ChartItem from "../../../components/admin/ChartItem.jsx";
+import GoalsItem from "../../../components/admin/GoalsItem.jsx";
 import { useDispatch, useSelector } from "react-redux";
-import { getSummary } from "../../redux/slides/DataSummarySlice";
-import { dataSummary, visualizeForm } from "../../redux/selector";
+import { getSummary } from "../../../redux/slides/DataSummarySlice.js";
+import { dataSummary, visualizeForm } from "../../../redux/selector.js";
+import axios from "../../../api/axios.jsx";
 const CreateArticlePage = () => {
   const [goal, setGoal] = useState("");
-  const [isLoading, setIsLoadin] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
   const data = useSelector(dataSummary);
   const charts = useSelector(visualizeForm).charts;
   const handleCSVInput = async (e) => {
-    const formData = new FormData();
-    formData.append("file", e.target.files[0]);
-    const res = await uploadCSV(formData);
-    dispatch(getSummary(res));
+    setIsLoading(true);
+    try {
+      const formData = new FormData();
+      formData.append("file", e.target.files[0]);
+      const res = await uploadCSV(formData);
+      dispatch(getSummary(res));
+    } catch (e) {
+      console.error(e);
+    }
+    setIsLoading(false);
   };
-
+  const handleInsertArticle = async () => {
+    try {
+      // const headers = {
+      //   "content-type": "application/x-www-form-urlencoded;charset=utf-8",
+      // };
+      const data = {
+        title: "hello",
+        img_url: "banner.png",
+        contents: charts,
+      };
+      const res = await axios.post("articles/insert", data);
+      alert(res.data.message);
+    } catch (e) {
+      console.error(e);
+    }
+  };
   return (
     <div className="create-article-container">
       <div className="file-input">
-        {/* <input
+        <input
           type="file"
           accept=".csv"
           id="csv_input"
@@ -32,7 +54,7 @@ const CreateArticlePage = () => {
         <label htmlFor="csv_input">
           <i className="fa-solid fa-arrow-up-from-bracket fa-2xl"></i>{" "}
           <p>Upload .csv file to generate visualization</p>
-        </label> */}
+        </label>
       </div>
       <div className="title">
         <i className="fa-regular fa-clipboard fa-lg"></i> <h2>Data Summary</h2>
@@ -87,6 +109,7 @@ const CreateArticlePage = () => {
           })}
         </div>
       </div>
+      <button onClick={() => handleInsertArticle()}>Create</button>
     </div>
   );
 };

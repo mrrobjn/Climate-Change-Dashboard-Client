@@ -1,8 +1,21 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import "./App.scss";
 import { publicRoutes, privateRoutes } from "./routes";
 import { DefaultLayout, AdminLayout } from "./layouts/";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { resetCharts } from "./redux/slides/VisualizeFormSlice";
+import { resetState } from "./redux/slides/ClimateDataFormSlice";
+import { resetSummary } from "./redux/slides/DataSummarySlice";
 function App() {
+  const dispatch = useDispatch();
+  const location = useLocation();
+
+  useEffect(() => {
+    dispatch(resetCharts());
+    dispatch(resetState());
+    dispatch(resetSummary());
+  }, [location, dispatch]);
   return (
     <Routes>
       {publicRoutes.map((route, index) => {

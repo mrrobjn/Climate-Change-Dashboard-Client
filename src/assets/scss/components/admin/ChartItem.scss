@@ -1,0 +1,83 @@
+@import "../../GlobalStyle.scss";
+.chart-item {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  border-radius: $main-border-radius;
+  background: $light-theme-main-color;
+  padding: 10px;
+  .visualize-output {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    .img-container {
+      border-radius: $main-border-radius;
+      border: 1px solid $main-border-color;
+      width: 49%;
+      min-height: 300px;
+      img {
+        width: 100%;
+        border-radius: $main-border-radius;
+      }
+    }
+    .explain {
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      .control-bar {
+        text-align: right;
+        button {
+          margin-bottom: 10px;
+          background: none;
+          border: none;
+          cursor: pointer;
+        }
+      }
+      h3,
+      p {
+        margin-bottom: 10px;
+      }
+      .visualization {
+        color: $csv-color;
+      }
+      textarea {
+        border: 1px solid $main-border-color;
+        flex: 1;
+        resize: none;
+        padding: 10px;
+        font-size: 16px;
+        border-radius: $main-border-radius;
+        font-family: Arial, Helvetica, sans-serif;
+        outline: none;
+        text-align: justify;
+      }
+    }
+  }
+
+  .modify-input {
+    padding: 10px;
+    border-radius: $main-border-radius;
+    background: $light-theme-third-color;
+    display: flex;
+    height: fit-content;
+    flex: 1;
+    input {
+      padding: 10px;
+      border: none;
+      background: $light-theme-main-color;
+      border-radius: $main-border-radius;
+      outline-style: none;
+      font-size: 16px;
+      flex: 1;
+      margin-right: 10px;
+    }
+    button {
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+      background: $csv-color;
+      color: $dark-theme-text-color;
+      border-radius: $main-border-radius;
+    }
+  }
+}

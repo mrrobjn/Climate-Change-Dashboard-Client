@@ -1,0 +1,25 @@
+@import '../../GlobalStyle.scss';
+.goal-item {
+    padding: 10px;
+    flex-basis: 19%;
+    margin-bottom: 10px;
+    border-radius: $main-border-radius;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid $main-border-color;
+    transition: 0.4s;
+    cursor: pointer;
+    h4 {
+      margin-bottom: 10px;
+    }
+    .visualization {
+      color: $csv-color;
+      margin-bottom: 10px;
+    }
+    &:hover {
+      border: 1px solid $csv-color;
+    }
+    p {
+      font-size: 14px;
+    }
+  }
