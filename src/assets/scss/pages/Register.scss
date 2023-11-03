@@ -3,6 +3,7 @@
   &-img {
     position: absolute;
     width: 100%;
+    // height: 100%;
   }
   &-container {
     display: flex;
@@ -36,7 +37,7 @@
             color: $light-theme-text-color;
           }
           &.dark {
-            border-right: 3px solid #fff;
+            border-right: 3px solid $dark-theme-text-color#fff;
             color: $dark-theme-text-color;
           }
         }
@@ -55,14 +56,14 @@
       .welcome-to-ccd {
         width: 100%;
         text-align: center;
-        color: #fff;
+        color:$dark-theme-text-color;
         font-weight: 700;
         font-size: 62px;
       }
       .title-sign-up-now {
         width: 100%;
         text-align: center;
-        color: #fff;
+        color: $dark-theme-text-color;
         font-size: 26px;
       }
     }
@@ -72,14 +73,14 @@
         justify-content: space-between;
         padding: 25px 108px 53px 108px;
         width: 100%;
-        height: 975px;
+        height: 90%;
         background-color: #fff;
         margin-top: 60px;
         border-radius: 15px;
         position: relative;
         .close-button {
           border-radius: 7px;
-          border: 1px solid #f6f4f4;
+          border: 1px solid $dark-theme-text-color;
           width: 46px;
           height: 46px;
           background-color: #fff;
@@ -109,7 +110,7 @@
           height: 52px;
           border-radius: 10px;
           font-size: 17px;
-          border: 1px solid #e4dcdc;
+          border: 1px solid #f2f2f2;
         }
         .title-email {
           padding-bottom: 12px;
@@ -123,7 +124,7 @@
           height: 52px;
           border-radius: 10px;
           font-size: 17px;
-          border: 1px solid #e4dcdc;
+          border: 1px solid $input-boder-color;
         }
         .input-password {
           width: 100%;
@@ -137,7 +138,7 @@
             top: 10px;
           }
           left: 0;
-          border: 1px solid #e4dcdc;
+          border: 1px solid $input-boder-color;
         }
         .password-bar {
           position: relative;
@@ -152,7 +153,7 @@
             & svg {
               width: 22px;
               height: 22px;
-              background-color: #fff;
+              background-color: $dark-theme-text-color;
               border: none;
             }
           }
@@ -174,7 +175,7 @@
             top: 10px;
           }
           left: 0;
-          border: 1px solid #e4dcdc;
+          border: 1px solid $input-boder-color;
         }
         .cf-password-bar {
           position: relative;
@@ -189,7 +190,7 @@
             & svg {
               width: 22px;
               height: 22px;
-              background-color: #fff;
+              background-color: $dark-theme-text-color;
               border: none;
             }
           }
@@ -205,42 +206,42 @@
           & label {
             border-radius: 15px;
           }
-          .cb-remember {
+          .cb-terms {
             width: 20px;
             height: 20px;
-            border-radius: 1px solid #d9e1e7;
+            border-radius: 1px solid $input-boder-color;
           }
-          .title-remember {
+          .title-terms {
             font-size: 16px;
-            color: #d9e1e7;
+            color: $dark-theme-main-color;
             margin-left: 12px;
           }
         }
         .button-register-your-account {
-          background-color: #000;
+          background-color: $dark-theme-main-color;
           font-weight: 700;
           width: 100%;
           height: 52px;
-          color: #fff;
+          color: $dark-theme-text-color;
           border-radius: 12px;
           outline: none;
           font-size: 16px;
         }
         .title-or {
           display: flex;
-          color: #d9e1e7;
+          color: $input-boder-color;
           align-items: center;
           font-size: 16px;
           padding: 23px 0px 23px 0px;
           .line1 {
             width: 244px;
             height: 1px;
-            background-color: #d9e1e7;
+            background-color: $input-boder-color;
           }
           .line2 {
             width: 244px;
             height: 1px;
-            background-color: #d9e1e7;
+            background-color: $input-boder-color;
           }
           .text-or {
             margin-left: 10px;
@@ -277,10 +278,10 @@
           display: flex;
           text-align: center;
           justify-content: center;
-          padding-top: 20px;
+          padding-top: 30px;
           font-size: 15px;
           .title-an-account {
-            color: #d9e1e7;
+            color: $input-boder-color;
           }
           .title-login {
             font-weight: 700;

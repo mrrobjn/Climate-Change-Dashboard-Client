@@ -128,8 +128,8 @@ const Login = () => {
             </div>
             <div className="container-checkbox">
               <label for="checkbox"></label>
-              <input className="cb-remember" type="checkbox" />
-              <div className="title-remember">I agree with Terms and Policy</div>
+              <input className="cb-terms" type="checkbox" />
+              <div className="title-terms">I agree with Terms and Policy</div>
             </div>
 
             <div className="button-register">
