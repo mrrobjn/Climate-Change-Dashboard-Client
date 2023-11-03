@@ -1,0 +1,41 @@
+@import '../../GlobalStyle.scss';
+.field-item {
+    padding: 10px;
+    flex-basis: 19%;
+    margin-bottom: 10px;
+    border-radius: $main-border-radius;
+    display: flex;
+    flex-direction: column;
+    transition: 0.4s;
+    border: 1px solid $main-border-color;
+    &:hover {
+      border: 1px solid $csv-color;
+    }
+    h4 {
+      margin-bottom: 10px;
+      color: $csv-color;
+    }
+    p {
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+    .samples-list {
+      display: flex;
+      flex-wrap: wrap;
+      flex: 1;
+      background: $light-theme-main-color;
+      border-radius: $main-border-radius;
+      padding: 10px;
+      border: 1px solid $main-border-color;
+      padding-bottom: 0;
+      .sample-item {
+        padding: 5px;
+        border-radius: $main-border-radius;
+        border: 1px solid $main-border-color;
+        font-size: 14px;
+        margin-right: 10px;
+        margin-bottom: 10px;
+        height: fit-content;
+      }
+    }
+  }

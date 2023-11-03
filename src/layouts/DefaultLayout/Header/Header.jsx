@@ -1,32 +1,16 @@
 import React, { useEffect, useState } from "react";
 import "../../../assets/scss/layout/Header.scss";
-import { DarkModeToggle } from "react-dark-mode-toggle-2";
 import { NavLink } from "react-router-dom";
 import getInitialTheme from "../../../utility/getInitialTheme";
+import ThemeToggle from "../../../components/ThemeToggle";
 
 const Header = () => {
   const [theme, setTheme] = useState(getInitialTheme);
-
   useEffect(() => {
-    localStorage.setItem("darkTheme", JSON.stringify(theme));
-  }, [theme]);
-
-  const handleChange = (item) => {
-    localStorage.setItem("darkTheme", JSON.stringify(item));
-    setTheme(item);
-    const storageEvent = document.createEvent("StorageEvent");
-    storageEvent.initStorageEvent(
-      "storage",
-      false,
-      false,
-      "darkTheme",
-      theme,
-      !theme,
-      null,
-      localStorage
-    );
-    window.dispatchEvent(storageEvent);
-  };
+    window.addEventListener("storage", () => {
+      setTheme(JSON.parse(localStorage.getItem("darkTheme")) || false);
+    });
+  }, []);
   return (
     <div className={`header ${theme ? "dark" : "light"}`}>
       <div className="header-container">
@@ -101,11 +85,7 @@ const Header = () => {
           </NavLink>
         </div>
         <div className="theme-toggle">
-          <DarkModeToggle
-            size={50}
-            onChange={(e) => handleChange(e)}
-            isDarkMode={theme}
-          />
+          <ThemeToggle />
         </div>
       </div>
     </div>
