@@ -5,6 +5,9 @@ import AirQualityPage from "../pages/NestedPage/AirQualityPage";
 import WeatherForcastPage from "../pages/NestedPage/WeatherForcastPage";
 import HistoricalWeatherPage from "../pages/NestedPage/HistoricalWeatherPage";
 import SingleArticlePage from "../pages/SingleArticlePage";
+import Login from "../pages/Login";
+import Register from "../pages/Register";
+import NoneFooterLayout from './../layouts/NoneFooterLayout/index';
 import CreateArticlePage from "../pages/admin/NestedPage/CreateArticlePage";
 import AdminArticles from "../pages/admin/AdminArticlesPage";
 import AdminUsersPage from "../pages/admin/AdminUsersPage";
@@ -25,6 +28,10 @@ const publicRoutes = [
     path: "/articles_list",
     component: ArticlesPage,
   },
+  { path: "/articles/:article_id", component: SingleArticlePage },
+  { path: "/create_article", component: CreateArticlePage },
+  { path: "/login", component: Login, layout: NoneFooterLayout },
+  { path: "/register", component: Register, layout: NoneFooterLayout},
   { path: "/articles_list/:article_id", component: SingleArticlePage },
 ];
 const privateRoutes = [

@@ -1,0 +1,294 @@
+@import "../GlobalStyle.scss";
+.container-register {
+  &-img {
+    position: absolute;
+    width: 100%;
+    // height: 100%;
+  }
+  &-container {
+    display: flex;
+    position: relative;
+    &-left {
+      width: 47%;
+      &-logo-icon {
+        padding-top: 342px;
+        padding-bottom: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        & svg {
+          width: 163px;
+          height: 109px;
+        }
+        &-logo-icon {
+          width: 100%;
+          text-align: center;
+          svg {
+            width: 40px;
+            flex-shrink: 0;
+          }
+        }
+        &-brand-text {
+          font-size: 25px;
+          font-weight: bold;
+          padding: 10px;
+          &.light {
+            border-right: 3px solid #000;
+            color: $light-theme-text-color;
+          }
+          &.dark {
+            border-right: 3px solid $dark-theme-text-color#fff;
+            color: $dark-theme-text-color;
+          }
+        }
+        &-second-logo {
+          margin-left: 10px;
+          width: 100px;
+          height: 50px;
+          img {
+            width: 100%;
+            height: 100%;
+            transition: 0.4s;
+            object-fit: contain;
+          }
+        }
+      }
+      .welcome-to-ccd {
+        width: 100%;
+        text-align: center;
+        color:$dark-theme-text-color;
+        font-weight: 700;
+        font-size: 62px;
+      }
+      .title-sign-up-now {
+        width: 100%;
+        text-align: center;
+        color: $dark-theme-text-color;
+        font-size: 26px;
+      }
+    }
+
+    &-right {
+      .block-register {
+        justify-content: space-between;
+        padding: 25px 108px 53px 108px;
+        width: 100%;
+        height: 90%;
+        background-color: #fff;
+        margin-top: 60px;
+        border-radius: 15px;
+        position: relative;
+        .close-button {
+          border-radius: 7px;
+          border: 1px solid $dark-theme-text-color;
+          width: 46px;
+          height: 46px;
+          background-color: #fff;
+          outline: none;
+          position: absolute;
+          top: 10px;
+          right: 10px;
+
+          & svg {
+            width: 20px;
+            height: 20px;
+          }
+        }
+        .title-register {
+          padding-bottom: 46px;
+          font-weight: 600;
+          font-size: 36px;
+        }
+        .title-username {
+          padding-bottom: 12px;
+          font-weight: 600;
+          font-size: 17px;
+        }
+        .input-username {
+          padding-left: 10px;
+          width: 100%;
+          height: 52px;
+          border-radius: 10px;
+          font-size: 17px;
+          border: 1px solid #f2f2f2;
+        }
+        .title-email {
+          padding-bottom: 12px;
+          padding-top: 40px;
+          font-weight: 600;
+          font-size: 17px;
+        }
+        .input-email {
+          padding-left: 10px;
+          width: 100%;
+          height: 52px;
+          border-radius: 10px;
+          font-size: 17px;
+          border: 1px solid $input-boder-color;
+        }
+        .input-password {
+          width: 100%;
+          height: 52px;
+          padding-left: 10px;
+          font-size: 30px;
+          border-radius: 10px;
+          &::placeholder {
+            font-size: 30px;
+            position: absolute;
+            top: 10px;
+          }
+          left: 0;
+          border: 1px solid $input-boder-color;
+        }
+        .password-bar {
+          position: relative;
+
+          &-eyeIcon {
+            position: absolute;
+
+            right: 20px;
+            margin-top: 11px;
+            margin-top: 17px;
+            border: none;
+            & svg {
+              width: 22px;
+              height: 22px;
+              background-color: $dark-theme-text-color;
+              border: none;
+            }
+          }
+        }
+        .title-password {
+          padding: 29px 0px 12px 0px;
+          font-weight: 600;
+          font-size: 17px;
+        }
+        .input-cf-password {
+          width: 100%;
+          height: 52px;
+          padding-left: 10px;
+          font-size: 30px;
+          border-radius: 10px;
+          &::placeholder {
+            font-size: 30px;
+            position: absolute;
+            top: 10px;
+          }
+          left: 0;
+          border: 1px solid $input-boder-color;
+        }
+        .cf-password-bar {
+          position: relative;
+
+          &-eyeIcon {
+            position: absolute;
+
+            right: 20px;
+            margin-top: 11px;
+            margin-top: 17px;
+            border: none;
+            & svg {
+              width: 22px;
+              height: 22px;
+              background-color: $dark-theme-text-color;
+              border: none;
+            }
+          }
+        }
+        .title-cf-password {
+          padding: 29px 0px 12px 0px;
+          font-weight: 600;
+          font-size: 17px;
+        }
+        .container-checkbox {
+          display: flex;
+          padding: 31px 0px 31px 0px;
+          & label {
+            border-radius: 15px;
+          }
+          .cb-terms {
+            width: 20px;
+            height: 20px;
+            border-radius: 1px solid $input-boder-color;
+          }
+          .title-terms {
+            font-size: 16px;
+            color: $dark-theme-main-color;
+            margin-left: 12px;
+          }
+        }
+        .button-register-your-account {
+          background-color: $dark-theme-main-color;
+          font-weight: 700;
+          width: 100%;
+          height: 52px;
+          color: $dark-theme-text-color;
+          border-radius: 12px;
+          outline: none;
+          font-size: 16px;
+        }
+        .title-or {
+          display: flex;
+          color: $input-boder-color;
+          align-items: center;
+          font-size: 16px;
+          padding: 23px 0px 23px 0px;
+          .line1 {
+            width: 244px;
+            height: 1px;
+            background-color: $input-boder-color;
+          }
+          .line2 {
+            width: 244px;
+            height: 1px;
+            background-color: $input-boder-color;
+          }
+          .text-or {
+            margin-left: 10px;
+            margin-right: 10px;
+          }
+        }
+        .button-continue-with-gg {
+          display: flex;
+          background-color: $highlight-element-color;
+          font-weight: 700;
+          width: 100%;
+          height: 52px;
+          color: $dark-theme-main-color;
+          border-radius: 12px;
+          outline: none;
+          border: none;
+          & svg {
+            margin-left: 161px;
+            margin-top: 12px;
+          }
+          .text-ctn-gg {
+            font-size: 16px;
+            margin-top: 16px;
+            margin-left: 15px;
+          }
+        }
+        .title-create {
+          text-align: center;
+          font-weight: 700;
+          font-size: 15px;
+          padding-top: 81px;
+        }
+        .have-an-account {
+          display: flex;
+          text-align: center;
+          justify-content: center;
+          padding-top: 30px;
+          font-size: 15px;
+          .title-an-account {
+            color: $input-boder-color;
+          }
+          .title-login {
+            font-weight: 700;
+            padding-left: 10px;
+          }
+        }
+      }
+    }
+  }
+}
