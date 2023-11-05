@@ -5,10 +5,12 @@ const paths = [
   {
     url: "/users",
     icon: "fa-regular fa-user",
+    label: "Users",
   },
   {
     url: "/articles",
     icon: "fa-regular fa-newspaper",
+    label: "Articles",
   },
 ];
 
@@ -51,7 +53,7 @@ const AdminSidebar = () => {
               key={i}
               className={({ isActive }) => (isActive ? "link-active" : "link")}
             >
-              <i className={path.icon} />
+              <i className={path.icon} />{path.label}
             </NavLink>
           );
         })}
@@ -61,7 +63,7 @@ const AdminSidebar = () => {
           to="/setting"
           className={({ isActive }) => (isActive ? "link-active" : "link")}
         >
-          <i className="fa-solid fa-gear"></i>{" "}
+          <i className="fa-solid fa-gear"></i>Settings
         </NavLink>
       </div>
     </div>

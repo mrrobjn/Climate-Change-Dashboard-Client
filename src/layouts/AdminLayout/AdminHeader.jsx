@@ -4,7 +4,7 @@ const AdminHeader = () => {
   return (
     <div className="admin-header">
       <div className="left-nav">
-        <input type="text" />
+        <input type="text" placeholder="Type something"/>
       </div>
       <div className="right-nav">
         <ThemeToggle />

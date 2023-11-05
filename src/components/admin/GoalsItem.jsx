@@ -1,13 +1,26 @@
 import { useDispatch } from "react-redux";
 import { postSingleGoal } from "../../api";
 import { addChart } from "../../redux/slides/VisualizeFormSlice";
-import '../../assets/scss/components/admin/GoalItem.scss'
+import "../../assets/scss/components/admin/GoalItem.scss";
+import { useState } from "react";
+import { toast } from "react-toastify";
 
 const GoalsItem = ({ goal, index, filePath }) => {
+  const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
   const handleGoalInput = async (goal) => {
-    const currentChart = await postSingleGoal(filePath, goal);
-    dispatch(addChart(currentChart))
+    if (isLoading) {
+      toast.error("Loading visualize, please wait");
+    } else {
+      setIsLoading(true);
+      try {
+        const res = await postSingleGoal(filePath, goal);
+        dispatch(addChart(res));
+      } catch (e) {
+        toast.error(e.response.data.error);
+      }
+      setIsLoading(false);
+    }
   };
 
   return (

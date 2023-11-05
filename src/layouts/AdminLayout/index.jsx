@@ -21,7 +21,7 @@ const AdminLayout = ({ children }) => {
         style={{ height: "100vh", overflowY: "auto", flex: 1 }}
       >
         <AdminHeader />
-        <div className="admin-content">{children}</div>
+        <div className="admin-content" style={{display: "flex"}}>{children}</div>
       </div>
     </div>
   );

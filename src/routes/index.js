@@ -28,7 +28,7 @@ const publicRoutes = [
     path: "/articles_list",
     component: ArticlesPage,
   },
-  { path: "/articles/:article_id", component: SingleArticlePage },
+  // { path: "/articles/:article_id", component: SingleArticlePage },
   { path: "/create_article", component: CreateArticlePage },
   { path: "/login", component: Login, layout: NoneFooterLayout },
   { path: "/register", component: Register, layout: NoneFooterLayout},

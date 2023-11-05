@@ -95,7 +95,7 @@ export const postSingleGoal = async (path, goal) => {
     );
     return response.data;
   } catch (err) {
-    console.error(err);
+    throw err;
   }
 };
 export const modifyGoal = async (path, goal, instruction) => {
