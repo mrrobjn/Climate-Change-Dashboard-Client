@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { Line, Bar } from "react-chartjs-2";
 import { getArticleDetail, getSingleArticle } from "../api";
-import { useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import "../assets/scss/pages/SingleArticlePage.scss";
 import { formatDate } from "../utility/formatDateTime";
 const SingleArticlePage = () => {
@@ -19,7 +18,13 @@ const SingleArticlePage = () => {
     <div className="single-article-container">
       <div className="article-header">
         <div className="left">
+          <div className="return-btn">
+            <NavLink to={"/articles_list"}>
+              <i className="fa-solid fa-angle-left"></i> Back to List
+            </NavLink>
+          </div>
           <h1>{article.title}</h1>
+          <p className="desc">{article.desc}</p>
           <div className="side-info">
             <p>{formatDate(article.date_created)}</p>
             <p>
@@ -32,7 +37,21 @@ const SingleArticlePage = () => {
         </div>
       </div>
       <p>{article.description}</p>
-      <div className="article-content-container"></div>
+      <div className="article-content-container">
+        {detail.map((d, i) => {
+          return (
+            <div className="chart-detail-item" key={i}>
+              <h2>{"Topic " + (i + 1) + ": " + d.question}</h2>
+              <p>Purpose: {d.rationale}</p>
+              <div className="chart-img">
+                <img src={d.chartURL} alt="" />
+                <p className="img-desc">{d.visualization}</p>
+              </div>
+              <p>{d.desc}</p>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };

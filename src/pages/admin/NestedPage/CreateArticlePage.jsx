@@ -34,7 +34,7 @@ const CreateArticlePage = () => {
     }
     setIsLoading(false);
   };
- 
+
   return (
     <div className="create-article-container">
       <div className="file-input">
@@ -115,7 +115,11 @@ const CreateArticlePage = () => {
               })}
             </div>
           </div>
-         <CreateArticleForm/>
+          <div className="title">
+            <i className="fa-solid fa-forward-step fa-lg"></i>
+            <h2>Final Steps</h2>
+          </div>
+          <CreateArticleForm />
         </>
       ) : null}
     </div>

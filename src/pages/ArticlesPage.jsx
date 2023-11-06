@@ -30,7 +30,7 @@ const ArticlesPage = () => {
         {articles?.map((article, i) => {
           return (
             <div className="news-card" key={i}>
-              <Link to={`/articles/` + article._id}>
+              <Link to={`/articles_list/` + article._id}>
                 <div className="img-container">
                   <img src={article.img_url} alt="image-news" />
                 </div>
@@ -38,7 +38,7 @@ const ArticlesPage = () => {
               <div className="information">
                 <div>
                   <Link className="title-news">{article.title}</Link>
-                  <p className="content">{article.description || ""}</p>
+                  <p className="content">{article.desc || ""}</p>
                 </div>
                 <div className="date">{formatDate(article.date_created)}</div>
               </div>

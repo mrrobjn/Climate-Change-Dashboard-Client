@@ -1,21 +1,31 @@
 import { useState } from "react";
 import { modifyGoal } from "../../api";
-import { useDispatch } from "react-redux";
-import { removeChart } from "../../redux/slides/VisualizeFormSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  removeChart,
+  updateChart,
+  updateDesc,
+} from "../../redux/slides/VisualizeFormSlice";
 import "../../assets/scss/components/admin/ChartItem.scss";
+import { dataSummary } from "../../redux/selector";
 
 const ChartItem = ({ chart, index }) => {
   const [modify, setModify] = useState("");
   const [modifies, setModifies] = useState([]);
   const dispatch = useDispatch();
+  const data = useSelector(dataSummary);
   const { question, visualization, rationale } = chart;
   const handleGoalModify = async (goal, modify) => {
-    console.log(await modifyGoal(data.path, goal, [...modifies, modify]));
+    const newBase64 = await modifyGoal(data.path, goal, [...modifies, modify]);
     setModifies((prevModify) => [...prevModify, modify]);
+    dispatch(updateChart({ index, base64: newBase64 }));
   };
   const handleRemove = () => {
     dispatch(removeChart(index));
   };
+  const handleInput=(desc)=>{
+    dispatch(updateDesc({index,desc}))
+  }
   return (
     <>
       <div className="chart-item">
@@ -36,6 +46,7 @@ const ChartItem = ({ chart, index }) => {
               cols="30"
               rows="10"
               placeholder="Describe chart visualized with your own language"
+              onChange={(e)=>handleInput(e.target.value)}
             ></textarea>
             <div className="modify-input">
               <input
