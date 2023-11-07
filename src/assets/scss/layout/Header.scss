@@ -121,9 +121,20 @@
         }
       }
     }
-    .theme-toggle {
+    .right-nav {
       display: flex;
       align-items: center;
+      a {
+        margin-bottom: 0;
+        padding: 10px 20px;
+        margin-left: 10px;
+      }
+      img {
+        width: 40px;
+        height: 40px;
+        object-fit: fill;
+        margin-left: 10px;
+      }
     }
   }
 }

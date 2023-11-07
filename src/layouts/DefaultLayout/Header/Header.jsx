@@ -3,14 +3,26 @@ import "../../../assets/scss/layout/Header.scss";
 import { NavLink } from "react-router-dom";
 import getInitialTheme from "../../../utility/getInitialTheme";
 import ThemeToggle from "../../../components/ThemeToggle";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../../../config/firebase";
+import { logout } from "../../../auth/firebase";
+import { toast } from "react-toastify";
 
 const Header = () => {
   const [theme, setTheme] = useState(getInitialTheme);
+  const [user] = useAuthState(auth);
   useEffect(() => {
     window.addEventListener("storage", () => {
       setTheme(JSON.parse(localStorage.getItem("darkTheme")) || false);
     });
   }, []);
+  const handleLogOut = async () => {
+    try {
+      logout()
+    } catch (error) {
+      toast.error(error.message)
+    }
+  };
   return (
     <div className={`header ${theme ? "dark" : "light"}`}>
       <div className="header-container">
@@ -74,7 +86,7 @@ const Header = () => {
             DATA ACCESS
           </NavLink>
           <NavLink
-            to="/articles"
+            to="/articles_list"
             className={({ isActive }) =>
               isActive
                 ? `link-active ${theme ? "dark" : "light"}`
@@ -84,8 +96,28 @@ const Header = () => {
             ARTICLES
           </NavLink>
         </div>
-        <div className="theme-toggle">
+        <div className="right-nav">
           <ThemeToggle />
+          {!user ? (
+            <NavLink to={"/login"} className="primary-btn">
+              Log in
+            </NavLink>
+          ) : (
+            <div className="dropdown">
+              <img
+                src={
+                  user && user.photoURL !== null
+                    ? user.photoURL
+                    : "https://icon-library.com/images/default-user-icon/default-user-icon-13.jpg"
+                }
+              />
+              <div className="dropdown-content">
+                <div className="dropdown-btn" onClick={() => handleLogOut()}>
+                  Log out
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

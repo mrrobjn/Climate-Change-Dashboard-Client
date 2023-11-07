@@ -12,6 +12,8 @@ import CreateArticlePage from "../pages/admin/NestedPage/CreateArticlePage";
 import AdminArticles from "../pages/admin/AdminArticlesPage";
 import AdminUsersPage from "../pages/admin/AdminUsersPage";
 import ArticlesListPages from "../pages/admin/NestedPage/ArticlesListPages";
+import TestLogin from "../pages/TestLogin";
+import TestRegister from "../pages/TestRegister";
 
 const publicRoutes = [
   { path: "/", component: HomePage },
@@ -28,11 +30,12 @@ const publicRoutes = [
     path: "/articles_list",
     component: ArticlesPage,
   },
-  // { path: "/articles/:article_id", component: SingleArticlePage },
   { path: "/create_article", component: CreateArticlePage },
   { path: "/login", component: Login, layout: NoneFooterLayout },
   { path: "/register", component: Register, layout: NoneFooterLayout},
   { path: "/articles_list/:article_id", component: SingleArticlePage },
+  { path: "/test_login", component: TestLogin },
+  { path: "/test_register", component: TestRegister },
 ];
 const privateRoutes = [
   {

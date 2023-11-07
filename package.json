@@ -23,6 +23,7 @@
     "react-dark-mode-toggle-2": "^2.0.8",
     "react-date-picker": "^10.5.1",
     "react-dom": "^18.2.0",
+    "react-firebase-hooks": "^5.1.1",
     "react-google-button": "^0.7.2",
     "react-loading": "^2.0.3",
     "react-loading-skeleton": "^3.3.1",

@@ -99,7 +99,7 @@ const HomePage = () => {
             <HomeNewItem />
           </div>
           <div className="button-container">
-            <NavLink to="articles" className="button-view">
+            <NavLink to="articles_list" className="button-view">
               Explore
             </NavLink>
           </div>

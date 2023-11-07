@@ -1,8 +1,10 @@
 import React from "react";
 import '../assets/scss/components/HomeNewItem.scss'
-const HomeNewItem = () => {
+import { Link } from "react-router-dom";
+const HomeNewItem = (props) => {
+  const {id}= props
   return (
-    <a className="feed">
+    <Link className="feed" to={""}>
       <img
         className="feed-image"
         src="https://image2.slideserve.com/5236252/climate-graphs-l.jpg"
@@ -15,7 +17,7 @@ const HomeNewItem = () => {
           Vietnam Climate change is affecting Vietnam
         </div>
       </div>
-    </a>
+    </Link>
   );
 };
 
