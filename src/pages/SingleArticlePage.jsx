@@ -3,9 +3,11 @@ import { getArticleDetail, getSingleArticle } from "../api";
 import { NavLink, useParams } from "react-router-dom";
 import "../assets/scss/pages/SingleArticlePage.scss";
 import { formatDate } from "../utility/formatDateTime";
+import getInitialTheme from "../utility/getInitialTheme";
 const SingleArticlePage = () => {
   const [article, setArticle] = useState({});
   const [detail, setDetail] = useState([]);
+  const [theme, setTheme] = useState(getInitialTheme);
   const { article_id } = useParams();
   useEffect(() => {
     const fetchData = async () => {
@@ -14,8 +16,13 @@ const SingleArticlePage = () => {
     };
     fetchData();
   }, []);
+  useEffect(() => {
+    window.addEventListener("storage", () => {
+      setTheme(JSON.parse(localStorage.getItem("darkTheme")) || false);
+    });
+  }, []);
   return (
-    <div className="single-article-container">
+    <div className={`single-article-container ${theme ? "dark" : "light"}`}>
       <div className="article-header">
         <div className="left">
           <div className="return-btn">

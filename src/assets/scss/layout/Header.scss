@@ -134,6 +134,36 @@
         height: 40px;
         object-fit: fill;
         margin-left: 10px;
+        border-radius: 50%;
+      }
+      position: relative;
+      cursor: pointer;
+      span {
+        font-size: 14px;
+        color: #fff;
+      }
+      span:hover {
+        opacity: 0.8;
+      }
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #fff;
+        min-width: 140px;
+        z-index: 1;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        .dropdown-btn {
+          margin: 0;
+          padding: 10px;
+          font-size: 14px;
+          text-align: center;
+          transition: linear 0.2s;
+        }
+      }
+      .dropdown:hover .dropdown-content {
+        display: flex;
+        flex-direction: column;
+        cursor: pointer;
       }
     }
   }

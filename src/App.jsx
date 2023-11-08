@@ -19,7 +19,6 @@ function App() {
     dispatch(resetState());
     dispatch(resetSummary());
   }, [location, dispatch]);
-
   return (
     <div>
       <ToastContainer

@@ -13,7 +13,7 @@ import { toast } from "react-toastify";
 const AdminLayout = ({ children }) => {
   const [theme, setTheme] = useState(getInitialTheme);
   const [user, loading] = useAuthState(auth);
-  const [isLoading, setIsLoading] = useState( true); // Add this line
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
   useEffect(() => {
     window.addEventListener("storage", () => {
@@ -29,16 +29,13 @@ const AdminLayout = ({ children }) => {
         if (!querySnapshot.empty) {
           const docData = querySnapshot.docs[0].data();
           if (docData.role !== "admin") {
+            navigate("/");
           }
         } else {
           toast.error("No user found");
           navigate("/");
         }
         setIsLoading(false);
-      }
-      else{
-        navigate("/");
-
       }
     };
     fetchUser();
@@ -54,7 +51,7 @@ const AdminLayout = ({ children }) => {
           alignItems: "center",
         }}
       >
-        <ReactLoading type="spin" color="#ccc" width={100}/>
+        <ReactLoading type="spin" color="#ccc" width={100} />
       </div>
     );
   } else {

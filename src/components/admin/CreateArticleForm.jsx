@@ -5,10 +5,11 @@ import { visualizeForm } from "../../redux/selector";
 import axios from "../../api/axios";
 import "../../assets/scss/components/admin/CreateArticleForm.scss";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { storage } from "../../config/firebase";
+import { auth, storage } from "../../config/firebase";
 import { v4 } from "uuid";
 import base64ToBlob from "../../utility/base64ToBlob";
 import { addChartImgUrl } from "../../redux/slides/VisualizeFormSlice";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 const initState = {
   title: "",
@@ -19,7 +20,7 @@ const CreateArticleForm = () => {
   const [img, setImg] = useState(null);
   const [info, setInfo] = useState(initState);
   const charts = useSelector(visualizeForm).charts;
-  const dispatch = useDispatch();
+  const [user]=useAuthState(auth)
   const handleInsertArticle = async (e) => {
     e.preventDefault();
     try {
@@ -30,7 +31,6 @@ const CreateArticleForm = () => {
         toast.error(err.message);
       });
 
-      // Create a new array to hold the updated charts
       let updatedCharts = [...charts];
 
       for (let index = 0; index < charts.length; index++) {
@@ -43,16 +43,15 @@ const CreateArticleForm = () => {
           toast.error(err.message);
         });
 
-        // Update the chart URL in the new array and set base64 to an empty string
         updatedCharts[index] = { ...chart, chartURL, base64: "" };
       }
 
-      // Now create the data object with the updated charts
       const data = {
         title: info.title,
         img_url: photoURL,
-        contents: updatedCharts, // Use the updated charts
+        contents: updatedCharts, 
         desc: info.desc,
+        author_id: user.uid
       };
 
       const res = await axios.post("articles/insert", data);

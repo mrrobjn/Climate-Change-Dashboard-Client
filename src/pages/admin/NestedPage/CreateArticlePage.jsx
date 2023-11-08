@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "../../../assets/scss/pages/admin/CreateArticlePage.scss";
-import { uploadCSV } from "../../../api/index.js";
+import { postSingleGoal, uploadCSV } from "../../../api/index.js";
 import FieldItem from "../../../components/admin/FieldItem.jsx";
 import ChartItem from "../../../components/admin/ChartItem.jsx";
 import GoalsItem from "../../../components/admin/GoalsItem.jsx";
@@ -11,12 +11,17 @@ import {
 } from "../../../redux/slides/DataSummarySlice.js";
 import { dataSummary, visualizeForm } from "../../../redux/selector.js";
 import ReactLoading from "react-loading";
-import { resetCharts } from "../../../redux/slides/VisualizeFormSlice.js";
+import {
+  addChart,
+  resetCharts,
+} from "../../../redux/slides/VisualizeFormSlice.js";
 import CreateArticleForm from "../../../components/admin/CreateArticleForm.jsx";
+import { toast } from "react-toastify";
 
 const CreateArticlePage = () => {
   const [goal, setGoal] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoading2, setIsLoading2] = useState(false);
   const dispatch = useDispatch();
   const data = useSelector(dataSummary);
   const charts = useSelector(visualizeForm).charts;
@@ -34,7 +39,14 @@ const CreateArticlePage = () => {
     }
     setIsLoading(false);
   };
-
+  const handleGoalInput = async () => {
+    try {
+      const res = await postSingleGoal(data.path, goal);
+      dispatch(addChart(res));
+    } catch (e) {
+      toast.error(e.response.data.error);
+    }
+  };
   return (
     <div className="create-article-container">
       <div className="file-input">
@@ -105,7 +117,7 @@ const CreateArticlePage = () => {
                 onChange={(e) => setGoal(e.target.value)}
                 placeholder="Describe a new visualization goal to generate a visualization"
               />
-              <button type="button" onClick={() => handleGoalInput(goal)}>
+              <button type="button" onClick={() => handleGoalInput()}>
                 <i className="fa-solid fa-angles-right"></i> Generate
               </button>
             </div>

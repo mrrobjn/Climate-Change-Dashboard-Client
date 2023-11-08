@@ -1,21 +1,14 @@
 import React from "react";
-import '../assets/scss/components/HomeNewItem.scss'
+import "../assets/scss/components/HomeNewItem.scss";
 import { Link } from "react-router-dom";
-const HomeNewItem = (props) => {
-  const {id}= props
+import { formatDate } from "../utility/formatDateTime";
+const HomeNewItem = ({ d }) => {
   return (
-    <Link className="feed" to={""}>
-      <img
-        className="feed-image"
-        src="https://image2.slideserve.com/5236252/climate-graphs-l.jpg"
-        alt=""
-      />
+    <Link className="feed" to={`articles_list/${d._id}`}>
+      <img className="feed-image" src={d.img_url} alt="" />
       <div className="feed-information">
-        <div className="date"> 14 SEPTEMBER , 2021</div>
-        <div className="title">
-          Climate change is affecting Vietnam Climate change is affecting
-          Vietnam Climate change is affecting Vietnam
-        </div>
+        <div className="date">{formatDate(d.createAt)}</div>
+        <div className="title">{d.title}</div>
       </div>
     </Link>
   );

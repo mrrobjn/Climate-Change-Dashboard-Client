@@ -35,6 +35,7 @@ const TestLogin = () => {
           value={info.email}
           name="email"
           required
+          placeholder="example@gmail.com"
         />
         <input
           type="password"
@@ -42,10 +43,13 @@ const TestLogin = () => {
           value={info.password}
           name="password"
           required
+          placeholder="***********"
         />
         <button type="submit">Login</button>
       </form>
-      <button type="button" onClick={()=>signInWithGoogle()}>GOOGLE</button>
+      <button type="button" onClick={() => signInWithGoogle()}>
+        GOOGLE
+      </button>
     </div>
   );
 };

@@ -1,7 +1,7 @@
 @import "../GlobalStyle.scss";
 .single-article-container {
   width: 100%;
-  max-width: 1400px;
+  max-width: 1200px;
   margin: auto;
   padding-top: 20px;
   .article-header {
@@ -10,9 +10,6 @@
     min-height: 300px;
     text-align: justify;
     justify-content: space-between;
-    border-bottom: 1px solid $main-border-color;
-    padding-bottom: 20px;
-    margin-bottom: 20px;
     .left {
       width: 49%;
       .return-btn {
@@ -47,9 +44,9 @@
   .article-content-container {
     text-align: justify;
     .chart-detail-item {
-      border-bottom: 1px solid $main-border-color;
-      padding-bottom: 20px;
-      margin-bottom: 20px;
+      border-top: 1px solid $main-border-color;
+      padding: 20px 0;
+      margin-top: 20px;
       h2 {
         margin-bottom: 10px;
         color: #007bff;
@@ -72,5 +69,15 @@
     }
   }
   &.dark {
+    h1,p,a{
+      color: $dark-theme-text-color;
+      transition: 0.4s;
+    }
+  }
+}
+@media only screen and (max-width: 1400px) {
+  .single-article-container{
+    width: auto;
+    padding: 20px 10px 0 10px;
   }
 }
