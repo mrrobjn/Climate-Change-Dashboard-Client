@@ -1,13 +1,14 @@
 @import "../GlobalStyle.scss";
 .admin-header {
   background: $light-theme-main-color;
-  padding: 10px 20px;
+  padding: 10px 40px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   position: sticky;
   top: 0;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  z-index: 100;
   .left-nav{
     input{
       width: 400px;
