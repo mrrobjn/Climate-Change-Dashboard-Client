@@ -45,7 +45,6 @@ const ArticlesListPages = () => {
       console.log(error);
     }
   };
-  
   return (
     <>
       <div className="articles-list-container">

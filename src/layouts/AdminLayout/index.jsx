@@ -46,7 +46,7 @@ const AdminLayout = ({ children }) => {
       }
     };
     fetchUser();
-  }, [user, loading, navigate]);
+  }, [user, loading]);
 
   if (isLoading) {
     return (
