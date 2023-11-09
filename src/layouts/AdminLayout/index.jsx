@@ -22,24 +22,32 @@ const AdminLayout = ({ children }) => {
   }, []);
   useEffect(() => {
     const fetchUser = async () => {
-      if (user) {
-        setIsLoading(true);
-        const q = query(collection(db, "users"), where("uid", "==", user?.uid));
-        const querySnapshot = await getDocs(q);
-        if (!querySnapshot.empty) {
-          const docData = querySnapshot.docs[0].data();
-          if (docData.role !== "admin") {
+      if (!loading) {
+        if (user) {
+          setIsLoading(true);
+          const q = query(
+            collection(db, "users"),
+            where("uid", "==", user?.uid)
+          );
+          const querySnapshot = await getDocs(q);
+          if (!querySnapshot.empty) {
+            const docData = querySnapshot.docs[0].data();
+            if (docData.role !== "admin") {
+              navigate("/");
+            }
+          } else {
+            toast.error("No user found");
             navigate("/");
           }
+          setIsLoading(false);
         } else {
-          toast.error("No user found");
-          navigate("/");
+          navigate("/login");
         }
-        setIsLoading(false);
       }
     };
     fetchUser();
-  }, [user, loading]);
+  }, [user, loading, navigate]);
+
   if (isLoading) {
     return (
       <div

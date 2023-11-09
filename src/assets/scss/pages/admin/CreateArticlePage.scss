@@ -66,6 +66,10 @@
     padding: 0 10px;
     justify-content: space-evenly;
     margin-bottom: 10px;
+    min-height: 500px;
+    &.loading {
+      align-items: center;
+    }
   }
   .visualize-container {
     display: flex;

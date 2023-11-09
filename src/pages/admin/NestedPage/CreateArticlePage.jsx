@@ -90,19 +90,23 @@ const CreateArticlePage = () => {
             <i className="fa-solid fa-angle-up"></i> Goals (
             {data && data.goals ? data.goals?.length : 0})
           </div>
-          <div className="goals-container">
-            {data && data.goals
-              ? data.goals.map((goal, i) => {
-                  return (
-                    <GoalsItem
-                      goal={goal}
-                      key={i}
-                      index={i}
-                      filePath={data.path}
-                    />
-                  );
-                })
-              : ""}
+          <div className={`goals-container ${isLoading2 ? "loading" : null}`}>
+            {isLoading2 ? (
+              <ReactLoading type="bars" color="#ccc" />
+            ) : data && data.goals ? (
+              data.goals.map((goal, i) => {
+                return (
+                  <GoalsItem
+                    goal={goal}
+                    key={i}
+                    index={i}
+                    filePath={data.path}
+                    setIsLoading={setIsLoading2}
+                    isLoading={isLoading2}
+                  />
+                );
+              })
+            ) : null}
           </div>
           <div className="title">
             <i className="fa-solid fa-chart-pie fa-lg"></i>

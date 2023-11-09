@@ -58,7 +58,7 @@ const ChartItem = ({ chart, index }) => {
               />
               <button
                 type="button"
-                onClick={() => handleGoalModify(chart.goal, modify)}
+                onClick={() => handleGoalModify(chart.question, modify)}
               >
                 <i className="fa-solid fa-rotate-right"></i>
               </button>

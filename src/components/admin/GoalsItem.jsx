@@ -2,11 +2,9 @@ import { useDispatch } from "react-redux";
 import { postSingleGoal } from "../../api";
 import { addChart } from "../../redux/slides/VisualizeFormSlice";
 import "../../assets/scss/components/admin/GoalItem.scss";
-import { useState } from "react";
 import { toast } from "react-toastify";
 
-const GoalsItem = ({ goal, index, filePath }) => {
-  const [isLoading, setIsLoading] = useState(false);
+const GoalsItem = ({ goal, index, filePath,setIsLoading,isLoading }) => {
   const dispatch = useDispatch();
   const handleGoalInput = async (goal) => {
     if (isLoading) {
@@ -24,13 +22,15 @@ const GoalsItem = ({ goal, index, filePath }) => {
   };
 
   return (
-    <div className="goal-item" onClick={() => handleGoalInput(goal.question)}>
-      <h4>
-        {index + 1}. {goal.question}
-      </h4>
-      <p className="visualization">{goal.visualization}</p>
-      <p>{goal.rationale}</p>
-    </div>
+    <>
+      <div className="goal-item" onClick={() => handleGoalInput(goal.question)}>
+        <h4>
+          {index + 1}. {goal.question}
+        </h4>
+        <p className="visualization">{goal.visualization}</p>
+        <p>{goal.rationale}</p>
+      </div>
+    </>
   );
 };
 
