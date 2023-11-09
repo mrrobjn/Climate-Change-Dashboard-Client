@@ -34,13 +34,19 @@ export const downloadAirQuality = async (
   startDate,
   endDate
 ) =>
-  get("air-quality/download", {
-    latitude,
-    longitude,
-    hourly,
-    start_date: startDate,
-    end_date: endDate,
-  });
+  get(
+    "air-quality/download?lat=" +
+      latitude +
+      "&lon=" +
+      longitude +
+      "&hourly=" +
+      hourly +
+      "&start_date=" +
+      startDate +
+      "&end_date=" +
+      endDate
+  );
+
 export const getWeatherForCast = async (latitude, longitude, hourly, daily) =>
   get("forecast/get", { latitude, longitude, hourly, daily });
 export const getHistoricalWeather = async (
