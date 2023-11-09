@@ -17,7 +17,7 @@ const HomePage = () => {
     const fetchData = async () => {
       try {
         const res = await axios.get("articles/get");
-        setData(res.data);
+        setData(res.data.articles);
       } catch (error) {
         console.log(error);
       }

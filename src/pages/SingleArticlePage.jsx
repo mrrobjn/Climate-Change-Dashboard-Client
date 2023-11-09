@@ -35,7 +35,7 @@ const SingleArticlePage = () => {
           <div className="side-info">
             <p>{formatDate(article.date_created)}</p>
             <p>
-              <i className="fa-regular fa-eye"></i> {article.views}
+              <i className="fa-regular fa-eye"></i> {article.view}
             </p>
           </div>
         </div>

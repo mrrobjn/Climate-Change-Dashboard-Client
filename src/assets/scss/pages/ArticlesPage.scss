@@ -8,7 +8,10 @@
   min-height: 100vh;
   .heading {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+    .sort-bar {
+      width: 200px;
+    }
     .search-bar {
       display: flex;
       input {
@@ -18,13 +21,16 @@
         outline: none;
         transition: 0.4s;
       }
-      button {
+      .search-icon {
+        height: 38px;
         transition: 0.4s;
         padding: 0 10px;
         background: transparent;
         border: none;
-        cursor: pointer;
         border-bottom: 1px solid $main-border-color;
+        display: flex;
+      align-items: center;
+
         i {
           transition: 0.4s;
           color: $light-theme-text-color;
@@ -84,12 +90,19 @@
   }
   &.dark {
     .heading {
+      .sort-bar {
+        .select {
+          .css-13cymwt-control {
+            // background: $dark-theme-secondary-color;
+          }
+        }
+      }
       .search-bar {
         input {
           background-color: $dark-theme-secondary-color;
           color: $dark-theme-text-color;
         }
-        button {
+        .search-icon {
           i {
             color: $dark-theme-text-color;
           }

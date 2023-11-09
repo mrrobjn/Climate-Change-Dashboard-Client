@@ -14,6 +14,7 @@ import AdminUsersPage from "../pages/admin/AdminUsersPage";
 import ArticlesListPages from "../pages/admin/NestedPage/ArticlesListPages";
 import TestLogin from "../pages/TestLogin";
 import TestRegister from "../pages/TestRegister";
+import UserListPage from "../pages/admin/NestedPage/UserListPage";
 
 const publicRoutes = [
   { path: "/", component: HomePage },
@@ -49,6 +50,9 @@ const privateRoutes = [
   {
     path: "users",
     component: AdminUsersPage,
+    children: [
+      { path: "list", component: UserListPage },
+    ],
   },
 ];
 export { privateRoutes, publicRoutes };

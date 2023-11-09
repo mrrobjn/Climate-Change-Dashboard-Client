@@ -1,9 +1,16 @@
-import React from 'react'
+import { useEffect } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
 
 const AdminUsersPage = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    navigate("list");
+  }, []);
   return (
-    <div>AdminUsersPage</div>
-  )
-}
+    <>
+      <Outlet />
+    </>
+  );
+};
 
-export default AdminUsersPage
+export default AdminUsersPage;

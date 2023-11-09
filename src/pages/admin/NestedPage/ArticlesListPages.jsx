@@ -9,30 +9,57 @@ import ReactLoading from "react-loading";
 import { toast } from "react-toastify";
 
 const options = [
-  { value: "Date descending", label: "Date descending" },
-  { value: "Date ascending", label: "Date ascending" },
-  { value: "View descending", label: "View descending" },
-  { value: "View descending", label: "View descending" },
+  {
+    value: "Date descending",
+    label: "Date descending",
+    field: "createdAt",
+    order: "desc",
+  },
+  {
+    value: "Date ascending",
+    label: "Date ascending",
+    field: "createdAt",
+    order: "asc",
+  },
+  {
+    value: "View descending",
+    label: "View descending",
+    field: "view",
+    order: "desc",
+  },
+  {
+    value: "View ascending",
+    label: "View ascending",
+    field: "view",
+    order: "asc",
+  },
 ];
 
 const ArticlesListPages = () => {
   const [articles, setArticles] = useState([]);
   const [sort, setSort] = useState(options[0]);
   const [page, setPage] = useState(1);
+  const [pageCount, setPageCount] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+  const [search, setSearch] = useState("");
+
+  const fetchData = async () => {
+    setIsLoading(true);
+    try {
+      const res = await axios.get(
+        `/articles/get?limit=10&page=${page}&field=${sort.field}&order=${sort.order}&search=${search}`
+      );
+      setArticles(res.data.articles);
+      setPageCount(res.data.totalPages);
+    } catch (error) {
+      console.log(error);
+    }
+    setIsLoading(false);
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
-      try {
-        const res = await axios.get(`/articles/get?limit=10&page=${page}`);
-        setArticles(res.data);
-      } catch (error) {
-        console.log(error);
-      }
-      setIsLoading(false);
-    };
     fetchData();
-  }, [page]);
+  }, [page, sort, search]);
   const handlePageClick = (data) => {
     let selected = data.selected;
     setPage(selected + 1);
@@ -40,7 +67,8 @@ const ArticlesListPages = () => {
   const handleDeleteBtn = async (id) => {
     try {
       const res = await axios.delete(`/articles/delete`, { data: { _id: id } });
-      toast.success(res.data.message)
+      toast.success(res.data.message);
+      fetchData();
     } catch (error) {
       console.log(error);
     }
@@ -55,13 +83,15 @@ const ArticlesListPages = () => {
                 options={options}
                 placeholder="Sort by"
                 value={sort}
-                onChange={(e) => setSort(e.value)}
+                onChange={(e) => setSort(e)}
               />
             </div>
             <input
               className="search-input"
               type="text"
               placeholder="Search for articles"
+              onChange={(e) => setSearch(e.target.value)}
+              value={search}
             />
           </div>
           <div className="right-control">
@@ -118,7 +148,7 @@ const ArticlesListPages = () => {
             nextLabel={"next"}
             breakLabel={"..."}
             breakClassName={"break-me"}
-            pageCount={10}
+            pageCount={pageCount}
             marginPagesDisplayed={2}
             pageRangeDisplayed={5}
             onPageChange={handlePageClick}

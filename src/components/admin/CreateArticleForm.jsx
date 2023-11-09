@@ -76,6 +76,7 @@ const CreateArticleForm = () => {
               placeholder="Description"
               value={info.desc}
               onChange={(e) => setInfo({ ...info, desc: e.target.value })}
+              maxLength={1000}
             />
           </div>
           <div className="file-input-field">

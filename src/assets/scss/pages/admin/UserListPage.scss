@@ -1,0 +1,113 @@
+@import "../../GlobalStyle.scss";
+.users-list-container {
+  width: 100%;
+  .control-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: fit-content;
+    padding: 10px 0;
+    align-items: center;
+    .left-control {
+      display: flex;
+      .search-input {
+        padding: 10px;
+        margin-left: 10px;
+        outline: none;
+        border: 1px solid $main-border-color;
+        border-radius: $main-border-radius;
+        font-size: 15px;
+      }
+    }
+    .right-control {
+      a {
+        padding-top: 10px;
+        i {
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+  .users-table-container {
+    width: 100%;
+    background: $light-theme-main-color;
+    padding: 10px 20px;
+    border-radius: $main-border-radius;
+    min-height: 400px;
+    &.loading{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    table {
+      border-spacing: 0;
+      width: 100%;
+      thead {
+        th {
+          padding: 10px;
+          border-collapse: collapse;
+          background: $light-theme-secondary-color;
+          text-transform: capitalize;
+        }
+        th:first-child {
+          border-top-left-radius: 10px;
+          border-bottom-left-radius: 10px;
+        }
+
+        th:last-child {
+          border-top-right-radius: 10px;
+          border-bottom-right-radius: 10px;
+        }
+      }
+      tbody {
+        td {
+          text-align: center;
+          padding: 20px 10px;
+          border-bottom: 1px solid $light-theme-secondary-color;
+        }
+        button {
+          padding: 10px;
+          cursor: pointer;
+          border: none;
+          border-radius: $main-border-radius;
+          color: #fff;
+          &.edit-btn {
+            background: #007bff;
+          }
+          &.delete-btn {
+            background: #ff0000;
+          }
+        }
+      }
+    }
+  }
+  .paginate-container {
+    display: flex;
+    width: 100%;
+    padding-top: 40px;
+    ul {
+      margin: auto;
+      display: flex;
+      border: 1px solid $main-border-color;
+      border-radius: $main-border-radius;
+      background: $light-theme-main-color;
+    }
+    li {
+      cursor: pointer;
+      border-right: 1px solid $main-border-color;
+      transition: 0.4s;
+      padding: 10px 0;
+      a {
+        color: #007bff;
+      padding: 10px 20px;
+
+      }
+      &.active {
+        background: #007bff;
+        a {
+          color: #fff;
+        }
+      }
+    }
+  }
+}
