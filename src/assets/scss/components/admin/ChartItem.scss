@@ -13,7 +13,6 @@
       border-radius: $main-border-radius;
       border: 1px solid $main-border-color;
       width: 50%;
-      min-height: 300px;
       img {
         width: 100%;
         border-radius: $main-border-radius;
@@ -75,9 +74,27 @@
           color: $dark-theme-text-color;
           border-radius: $main-border-radius;
         }
+        textarea,
+        button,
+        input {
+          &:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            i {
+              animation: rotation 1s infinite linear;
+            }
+          }
+        
+        }
+        @keyframes rotation {
+          from {
+            transform: rotate(0deg);
+          }
+          to {
+            transform: rotate(359deg);
+          }
+        }
       }
     }
   }
-
-  
 }

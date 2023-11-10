@@ -17,7 +17,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-  height: 60px;
+    height: 60px;
     svg {
       width: 30px;
     }
@@ -34,21 +34,20 @@
     padding-right: 10px;
     border-bottom-left-radius: 10px;
     border-top-left-radius: 10px;
-    i{
+    i {
       margin-bottom: 10px;
     }
     &.link-active {
       background: $light-theme-secondary-color;
-      color: #000;
     }
     &:hover {
-      // color: $light-theme-text-color;
+      background: $light-theme-secondary-color;
     }
   }
-  .bottom{
+  .bottom {
     flex-direction: column;
     display: flex;
-    a{
+    a {
       margin-bottom: 10px;
     }
   }

@@ -1,11 +1,15 @@
 import { useEffect } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 
 const AdminArticles = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+
   useEffect(() => {
-    navigate("list");
-  }, []);
+    if (location.pathname === "/articles") {
+      navigate("list");
+    }
+  }, [navigate, location]);
   return (
     <>
       <Outlet />

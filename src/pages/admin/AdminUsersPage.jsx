@@ -1,11 +1,15 @@
 import { useEffect } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 
 const AdminUsersPage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+
   useEffect(() => {
-    navigate("list");
-  }, []);
+    if (location.pathname === "/users") {
+      navigate("list");
+    }
+  }, [navigate, location]);
   return (
     <>
       <Outlet />

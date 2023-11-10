@@ -25,6 +25,7 @@ const CreateArticlePage = () => {
   const dispatch = useDispatch();
   const data = useSelector(dataSummary);
   const charts = useSelector(visualizeForm).charts;
+
   const handleCSVInput = async (e) => {
     setIsLoading(true);
     dispatch(resetSummary());
@@ -40,12 +41,16 @@ const CreateArticlePage = () => {
     setIsLoading(false);
   };
   const handleGoalInput = async () => {
+    setIsLoading2(true);
     try {
       const res = await postSingleGoal(data.path, goal);
       dispatch(addChart(res));
+      setGoal("");
     } catch (e) {
       toast.error(e.response.data.error);
+      setIsLoading2(false);
     }
+    setIsLoading2(false);
   };
   return (
     <div className="create-article-container">
@@ -120,8 +125,14 @@ const CreateArticlePage = () => {
                 id=""
                 onChange={(e) => setGoal(e.target.value)}
                 placeholder="Describe a new visualization goal to generate a visualization"
+                disabled={isLoading2}
+                value={goal}
               />
-              <button type="button" onClick={() => handleGoalInput()}>
+              <button
+                type="button"
+                onClick={() => handleGoalInput()}
+                disabled={isLoading2}
+              >
                 <i className="fa-solid fa-angles-right"></i> Generate
               </button>
             </div>

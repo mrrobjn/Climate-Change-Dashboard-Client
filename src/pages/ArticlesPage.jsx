@@ -65,6 +65,15 @@ const ArticlesPage = () => {
     let selected = data.selected;
     setPage(selected + 1);
   };
+  const handleIncreaseView = async (_id) => {
+    try {
+      const data={_id}
+      const res = await axios.post(`articles/increase_view`, data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className={`container-news ${theme ? "dark" : "light"}`}>
       <div className="heading">
@@ -94,14 +103,22 @@ const ArticlesPage = () => {
         {articles?.map((article, i) => {
           return (
             <div className="news-card" key={i}>
-              <Link to={`/articles_list/` + article._id}>
+              <Link
+                onClick={() => handleIncreaseView(article._id)}
+                to={`/articles_list/` + article._id}
+              >
                 <div className="img-container">
                   <img src={article.img_url} alt="image-news" />
                 </div>
               </Link>
               <div className="information">
                 <div>
-                  <Link className="title-news">{article.title}</Link>
+                  <Link
+                    onClick={() => handleIncreaseView(article._id)}
+                    className="title-news"
+                  >
+                    {article.title}
+                  </Link>
                   <p className="content">{article.desc || ""}</p>
                 </div>
                 <div className="date">

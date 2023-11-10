@@ -4,6 +4,8 @@ import { NavLink, useParams } from "react-router-dom";
 import "../assets/scss/pages/SingleArticlePage.scss";
 import { formatDate } from "../utility/formatDateTime";
 import getInitialTheme from "../utility/getInitialTheme";
+import CommentSection from "../components/CommentSection";
+import RelatedArticles from "../components/RelatedArticles";
 const SingleArticlePage = () => {
   const [article, setArticle] = useState({});
   const [detail, setDetail] = useState([]);
@@ -59,6 +61,8 @@ const SingleArticlePage = () => {
           );
         })}
       </div>
+      <RelatedArticles/>
+      <CommentSection />
     </div>
   );
 };

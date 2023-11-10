@@ -1,19 +1,23 @@
 import Sidebar from "../components/Sidebar";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import "../assets/scss/pages/DataAccessPage.scss";
 import { useEffect, useState } from "react";
 import getInitialTheme from "../utility/getInitialTheme";
 const DataAccessPage = () => {
   const navigate = useNavigate();
   const [theme, setTheme] = useState(getInitialTheme);
+  const location = useLocation();
+
   useEffect(() => {
     window.addEventListener("storage", () => {
       setTheme(JSON.parse(localStorage.getItem("darkTheme")) || false);
     });
   }, []);
   useEffect(() => {
-    navigate("/data/forecast");
-  }, []);
+    if (location.pathname === "/data") {
+      navigate("forecast");
+    }
+  }, [navigate, location]);
   return (
     <>
       <div className="data-page-container">

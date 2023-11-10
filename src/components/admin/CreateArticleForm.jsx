@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { visualizeForm } from "../../redux/selector";
 import axios from "../../api/axios";
@@ -8,7 +8,6 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { auth, storage } from "../../config/firebase";
 import { v4 } from "uuid";
 import base64ToBlob from "../../utility/base64ToBlob";
-import { addChartImgUrl } from "../../redux/slides/VisualizeFormSlice";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 const initState = {
@@ -20,9 +19,12 @@ const CreateArticleForm = () => {
   const [img, setImg] = useState(null);
   const [info, setInfo] = useState(initState);
   const charts = useSelector(visualizeForm).charts;
-  const [user]=useAuthState(auth)
+  const [user] = useAuthState(auth);
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleInsertArticle = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     try {
       const imgName = v4();
       const imgRef = ref(storage, `article_covers/${imgName}`);
@@ -49,16 +51,18 @@ const CreateArticleForm = () => {
       const data = {
         title: info.title,
         img_url: photoURL,
-        contents: updatedCharts, 
+        contents: updatedCharts,
         desc: info.desc,
-        author_id: user.uid
+        author_id: user.uid,
       };
 
       const res = await axios.post("articles/insert", data);
       toast.success(res.data.message);
     } catch (e) {
       console.error(e);
+      setIsLoading(false);
     }
+    setIsLoading(false);
   };
 
   return (
@@ -71,20 +75,26 @@ const CreateArticleForm = () => {
               placeholder="Your title"
               value={info.title}
               onChange={(e) => setInfo({ ...info, title: e.target.value })}
+              required
+              disabled={isLoading}
             />
             <textarea
               placeholder="Description"
               value={info.desc}
               onChange={(e) => setInfo({ ...info, desc: e.target.value })}
               maxLength={1000}
+              required
+              disabled={isLoading}
             />
           </div>
           <div className="file-input-field">
             <input
               type="file"
               id="cover_upload"
-              accept=".jpg,.png"
+              accept=".jpg,.png,.gif"
               onChange={(e) => setImg(e.target.files[0])}
+              required={!isLoading}
+              disabled={isLoading}
             />
             <div className="upload-header">
               <i className="fa-solid fa-cloud-arrow-up"></i> upload
@@ -105,9 +115,11 @@ const CreateArticleForm = () => {
             </label>
           </div>
         </div>
-        <button type="submit" className="primary-btn">
-          Create
-        </button>
+        <div className="btn-container">
+          <button type="submit" className="primary-btn" disabled={isLoading}>
+            Save
+          </button>
+        </div>
       </form>
     </div>
   );

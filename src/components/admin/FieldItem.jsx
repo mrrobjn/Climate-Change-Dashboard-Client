@@ -7,8 +7,12 @@ const FieldItem = ({ field }) => {
         <h4>#{field.column}</h4>
         <p>Type: {field.properties.dtype}</p>
         <p># Unique value: {field.properties.num_unique_values}</p>
-        {field.properties.min && <p># Min: {field.properties.min}</p>}
-        {field.properties.max && <p># Max: {field.properties.max}</p>}
+        {field.properties.min !== undefined && (
+          <p># Min: {field.properties.min}</p>
+        )}
+        {field.properties.max !== undefined && (
+          <p># Max: {field.properties.max}</p>
+        )}
         <div className="samples-list">
           {field.properties.samples.map((sample, i) => {
             return (

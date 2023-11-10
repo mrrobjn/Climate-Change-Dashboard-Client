@@ -117,6 +117,6 @@ export const modifyGoal = async (path, goal, instruction) => {
     );
     return response.data;
   } catch (err) {
-    console.error(err);
+    throw err;
   }
 };

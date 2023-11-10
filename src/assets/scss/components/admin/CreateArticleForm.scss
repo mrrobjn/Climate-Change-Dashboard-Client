@@ -81,15 +81,33 @@
         }
       }
     }
-    button {
-      margin-bottom: 0;
-      width: 100%;
-      font-weight: bold;
-      text-transform: uppercase;
-      padding: 15px;
-      &:hover {
-        background: #333;
+    .btn-container {
+      text-align: right;
+      button {
+        margin-bottom: 0;
+        font-weight: bold;
+        text-transform: uppercase;
+        padding: 10px 15px;
+        &:hover {
+          background: #333;
+        }
       }
     }
+  }
+  input,
+  textarea,
+  button {
+    &:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+      &:hover {
+        background: #ccc;
+      }
+    }
+  }
+}
+@media only screen and (max-width: 1200px) {
+  .create-article-form {
+    width: auto;
   }
 }
