@@ -35,7 +35,7 @@ const CommentSection = () => {
         <div className="add-comment-field">
           <div className="avatar-container">
             <img
-              src="https://icon-library.com/images/default-user-icon/default-user-icon-13.jpg"
+              src="https://static.vecteezy.com/system/resources/previews/001/840/618/original/picture-profile-icon-male-icon-human-or-people-sign-and-symbol-free-vector.jpg"
               alt=""
             />
           </div>
@@ -57,19 +57,34 @@ const CommentSection = () => {
             <div className="comment-detail">
               <div className="avatar-container">
                 <img
-                  src="https://icon-library.com/images/default-user-icon/default-user-icon-13.jpg"
+                  src="https://static.vecteezy.com/system/resources/previews/001/840/618/original/picture-profile-icon-male-icon-human-or-people-sign-and-symbol-free-vector.jpg"
                   alt=""
                 />
               </div>
               <div className="detail-right">
-                <p>Nhac si mong mo</p>
+                <div className="top-detail">
+                  <p className="user-name">Johnny Evans</p>
+                  <p className="comment-date">2 days ago</p>
+                </div>
                 <p>{comment.text}</p>
-              </div>{" "}
+              </div>
             </div>
             {comment.replies.map((reply, replyIndex) => (
-              <p key={replyIndex} style={{ marginLeft: "20px" }}>
-                {reply}
-              </p>
+              <div className="reply-item" key={replyIndex}>
+                <div className="avatar-container">
+                  <img
+                    src="https://static.vecteezy.com/system/resources/previews/001/840/618/original/picture-profile-icon-male-icon-human-or-people-sign-and-symbol-free-vector.jpg"
+                    alt=""
+                  />
+                </div>
+                <div className="detail-right">
+                  <div className="top-detail">
+                    <p className="user-name">Johnny Evans</p>
+                    <p className="comment-date">2 days ago</p>
+                  </div>
+                  <p>{reply}</p>
+                </div>{" "}
+              </div>
             ))}
             <form onSubmit={(event) => handleReplySubmit(event, index)}>
               <input
@@ -77,6 +92,7 @@ const CommentSection = () => {
                 value={reply[index] || ""}
                 onChange={(event) => handleReplyChange(event, index)}
                 placeholder="Write a reply"
+                required
               />
               <button type="submit">Reply</button>
             </form>

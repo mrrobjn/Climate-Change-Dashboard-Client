@@ -109,6 +109,7 @@ const ArticlesListPages = () => {
             <table>
               <thead>
                 <tr>
+                  <th>#</th>
                   <th>title</th>
                   <th>date created</th>
                   <th>view</th>
@@ -120,6 +121,7 @@ const ArticlesListPages = () => {
                   articles.map((article, i) => {
                     return (
                       <tr key={i}>
+                        <td>{i + 1}</td>
                         <td>{article.title}</td>
                         <td>{convertISOToYYYYMMDD(article.createdAt)}</td>
                         <td>{article.view}</td>

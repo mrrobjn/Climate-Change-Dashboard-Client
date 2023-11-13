@@ -12,7 +12,7 @@ const GoalsItem = ({ goal, index, filePath, setIsLoading, isLoading }) => {
       const res = await postSingleGoal(filePath, goal);
       dispatch(addChart(res));
     } catch (e) {
-      toast.error(e.response.data.error);
+      toast.error(e.response.data.message);
       setIsLoading(false);
     }
     setIsLoading(false);

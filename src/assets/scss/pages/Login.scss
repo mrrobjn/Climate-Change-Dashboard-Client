@@ -19,7 +19,8 @@
   &-container {
     display: flex;
     position: relative;
-    width: 100%;
+  max-width: 1400px;
+  width: 100%;
     justify-content: space-around;
 
     @include for-size(tablet-lg) {

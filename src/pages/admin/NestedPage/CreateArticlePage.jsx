@@ -28,15 +28,18 @@ const CreateArticlePage = () => {
 
   const handleCSVInput = async (e) => {
     setIsLoading(true);
-    dispatch(resetSummary());
-    dispatch(resetCharts());
-    try {
-      const formData = new FormData();
-      formData.append("file", e.target.files[0]);
-      const res = await uploadCSV(formData);
-      dispatch(getSummary(res));
-    } catch (e) {
-      console.error(e);
+    if (e) {
+      dispatch(resetSummary());
+      dispatch(resetCharts());
+      try {
+        const formData = new FormData();
+        formData.append("file", e.target.files[0]);
+        const res = await uploadCSV(formData);
+        dispatch(getSummary(res));
+      } catch (error) {
+        toast.error(error.response.data.message);
+        setIsLoading(false);
+      }
     }
     setIsLoading(false);
   };
@@ -47,7 +50,7 @@ const CreateArticlePage = () => {
       dispatch(addChart(res));
       setGoal("");
     } catch (e) {
-      toast.error(e.response.data.error);
+      toast.error(e.response.data.message);
       setIsLoading2(false);
     }
     setIsLoading2(false);
@@ -73,7 +76,7 @@ const CreateArticlePage = () => {
           )}
         </label>
       </div>
-      {data.summary.fields.length > 0 ? (
+      {data.summary.fields && data.summary.fields.length > 0 ? (
         <>
           <div className="title">
             <i className="fa-regular fa-clipboard fa-lg"></i>{" "}

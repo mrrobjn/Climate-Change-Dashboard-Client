@@ -1,10 +1,10 @@
 @import "../GlobalStyle.scss";
 .comment-section {
   border: 1px solid $main-border-color;
-  padding: 20px;
+  padding: 20px 40px;
   border-radius: $second-border-radius;
   h3 {
-    margin-bottom: 10px;
+    margin-bottom:20px;
   }
   form {
     .add-comment-field {
@@ -19,26 +19,27 @@
         border-radius: 50%;
         img {
           width: 100%;
+          border-radius: 50%;
           height: 100%;
         }
       }
       input {
-        padding: 20px 15px;
+        padding:15px;
         border: none;
         background: $light-theme-secondary-color;
         flex: 1;
         margin-left: 10px;
-        border-bottom-left-radius: $second-border-radius;
-        border-top-left-radius: $second-border-radius;
+        border-bottom-left-radius: $main-border-radius;
+        border-top-left-radius: $main-border-radius;
         outline: none;
         font-size: 16px;
       }
       .btn-container {
         background: $light-theme-secondary-color;
-        border-bottom-right-radius: $second-border-radius;
-        border-top-right-radius: $second-border-radius;
-        height: 58.4px;
-        padding: 0 10px;
+        border-bottom-right-radius: $main-border-radius;
+        border-top-right-radius: $main-border-radius;
+        height: 48.4px;
+        padding: 0 5px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -47,7 +48,7 @@
           border: none;
           background: none;
           padding: 10px;
-          border-radius: $second-border-radius;
+          border-radius: $main-border-radius;
           font-weight: bold;
           background: #007bff;
           color: #fff;
@@ -55,26 +56,81 @@
       }
     }
   }
-  .comments-container{
-    .comment-item{
-        width: 100%;
-        .comment-detail{
-            display: flex;
-            .avatar-container {
-                width: 40px;
-                height: 40px;
-                border-radius: 50%;
-                margin-right: 10px;
-                img {
-                  width: 100%;
-                  height: 100%;
-                }
-              }
-              .detail-right{
-                flex: 1;
-              }
+  .comments-container {
+    max-height: 300px;
+    overflow: auto;
+    .comment-item {
+      width: 100%;
+      .comment-detail {
+        display: flex;
+        padding: 10px 0;
+        .avatar-container {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          margin-right: 10px;
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          border-radius: 50%;
+          }
         }
-        
+        .detail-right {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          .top-detail {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            .user-name {
+              font-weight: bold;
+            }
+            .comment-date {
+              color: #a1a1a1;
+              margin-left: 10px;
+            }
+          }
+        }
+      }
+    }
+    .reply-item {
+      margin-left: 20px;
+      display: flex;
+      padding: 10px 0;
+      border-left: 1px solid $main-border-color;
+      padding-left: 20px;
+      .avatar-container {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin-right: 10px;
+        img {
+          width: 100%;
+          border-radius: 50%;
+          height: 100%;
+        }
+      }
+      .detail-right {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        .top-detail {
+          display: flex;
+          align-items: center;
+          font-size: 14px;
+          .user-name {
+            font-weight: bold;
+          }
+          .comment-date {
+            color: #a1a1a1;
+            margin-left: 10px;
+          }
+        }
+      }
     }
   }
 }

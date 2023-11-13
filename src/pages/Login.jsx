@@ -16,7 +16,7 @@ const Login = () => {
     <div className={`container-login ${theme ? "dark" : "light"}`}>
       <img
         className="container-login-img"
-        src="/../../public/assets/images/login-regis-background.png"
+        src="/assets/images/login-regis-background.png"
         alt=""
       />
       <div className="container-login-container">
