@@ -4,7 +4,7 @@
   padding: 20px 40px;
   border-radius: $second-border-radius;
   h3 {
-    margin-bottom:20px;
+    margin-bottom: 20px;
   }
   form {
     .add-comment-field {
@@ -24,7 +24,7 @@
         }
       }
       input {
-        padding:15px;
+        padding: 15px;
         border: none;
         background: $light-theme-secondary-color;
         flex: 1;
@@ -57,10 +57,9 @@
     }
   }
   .comments-container {
-    max-height: 300px;
+    max-height: 400px;
     overflow: auto;
     .comment-item {
-      width: 100%;
       .comment-detail {
         display: flex;
         padding: 10px 0;
@@ -73,7 +72,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-          border-radius: 50%;
+            border-radius: 50%;
           }
         }
         .detail-right {
@@ -95,39 +94,54 @@
           }
         }
       }
-    }
-    .reply-item {
-      margin-left: 20px;
-      display: flex;
-      padding: 10px 0;
-      border-left: 1px solid $main-border-color;
-      padding-left: 20px;
-      .avatar-container {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        margin-right: 10px;
-        img {
-          width: 100%;
-          border-radius: 50%;
-          height: 100%;
+      .interact-bar {
+        display: flex;
+        margin-left: 20px;
+        border-left: 1px solid $main-border-color;
+        padding-left: 30px;
+        button {
+          padding: 5px;
+          background: none;
+          border: none;
+          cursor: pointer;
+          margin-right: 10px;
         }
       }
-      .detail-right {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        .top-detail {
+      .reply-item {
+        margin-left: 20px;
+        border-left: 1px solid $main-border-color;
+        padding-left: 30px;
+        .reply-content {
           display: flex;
-          align-items: center;
-          font-size: 14px;
-          .user-name {
-            font-weight: bold;
+          padding: 10px 0;
+          .avatar-container {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+            img {
+              width: 100%;
+              border-radius: 50%;
+              height: 100%;
+            }
           }
-          .comment-date {
-            color: #a1a1a1;
-            margin-left: 10px;
+          .detail-right {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            .top-detail {
+              display: flex;
+              align-items: center;
+              font-size: 14px;
+              .user-name {
+                font-weight: bold;
+              }
+              .comment-date {
+                color: #a1a1a1;
+                margin-left: 10px;
+              }
+            }
           }
         }
       }
