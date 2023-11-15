@@ -159,6 +159,9 @@
           font-size: 14px;
           text-align: center;
           transition: linear 0.2s;
+          &:hover {
+            background: #ccc;
+          }
         }
       }
       .dropdown:hover .dropdown-content {

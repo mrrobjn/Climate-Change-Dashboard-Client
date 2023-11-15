@@ -18,9 +18,9 @@ const Header = () => {
   }, []);
   const handleLogOut = async () => {
     try {
-      logout()
+      logout();
     } catch (error) {
-      toast.error(error.message)
+      toast.error(error.message);
     }
   };
   return (
@@ -112,6 +112,7 @@ const Header = () => {
                 }
               />
               <div className="dropdown-content">
+                <div className="dropdown-btn">Profile</div>
                 <div className="dropdown-btn" onClick={() => handleLogOut()}>
                   Log out
                 </div>

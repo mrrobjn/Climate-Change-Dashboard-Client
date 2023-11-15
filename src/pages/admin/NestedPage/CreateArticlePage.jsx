@@ -28,7 +28,7 @@ const CreateArticlePage = () => {
 
   const handleCSVInput = async (e) => {
     setIsLoading(true);
-    if (e) {
+    if (e.target.files[0]) {
       dispatch(resetSummary());
       dispatch(resetCharts());
       try {

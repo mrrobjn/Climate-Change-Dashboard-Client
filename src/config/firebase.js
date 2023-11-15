@@ -4,8 +4,8 @@ import { getStorage } from "firebase/storage";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBvBiumafqHh2e9WzrAgijLLsOe-4icAcc",
-  authDomain: "climate-change-dashboard.firebaseapp.com",
+  apiKey: import.meta.env.VITE_API_KEY,
+  authDomain: import.meta.env.VITE_AUTH_DOMAIN,
   projectId: "climate-change-dashboard",
   storageBucket: "climate-change-dashboard.appspot.com",
   messagingSenderId: "907442675591",

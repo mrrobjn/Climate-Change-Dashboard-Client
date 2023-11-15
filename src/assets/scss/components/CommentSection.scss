@@ -107,6 +107,18 @@
           margin-right: 10px;
         }
       }
+      .reply-form {
+        margin-left: 20px;
+        border-left: 1px solid $main-border-color;
+        padding-left: 30px;
+        input {
+          padding: 10px;
+          border: none;
+          background: $light-theme-secondary-color;
+          border-radius: $main-border-radius;
+          outline: none;
+        }
+      }
       .reply-item {
         margin-left: 20px;
         border-left: 1px solid $main-border-color;
