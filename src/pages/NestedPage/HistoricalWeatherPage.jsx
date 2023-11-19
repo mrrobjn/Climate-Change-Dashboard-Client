@@ -95,20 +95,17 @@ const HistoricalWeatherPage = () => {
   const requestData = async () => {
     const { currentLocation, hourly, daily, startDate, endDate } = dataForm;
     if (currentLocation.name !== "") {
-      setJsonPlot(
-        JSON.parse(
-          await axios.get("historical/get", {
-            params: {
-              latitude: currentLocation.latitude,
-              longitude: currentLocation.longitude,
-              hourly: hourly.join(","),
-              daily: daily.join(","),
-              start_date: startDate,
-              end_date: endDate,
-            },
-          })
-        )
-      );
+      const res = await axios.get("historical/get", {
+        params: {
+          latitude: currentLocation.latitude,
+          longitude: currentLocation.longitude,
+          hourly: hourly.join(","),
+          daily: daily.join(","),
+          start_date: startDate,
+          end_date: endDate,
+        },
+      });
+      setJsonPlot(res.data);
     } else {
       toast.error("PLEASE SELECT LOCATION");
     }

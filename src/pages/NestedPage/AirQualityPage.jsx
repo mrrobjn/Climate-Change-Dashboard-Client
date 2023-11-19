@@ -45,19 +45,16 @@ const AirQualityPage = () => {
   const requestData = async () => {
     const { currentLocation, hourly, startDate, endDate } = dataForm;
     if (currentLocation.name !== "") {
-      setJsonPlot(
-        JSON.parse(
-          await axios.get("air-quality/get", {
-            params: {
-              latitude: currentLocation.latitude,
-              longitude: currentLocation.longitude,
-              hourly: hourly.join(","),
-              start_date: startDate,
-              end_date: endDate,
-            },
-          })
-        )
-      );
+      const res = await axios.get("air-quality/get", {
+        params: {
+          latitude: currentLocation.latitude,
+          longitude: currentLocation.longitude,
+          hourly: hourly.join(","),
+          start_date: startDate,
+          end_date: endDate,
+        },
+      });
+      setJsonPlot(res.data);
     } else {
       toast.error("PLEASE SELECT LOCATION");
     }

@@ -108,22 +108,19 @@ const WeatherForcastPage = () => {
   const [data, setData] = useState({});
   const [jsonPlot, setJsonPlot] = useState([]);
   const dataForm = useSelector(climateDataForm);
- 
+
   const requestData = async () => {
     const { currentLocation, hourly, daily } = dataForm;
     if (currentLocation.name !== "") {
-      setJsonPlot(
-        JSON.parse(
-          await axios.get("forecast/get", {
-            params: {
-              latitude: currentLocation.latitude,
-              longitude: currentLocation.longitude,
-              hourly: hourly.join(","),
-              daily: daily.join(","),
-            },
-          })
-        )
-      );
+      const res = await axios.get("forecast/get", {
+        params: {
+          latitude: currentLocation.latitude,
+          longitude: currentLocation.longitude,
+          hourly: hourly.join(","),
+          daily: daily.join(","),
+        },
+      });
+      setJsonPlot(res.data);
     } else {
       toast.error("PLEASE SELECT LOCATION");
     }
