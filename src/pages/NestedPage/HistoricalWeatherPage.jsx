@@ -1,19 +1,15 @@
-import { Line } from "react-chartjs-2";
 import HeadLine from "../../components/HeadLine";
 import TextInput from "../../components/TextInput";
 import TimeRangePicker from "../../components/TimeRangePicker";
 import CSVButton from "../../components/CSVButton";
 import CheckBox from "../../components/CheckBox";
 import { useState } from "react";
-import {  useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { climateDataForm } from "../../redux/selector";
-import { getHistoricalWeather } from "../../api";
-import {
-  convertDailyMatchHourLy,
-  convertToDate,
-  groupByTimePeriod,
-} from "../../utility/groupByTimePeriod";
-import colors from "../../utility/chartColor";
+import { toast } from "react-toastify";
+import axios from "../../api/axios";
+import Plot from "react-plotly.js";
+
 const checkBoxData = [
   { label: "Temperature (2 m)", value: "temperature_2m" },
   { label: "Relative Humidity (2 m)", value: "relativehumidity_2m" },
@@ -93,72 +89,28 @@ const checkBoxData2 = [
 
 const HistoricalWeatherPage = () => {
   const [locations, setLocations] = useState([]);
-  const [data, setData] = useState({});
   const dataForm = useSelector(climateDataForm);
-  const options = {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: "top",
-      },
-      title: {
-        display: true,
-        text:
-          dataForm.currentLocation.name +
-          " - " +
-          dataForm.currentLocation.country,
-      },
-    },
-  };
-  const chartData = {
-    labels: Object.keys(data).length > 0 ? convertToDate(data.hourly.time) : [],
-    datasets: [
-      ...(Object.keys(data).length > 0
-        ? dataForm.hourly.map((key, i) => {
-            return {
-              label: key + ` (${data.hourly_units[key]})`,
-              data: data.hourly[key],
-              borderColor: colors[i],
-              backgroundColor: colors[i],
-              pointRadius: 0,
-              borderWidth: 1,
-            };
-          })
-        : []),
-      ...(Object.keys(data).length > 0
-        ? dataForm.daily?.map((key, i) => {
-            return {
-              label: key + ` (${data.daily_units && data.daily_units[key]})`,
-              data:
-                data.daily &&
-                convertDailyMatchHourLy(
-                  data.daily[key],
-                  convertToDate(data.hourly.time)
-                ),
-              borderColor: colors[i],
-              backgroundColor: colors[i],
-              pointRadius: 0,
-              borderWidth: 1,
-            };
-          })
-        : []),
-    ],
-  };
+  const [jsonPlot, setJsonPlot] = useState([]);
+
   const requestData = async () => {
-    const { currentLocation, hourly, daily,startDate,endDate } = dataForm;
+    const { currentLocation, hourly, daily, startDate, endDate } = dataForm;
     if (currentLocation.name !== "") {
-      setData(
-        await getHistoricalWeather(
-          currentLocation.latitude,
-          currentLocation.longitude,
-          startDate,
-          endDate,
-          hourly.join(","),
-          daily.join(",")
+      setJsonPlot(
+        JSON.parse(
+          await axios.get("historical/get", {
+            params: {
+              latitude: currentLocation.latitude,
+              longitude: currentLocation.longitude,
+              hourly: hourly.join(","),
+              daily: daily.join(","),
+              start_date: startDate,
+              end_date: endDate,
+            },
+          })
         )
       );
     } else {
-      alert("PLEASE SELECT LOCATION");
+      toast.error("PLEASE SELECT LOCATION");
     }
   };
   return (
@@ -181,14 +133,9 @@ const HistoricalWeatherPage = () => {
       <button onClick={() => requestData()} className="primary-btn light">
         Reload Chart
       </button>
-      {Object.keys(data).length > 0 && (
-        <>
-          <div className="chart-container">
-            <Line options={options} data={chartData} />
-          </div>
-          <CSVButton data={groupByTimePeriod(data.hourly, dataForm.hourly)} />
-        </>
-      )}
+      <div>
+        <Plot data={jsonPlot} layout={{ width: 1000, height: 600 }} />
+      </div>
     </div>
   );
 };

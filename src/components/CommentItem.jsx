@@ -40,7 +40,7 @@ const CommentItem = ({ comment }) => {
         <button type="button">Report</button>
       </div>
       {replyExpand && (
-        <form className="reply-form" onSubmit={() => alert("ok")}>
+        <form className="reply-form" onSubmit={alert("ok")}>
           <input type="text" placeholder={`Reply ${comment.user.name}`} />
         </form>
       )}

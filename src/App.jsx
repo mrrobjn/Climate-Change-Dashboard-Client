@@ -9,6 +9,7 @@ import { resetState } from "./redux/slides/ClimateDataFormSlice";
 import { resetSummary } from "./redux/slides/DataSummarySlice";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
+import React from "react";
 
 function App() {
   const dispatch = useDispatch();
@@ -23,72 +24,74 @@ function App() {
     });
   }, [location, dispatch]);
   return (
-    <div>
-      <ToastContainer
-        position="top-right"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
-      <Routes>
-        {publicRoutes.map((route, index) => {
-          const Layout = route.layout || DefaultLayout;
-          const Page = route.component;
-          return (
-            <Route
-              path={route.path}
-              key={index}
-              element={
-                <Layout>
-                  <Page />
-                </Layout>
-              }
-            >
-              {route.children?.map((childRoute, i) => {
-                return (
-                  <Route
-                    path={childRoute.path}
-                    element={<childRoute.component />}
-                    key={i}
-                  />
-                );
-              })}
-            </Route>
-          );
-        })}
-        {privateRoutes.map((route, index) => {
-          const Layout = route.layout || AdminLayout;
-          const Page = route.component;
-          return (
-            <Route
-              path={route.path}
-              key={index}
-              element={
-                <Layout>
-                  <Page />
-                </Layout>
-              }
-            >
-              {route.children?.map((childRoute, i) => {
-                return (
-                  <Route
-                    path={childRoute.path}
-                    element={<childRoute.component />}
-                    key={i}
-                  />
-                );
-              })}
-            </Route>
-          );
-        })}
-      </Routes>
-    </div>
+    <>
+      <React.Suspense>
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
+        <Routes>
+          {publicRoutes.map((route, index) => {
+            const Layout = route.layout || DefaultLayout;
+            const Page = route.component;
+            return (
+              <Route
+                path={route.path}
+                key={index}
+                element={
+                  <Layout>
+                    <Page />
+                  </Layout>
+                }
+              >
+                {route.children?.map((childRoute, i) => {
+                  return (
+                    <Route
+                      path={childRoute.path}
+                      element={<childRoute.component />}
+                      key={i}
+                    />
+                  );
+                })}
+              </Route>
+            );
+          })}
+          {privateRoutes.map((route, index) => {
+            const Layout = route.layout || AdminLayout;
+            const Page = route.component;
+            return (
+              <Route
+                path={route.path}
+                key={index}
+                element={
+                  <Layout>
+                    <Page />
+                  </Layout>
+                }
+              >
+                {route.children?.map((childRoute, i) => {
+                  return (
+                    <Route
+                      path={childRoute.path}
+                      element={<childRoute.component />}
+                      key={i}
+                    />
+                  );
+                })}
+              </Route>
+            );
+          })}
+        </Routes>
+      </React.Suspense>
+    </>
   );
 }
 

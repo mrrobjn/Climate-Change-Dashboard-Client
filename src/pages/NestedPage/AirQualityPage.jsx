@@ -5,12 +5,13 @@ import CheckBox from "../../components/CheckBox";
 import TimeRangePicker from "../../components/TimeRangePicker";
 import CSVButton from "../../components/CSVButton";
 import { useEffect, useState } from "react";
-import { downloadAirQuality, getAirQuality } from "../../api";
 import { useSelector } from "react-redux";
 import { climateDataForm } from "../../redux/selector";
 import getInitialTheme from "../../utility/getInitialTheme";
 import ChartSelect from "../../components/ChartSelect";
 import Plot from "react-plotly.js";
+import axios from "../../api/axios";
+import { toast } from "react-toastify";
 
 const checkBoxData = [
   { label: "Particulate Matter PM10", value: "pm10" },
@@ -33,7 +34,6 @@ const checkBoxData = [
 ];
 const AirQualityPage = () => {
   const [locations, setLocations] = useState([]);
-  const [data, setData] = useState({});
   const dataForm = useSelector(climateDataForm);
   const [theme, setTheme] = useState(getInitialTheme);
   const [jsonPlot, setJsonPlot] = useState([]);
@@ -47,19 +47,22 @@ const AirQualityPage = () => {
     if (currentLocation.name !== "") {
       setJsonPlot(
         JSON.parse(
-          await getAirQuality(
-            currentLocation.latitude,
-            currentLocation.longitude,
-            hourly.join(","),
-            startDate,
-            endDate
-          )
+          await axios.get("air-quality/get", {
+            params: {
+              latitude: currentLocation.latitude,
+              longitude: currentLocation.longitude,
+              hourly: hourly.join(","),
+              start_date: startDate,
+              end_date: endDate,
+            },
+          })
         )
       );
     } else {
-      alert("PLEASE SELECT LOCATION");
+      toast.error("PLEASE SELECT LOCATION");
     }
   };
+
   return (
     <div className="air-quality-container">
       <HeadLine text={"Select Location"} />
@@ -82,20 +85,10 @@ const AirQualityPage = () => {
       >
         Reload Chart
       </button>
-      <div >
+      <div>
         <Plot data={jsonPlot} layout={{ width: 1000, height: 600 }} />
       </div>
-      {/* <CSVButton
-        data={async () =>
-          await downloadAirQuality(
-            currentLocation.latitude,
-            currentLocation.longitude,
-            hourly.join(","),
-            startDate,
-            endDate
-          )
-        }
-      /> */}
+      {/* <CSVButton url={'air-quality/download'}/> */}
     </div>
   );
 };

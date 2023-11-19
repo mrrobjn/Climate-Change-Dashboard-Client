@@ -2,13 +2,15 @@ import { CSVLink } from "react-csv";
 import "../assets/scss/components/Button.scss";
 import { useEffect, useState } from "react";
 import getInitialTheme from "../utility/getInitialTheme";
-const CSVButton = ({ data }) => {
+const CSVButton = ({ url }) => {
   const [theme, setTheme] = useState(getInitialTheme);
+  const [data, setData] = useState([]);
   useEffect(() => {
     window.addEventListener("storage", () => {
       setTheme(JSON.parse(localStorage.getItem("darkTheme")) || false);
     });
   }, []);
+
   const formatData = (data) => {
     let arr = [];
     let keys = Object.keys(data);

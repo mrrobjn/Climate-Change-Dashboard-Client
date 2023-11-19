@@ -14,6 +14,9 @@ import {
 } from "../../utility/groupByTimePeriod";
 import { resetState } from "../../redux/slides/ClimateDataFormSlice";
 import colors from "../../utility/chartColor";
+import { toast } from "react-toastify";
+import Plot from "react-plotly.js";
+import axios from "../../api/axios";
 
 const checkBoxData = [
   { label: "Temperature (2 m)", value: "temperature_2m" },
@@ -103,66 +106,26 @@ const checkBoxData2 = [
 const WeatherForcastPage = () => {
   const [locations, setLocations] = useState([]);
   const [data, setData] = useState({});
+  const [jsonPlot, setJsonPlot] = useState([]);
   const dataForm = useSelector(climateDataForm);
-  const options = {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: "top",
-      },
-      title: {
-        display: true,
-        text:
-          dataForm.currentLocation.name +
-          " - " +
-          dataForm.currentLocation.country,
-      },
-    },
-  };
-  const chartData = {
-    labels: Object.keys(data).length > 0 ? data.hourly.time : [],
-    datasets: [
-      ...(Object.keys(data).length > 0
-        ? dataForm.hourly.map((key, i) => {
-            return {
-              label: key + ` (${data.hourly_units[key]})`,
-              data: data.hourly[key],
-              borderColor: colors[i],
-              backgroundColor: colors[i],
-              pointRadius: 0,
-              borderWidth: 1,
-            };
-          })
-        : []),
-      ...(Object.keys(data).length > 0
-        ? dataForm.daily?.map((key, i) => {
-            return {
-              label: key + ` (${data.daily_units && data.daily_units[key]})`,
-              data:
-                data.daily &&
-                convertDailyMatchHourLy(data.daily[key], data.hourly.time),
-              borderColor: colors[i],
-              backgroundColor: colors[i],
-              pointRadius: 0,
-              borderWidth: 1,
-            };
-          })
-        : []),
-    ],
-  };
+ 
   const requestData = async () => {
     const { currentLocation, hourly, daily } = dataForm;
     if (currentLocation.name !== "") {
-      setData(
-        await getWeatherForCast(
-          currentLocation.latitude,
-          currentLocation.longitude,
-          hourly.join(","),
-          daily.join(",")
+      setJsonPlot(
+        JSON.parse(
+          await axios.get("forecast/get", {
+            params: {
+              latitude: currentLocation.latitude,
+              longitude: currentLocation.longitude,
+              hourly: hourly.join(","),
+              daily: daily.join(","),
+            },
+          })
         )
       );
     } else {
-      alert("PLEASE SELECT LOCATION");
+      toast.error("PLEASE SELECT LOCATION");
     }
   };
   return (
@@ -183,14 +146,9 @@ const WeatherForcastPage = () => {
       <button onClick={() => requestData()} className="primary-btn light">
         Reload Chart
       </button>
-      {Object.keys(data).length > 0 && (
-        <>
-          <div className="chart-container">
-            <Line options={options} data={chartData} />
-          </div>
-          <CSVButton data={groupByTimePeriod(data.hourly, dataForm.hourly)} />
-        </>
-      )}
+      <div>
+        <Plot data={jsonPlot} layout={{ width: 1000, height: 600 }} />
+      </div>
     </div>
   );
 };
