@@ -20,6 +20,7 @@ const CommentSection = () => {
   const [comment, setComment] = useState("");
   const { article_id } = useParams();
   const [user] = useAuthState(auth);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     fetchData();
@@ -35,6 +36,7 @@ const CommentSection = () => {
     const commentsData = await Promise.all(
       querySnapshot.docs.map(async (doc) => {
         const commentData = doc.data();
+        commentData.comment_id = doc.id;
         commentData.user = (await getUser(commentData.user_uid)).data();
         commentData.replies = await getReplies(doc.id);
         if (commentData.replies) {
@@ -63,7 +65,8 @@ const CommentSection = () => {
   const getReplies = async (comment_id) => {
     const q = query(
       collection(db, "replies"),
-      where("comment_id", "==", comment_id)
+      where("comment_id", "==", comment_id),
+      orderBy("date", "desc")
     );
     const querySnapshot = await getDocs(q);
     const repliesData = querySnapshot.docs.map((doc) => doc.data());
@@ -71,6 +74,7 @@ const CommentSection = () => {
   };
 
   const handleAddComment = async (e) => {
+    setIsLoading(true);
     e.preventDefault();
     if (user) {
       await addDoc(collection(db, "comments"), {
@@ -80,11 +84,13 @@ const CommentSection = () => {
         text: comment,
       });
       fetchData();
+      setComment("");
     } else {
       toast.error("Please log in!");
     }
+    setIsLoading(false);
   };
-
+  
   return (
     <div className="comment-section">
       <h3>{comments.length} Comments</h3>
@@ -102,16 +108,19 @@ const CommentSection = () => {
             value={comment}
             onChange={(e) => setComment(e.target.value)}
             required
+            disabled={isLoading}
           />
           <div className="btn-container">
-            <button type="submit">Comment</button>
+            <button type="submit" disabled={isLoading}>
+              Comment
+            </button>
           </div>
         </div>
       </form>
       <div className="comments-container">
         {comments.length > 0 &&
           comments.map((comment, index) => (
-            <CommentItem comment={comment} key={index} />
+            <CommentItem comment={comment} key={index} fetchData={fetchData}/>
           ))}
       </div>
     </div>

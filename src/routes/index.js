@@ -13,7 +13,8 @@ const NoneFooterLayout = React.lazy(() => import('./../layouts/NoneFooterLayout/
 const CreateArticlePage = React.lazy(() => import('../pages/admin/NestedPage/CreateArticlePage'));
 const AdminArticles = React.lazy(() => import('../pages/admin/AdminArticlesPage'));
 const AdminUsersPage = React.lazy(() => import('../pages/admin/AdminUsersPage'));
-const ArticlesListPages = React.lazy(() => import('../pages/admin/NestedPage/ArticlesListPages'));
+const EditArticlePage = React.lazy(() => import('../pages/admin/NestedPage/EditArticlePage'));
+const ArticlesListPage = React.lazy(() => import('../pages/admin/NestedPage/ArticlesListPage'));
 const TestLogin = React.lazy(() => import('../pages/TestLogin'));
 const TestRegister = React.lazy(() => import('../pages/TestRegister'));
 const UserListPage = React.lazy(() => import('../pages/admin/NestedPage/UserListPage'));
@@ -46,7 +47,8 @@ const privateRoutes = [
     component: AdminArticles,
     children: [
       { path: "create", component: CreateArticlePage },
-      { path: "list", component: ArticlesListPages },
+      { path: "list", component: ArticlesListPage },
+      { path: "list/:article_id", component: EditArticlePage },
     ],
   },
   {

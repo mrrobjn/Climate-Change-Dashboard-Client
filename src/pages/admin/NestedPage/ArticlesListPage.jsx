@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../../../assets/scss/pages/admin/ArticlesListPage.scss";
 import Select from "react-select";
 import { convertISOToYYYYMMDD } from "../../../utility/convertISO";
@@ -42,6 +42,7 @@ const ArticlesListPages = () => {
   const [pageCount, setPageCount] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [search, setSearch] = useState("");
+  const navigate = useNavigate();
 
   const fetchData = async () => {
     setIsLoading(true);
@@ -126,9 +127,13 @@ const ArticlesListPages = () => {
                         <td>{convertISOToYYYYMMDD(article.createdAt)}</td>
                         <td>{article.view}</td>
                         <td>
-                          <button className="edit-btn" type="button">
+                          <button
+                            className="edit-btn"
+                            type="button"
+                            onClick={() => navigate(`${article._id}`)}
+                          >
                             <i className="fa-solid fa-pen-to-square"></i>
-                          </button>{" "}
+                          </button>
                           <button
                             className="delete-btn"
                             type="button"

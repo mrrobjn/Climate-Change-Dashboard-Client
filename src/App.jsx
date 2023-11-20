@@ -10,6 +10,7 @@ import { resetSummary } from "./redux/slides/DataSummarySlice";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import React from "react";
+import ReactLoading from "react-loading";
 
 function App() {
   const dispatch = useDispatch();
@@ -25,7 +26,21 @@ function App() {
   }, [location, dispatch]);
   return (
     <>
-      <React.Suspense>
+      <React.Suspense
+        fallback={
+          <div
+            style={{
+              width: "100vw",
+              height: "100vh",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <ReactLoading type="spin" color="#ccc" width={100} />
+          </div>
+        }
+      >
         <ToastContainer
           position="top-right"
           autoClose={3000}

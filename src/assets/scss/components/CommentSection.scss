@@ -33,6 +33,9 @@
         border-top-left-radius: $main-border-radius;
         outline: none;
         font-size: 16px;
+        &:disabled{
+          cursor: not-allowed;
+        }
       }
       .btn-container {
         background: $light-theme-secondary-color;
@@ -52,6 +55,9 @@
           font-weight: bold;
           background: #007bff;
           color: #fff;
+          &:disabled{
+            cursor: not-allowed;
+          }
         }
       }
     }

@@ -113,6 +113,9 @@ const Header = () => {
               />
               <div className="dropdown-content">
                 <div className="dropdown-btn">Profile</div>
+                <NavLink to="/users/list" className="dropdown-btn">
+                  Admin
+                </NavLink>
                 <div className="dropdown-btn" onClick={() => handleLogOut()}>
                   Log out
                 </div>

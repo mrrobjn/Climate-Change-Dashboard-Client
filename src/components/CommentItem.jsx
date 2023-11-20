@@ -1,9 +1,39 @@
 import moment from "moment";
 import ReplyItem from "./ReplyItem";
 import { useState } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth, db } from "../config/firebase";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { toast } from "react-toastify";
 
-const CommentItem = ({ comment }) => {
+const CommentItem = ({ comment, fetchData }) => {
   const [replyExpand, setReplyExpand] = useState(false);
+  const [reply, setReply] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [user] = useAuthState(auth);
+
+  const handleReplySubmit = async (e, comment_id) => {
+    setIsLoading(true);
+    e.preventDefault();
+    if (reply && user && user.uid) {
+      try {
+        await addDoc(collection(db, "replies"), {
+          text: reply,
+          user_uid: user.uid,
+          comment_id,
+          date: serverTimestamp(),
+        });
+        setReply("");
+        fetchData();
+      } catch (error) {
+        toast.error(error);
+        setIsLoading(false);
+      }
+    } else {
+      toast.error("Reply is empty");
+    }
+    setIsLoading(false);
+  };
 
   return (
     <div className="comment-item">
@@ -40,8 +70,18 @@ const CommentItem = ({ comment }) => {
         <button type="button">Report</button>
       </div>
       {replyExpand && (
-        <form className="reply-form" onSubmit={alert("ok")}>
-          <input type="text" placeholder={`Reply ${comment.user.name}`} />
+        <form
+          className="reply-form"
+          onSubmit={(e) => handleReplySubmit(e, comment.comment_id)}
+        >
+          <input
+            type="text"
+            value={reply}
+            onChange={(e) => setReply(e.target.value)}
+            placeholder={`Reply ${comment.user.name}`}
+            required
+            disabled={isLoading}
+          />
         </form>
       )}
       {comment.replies &&
