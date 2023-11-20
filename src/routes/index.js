@@ -1,20 +1,22 @@
-import HomePage from "../pages/HomePage";
-import DataAccessPage from "../pages/DataAccessPage";
-import ArticlesPage from "../pages/ArticlesPage";
-import AirQualityPage from "../pages/NestedPage/AirQualityPage";
-import WeatherForcastPage from "../pages/NestedPage/WeatherForcastPage";
-import HistoricalWeatherPage from "../pages/NestedPage/HistoricalWeatherPage";
-import SingleArticlePage from "../pages/SingleArticlePage";
-import Login from "../pages/Login";
-import Register from "../pages/Register";
-import NoneFooterLayout from './../layouts/NoneFooterLayout/index';
-import CreateArticlePage from "../pages/admin/NestedPage/CreateArticlePage";
-import AdminArticles from "../pages/admin/AdminArticlesPage";
-import AdminUsersPage from "../pages/admin/AdminUsersPage";
-import ArticlesListPages from "../pages/admin/NestedPage/ArticlesListPages";
-import TestLogin from "../pages/TestLogin";
-import TestRegister from "../pages/TestRegister";
-import UserListPage from "../pages/admin/NestedPage/UserListPage";
+import React from 'react';
+
+const HomePage = React.lazy(() => import('../pages/HomePage'));
+const DataAccessPage = React.lazy(() => import('../pages/DataAccessPage'));
+const ArticlesPage = React.lazy(() => import('../pages/ArticlesPage'));
+const AirQualityPage = React.lazy(() => import('../pages/NestedPage/AirQualityPage'));
+const WeatherForcastPage = React.lazy(() => import('../pages/NestedPage/WeatherForcastPage'));
+const HistoricalWeatherPage = React.lazy(() => import('../pages/NestedPage/HistoricalWeatherPage'));
+const SingleArticlePage = React.lazy(() => import('../pages/SingleArticlePage'));
+const Login = React.lazy(() => import('../pages/Login'));
+const Register = React.lazy(() => import('../pages/Register'));
+const NoneFooterLayout = React.lazy(() => import('./../layouts/NoneFooterLayout/index'));
+const CreateArticlePage = React.lazy(() => import('../pages/admin/NestedPage/CreateArticlePage'));
+const AdminArticles = React.lazy(() => import('../pages/admin/AdminArticlesPage'));
+const AdminUsersPage = React.lazy(() => import('../pages/admin/AdminUsersPage'));
+const ArticlesListPages = React.lazy(() => import('../pages/admin/NestedPage/ArticlesListPages'));
+const TestLogin = React.lazy(() => import('../pages/TestLogin'));
+const TestRegister = React.lazy(() => import('../pages/TestRegister'));
+const UserListPage = React.lazy(() => import('../pages/admin/NestedPage/UserListPage'));
 
 const publicRoutes = [
   { path: "/", component: HomePage },
