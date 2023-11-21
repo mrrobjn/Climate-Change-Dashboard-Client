@@ -1,0 +1,133 @@
+@import "../GlobalStyle.scss";
+.login-page-container {
+  background: url("../../../../public/assets/images/login-regis-background.png");
+  height: calc(100vh - 71px);
+  min-height: calc(100vh - 71px);
+  .login-container {
+    display: flex;
+    width: 1400px;
+    margin: auto;
+    height: 100%;
+    align-items: center;
+    .logo-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      flex: 1;
+      h1 {
+        font-size: 40px;
+      }
+      svg {
+        width: 200px;
+        height: 200px;
+      }
+    }
+    .login-form {
+      background: $light-theme-main-color;
+      width: 600px;
+      height: fit-content;
+      border-radius: $second-border-radius;
+      form {
+        display: flex;
+        flex-direction: column;
+        padding: 50px;
+        h1 {
+          margin-bottom: 20px;
+        }
+        .input-label {
+          font-weight: bold;
+          margin-bottom: 10px;
+        }
+        .input-field {
+          margin-bottom: 20px;
+          padding: 15px;
+          border-radius: $main-border-radius;
+          border: 1px solid $main-border-color;
+          font-size: 16px;
+        }
+        .remember-checkbox {
+          display: flex;
+          align-items: center;
+          margin-bottom: 20px;
+          input {
+            margin-right: 10px;
+          }
+          label {
+            color: $second-text-color;
+          }
+        }
+        button {
+          padding: 15px 0;
+          border-radius: $main-border-radius;
+          border: none;
+          font-weight: bold;
+          cursor: pointer;
+          font-size: 14px;
+        }
+        .login-btn {
+          background: #000;
+          color: #fff;
+        }
+        .google-btn {
+          background: $light-theme-secondary-color;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin-bottom: 40px;
+          svg {
+            margin-right: 10px;
+          }
+        }
+        .or-line {
+          display: flex;
+          align-items: center;
+          padding: 20px 0;
+          .line {
+            height: 1px;
+            flex: 1;
+            background: $main-border-color;
+          }
+          span {
+            color: $second-text-color;
+            padding: 0 10px;
+          }
+        }
+        .navigate-container {
+          text-align: center;
+          font-size: 14px;
+          a {
+            font-weight: bold;
+          }
+          p {
+            color: $second-text-color;
+            margin-top: 10px;
+          }
+        }
+      }
+    }
+  }
+}
+@media only screen and (max-width: 1450px) {
+  .login-page-container {
+    .login-container {
+      width: auto;
+      padding: 0 10px;
+    }
+  }
+}
+@media only screen and (max-width: 1100px) {
+  .login-page-container {
+    height: 100%;
+    padding: 10px 0;
+    .login-container {
+      flex-direction: column;
+      height: 100%;
+      .logo-container {
+        padding: 20px 0;
+        flex: none;
+      }
+    }
+  }
+}

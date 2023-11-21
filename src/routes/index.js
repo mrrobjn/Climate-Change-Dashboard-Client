@@ -1,23 +1,43 @@
-import React from 'react';
+import React from "react";
 
-const HomePage = React.lazy(() => import('../pages/HomePage'));
-const DataAccessPage = React.lazy(() => import('../pages/DataAccessPage'));
-const ArticlesPage = React.lazy(() => import('../pages/ArticlesPage'));
-const AirQualityPage = React.lazy(() => import('../pages/NestedPage/AirQualityPage'));
-const WeatherForcastPage = React.lazy(() => import('../pages/NestedPage/WeatherForcastPage'));
-const HistoricalWeatherPage = React.lazy(() => import('../pages/NestedPage/HistoricalWeatherPage'));
-const SingleArticlePage = React.lazy(() => import('../pages/SingleArticlePage'));
-const Login = React.lazy(() => import('../pages/Login'));
-const Register = React.lazy(() => import('../pages/Register'));
-const NoneFooterLayout = React.lazy(() => import('./../layouts/NoneFooterLayout/index'));
-const CreateArticlePage = React.lazy(() => import('../pages/admin/NestedPage/CreateArticlePage'));
-const AdminArticles = React.lazy(() => import('../pages/admin/AdminArticlesPage'));
-const AdminUsersPage = React.lazy(() => import('../pages/admin/AdminUsersPage'));
-const EditArticlePage = React.lazy(() => import('../pages/admin/NestedPage/EditArticlePage'));
-const ArticlesListPage = React.lazy(() => import('../pages/admin/NestedPage/ArticlesListPage'));
-const TestLogin = React.lazy(() => import('../pages/TestLogin'));
-const TestRegister = React.lazy(() => import('../pages/TestRegister'));
-const UserListPage = React.lazy(() => import('../pages/admin/NestedPage/UserListPage'));
+const HomePage = React.lazy(() => import("../pages/HomePage"));
+const DataAccessPage = React.lazy(() => import("../pages/DataAccessPage"));
+const ArticlesPage = React.lazy(() => import("../pages/ArticlesPage"));
+const AirQualityPage = React.lazy(() =>
+  import("../pages/NestedPage/AirQualityPage")
+);
+const WeatherForcastPage = React.lazy(() =>
+  import("../pages/NestedPage/WeatherForcastPage")
+);
+const HistoricalWeatherPage = React.lazy(() =>
+  import("../pages/NestedPage/HistoricalWeatherPage")
+);
+const SingleArticlePage = React.lazy(() =>
+  import("../pages/SingleArticlePage")
+);
+const NoneFooterLayout = React.lazy(() =>
+  import("./../layouts/NoneFooterLayout/index")
+);
+const CreateArticlePage = React.lazy(() =>
+  import("../pages/admin/NestedPage/CreateArticlePage")
+);
+const AdminArticles = React.lazy(() =>
+  import("../pages/admin/AdminArticlesPage")
+);
+const AdminUsersPage = React.lazy(() =>
+  import("../pages/admin/AdminUsersPage")
+);
+const EditArticlePage = React.lazy(() =>
+  import("../pages/admin/NestedPage/EditArticlePage")
+);
+const ArticlesListPage = React.lazy(() =>
+  import("../pages/admin/NestedPage/ArticlesListPage")
+);
+const LoginPage = React.lazy(() => import("../pages/LoginPage"));
+const RegisterPage = React.lazy(() => import("../pages/RegisterPage"));
+const UserListPage = React.lazy(() =>
+  import("../pages/admin/NestedPage/UserListPage")
+);
 
 const publicRoutes = [
   { path: "/", component: HomePage },
@@ -35,11 +55,9 @@ const publicRoutes = [
     component: ArticlesPage,
   },
   { path: "/create_article", component: CreateArticlePage },
-  { path: "/login", component: Login, layout: NoneFooterLayout },
-  { path: "/register", component: Register, layout: NoneFooterLayout},
   { path: "/articles_list/:article_id", component: SingleArticlePage },
-  { path: "/test_login", component: TestLogin },
-  { path: "/test_register", component: TestRegister },
+  { path: "/login", component: LoginPage, layout: NoneFooterLayout },
+  { path: "/register", component: RegisterPage,layout: NoneFooterLayout  },
 ];
 const privateRoutes = [
   {
@@ -54,9 +72,7 @@ const privateRoutes = [
   {
     path: "users",
     component: AdminUsersPage,
-    children: [
-      { path: "list", component: UserListPage },
-    ],
+    children: [{ path: "list", component: UserListPage }],
   },
 ];
 export { privateRoutes, publicRoutes };
