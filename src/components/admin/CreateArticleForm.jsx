@@ -67,7 +67,7 @@ const CreateArticleForm = () => {
 
   return (
     <div className="create-article-form">
-      <form method="POST" onSubmit={(e) => handleInsertArticle(e)}>
+      <form method="POST" onSubmit={handleInsertArticle}>
         <div className="form-container">
           <div className="text-input-field">
             <input

@@ -34,28 +34,3 @@ $dark-button-background-color: #333;
 $light-footer-bg-color: #f2f2f2;
 
 $csv-color: #16a34a;
-
-$breakpoints: (
-    phone-sm: 420px,
-    surface-duo: 540px,
-    phone: 767px,
-    tablet: 768px,
-    tablet-lg: 1024px,
-    desktop: 1025px,
-    desktop-lg: 1600px
-  
-);
-//Mixin
-@mixin for-size($breakpoint) {
-    //Kiểm tra breakpoint truyền vào có tồn tại như bạn đã định nghĩa hay không.
-    @if map-has-key($breakpoints, $breakpoint) {
-        // Lấy giá trị pixel breakpoint đó
-        $breakpoint-value: map-get($breakpoints, $breakpoint);
-
-        //Build media query tự động
-        @media (max-width: $breakpoint-value) {
-            //Những gì bạn mong muốn sẽ được lồng vào @content
-            @content;
-        }
-    }
-}

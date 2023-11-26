@@ -6,6 +6,9 @@ import { convertISOToYYYYMMDD } from "../../../utility/convertISO";
 import axios from "../../../api/axios";
 import ReactPaginate from "react-paginate";
 import ReactLoading from "react-loading";
+import Modal from "../../../components/Modal";
+import { deleteObject, ref } from "firebase/storage";
+import { storage } from "../../../config/firebase";
 import { toast } from "react-toastify";
 
 const options = [
@@ -42,6 +45,9 @@ const ArticlesListPages = () => {
   const [pageCount, setPageCount] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [search, setSearch] = useState("");
+  const [visible, setVisible] = useState(false);
+  const [id, setId] = useState("");
+
   const navigate = useNavigate();
 
   const fetchData = async () => {
@@ -61,22 +67,49 @@ const ArticlesListPages = () => {
   useEffect(() => {
     fetchData();
   }, [page, sort, search]);
+
   const handlePageClick = (data) => {
     let selected = data.selected;
     setPage(selected + 1);
   };
-  const handleDeleteBtn = async (id) => {
+
+  const handleDeleteBtn = (id) => {
+    setId(id);
+    setVisible(true);
+  };
+
+  const deleteFunction = async () => {
     try {
-      const res = await axios.delete(`/articles/delete`, { data: { _id: id } });
-      toast.success(res.data.message);
+      let img_urls = [];
+
+      const res = await axios.get(`articles/find?id=${id}`);
+      const res2 = await axios.get(`articles/find_detail?id=${id}`);
+
+      img_urls.push(res.data.img_url);
+      res2.data.forEach((doc) => img_urls.push(doc.chartURL));
+
+      img_urls.forEach((url) => {
+        const imgRef = ref(storage, url);
+        deleteObject(imgRef)
+      });
+
+      const res3 = await axios.delete(`/articles/delete`, { data: { _id: id } });
+      toast.success(res3.data.message);
+
       fetchData();
     } catch (error) {
       console.log(error);
     }
   };
+
   return (
     <>
       <div className="articles-list-container">
+        <Modal
+          setVisible={setVisible}
+          visible={visible}
+          customFunction={deleteFunction}
+        />
         <div className="control-container">
           <div className="left-control">
             <div style={{ width: 200 }}>

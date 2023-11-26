@@ -54,7 +54,7 @@ export const signInWithGoogle = async () => {
       });
     }
   } catch (err) {
-    errorToast(err.message);
+    throw err;
   }
 };
 export const sendPasswordReset = async (email) => {

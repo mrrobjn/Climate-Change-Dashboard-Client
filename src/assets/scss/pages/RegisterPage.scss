@@ -1,7 +1,7 @@
 @import "../GlobalStyle.scss";
 .register-page-container {
-  background: url("../../../../public/assets/images/login-regis-background.png");
-  height: calc(100vh - 71px);
+  background: url("assets/images/login-regis-background.png");
+  height: 900px;
   min-height: calc(100vh - 71px);
   .register-container {
     display: flex;

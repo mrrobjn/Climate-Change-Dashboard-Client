@@ -1,19 +1,10 @@
-import { Line } from "react-chartjs-2";
 import HeadLine from "../../components/HeadLine";
 import TextInput from "../../components/TextInput";
 import CSVButton from "../../components/CSVButton";
 import CheckBox from "../../components/CheckBox";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { climateDataForm } from "../../redux/selector";
-import { getWeatherForCast } from "../../api";
-import {
-  convertDailyMatchHourLy,
-  convertToDate,
-  groupByTimePeriod,
-} from "../../utility/groupByTimePeriod";
-import { resetState } from "../../redux/slides/ClimateDataFormSlice";
-import colors from "../../utility/chartColor";
 import { toast } from "react-toastify";
 import Plot from "react-plotly.js";
 import axios from "../../api/axios";

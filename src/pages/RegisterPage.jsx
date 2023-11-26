@@ -2,7 +2,7 @@ import { useState } from "react";
 import { signInWithGoogle, signUp } from "../auth/firebase";
 import { toast } from "react-toastify";
 import "../assets/scss/pages/RegisterPage.scss";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { validateRegisterForm } from "../validators";
 
 const initState = {
@@ -14,12 +14,15 @@ const initState = {
 
 const TestRegister = () => {
   const [info, setInfo] = useState(initState);
+  const navigate = useNavigate();
+
   const handleChange = (e) => {
     setInfo({
       ...info,
       [e.target.name]: e.target.value,
     });
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { name, email, password, passwordConfirm } = info;
@@ -29,9 +32,10 @@ const TestRegister = () => {
       password,
       passwordConfirm
     );
-    if ((validate.length === 0)) {
+    if (validate.length === 0) {
       try {
         await signUp(name, email, password);
+        navigate("/");
       } catch (error) {
         toast.error(error.message);
       }
@@ -39,6 +43,16 @@ const TestRegister = () => {
       toast.error(validate[0]);
     }
   };
+
+  const handleGoogleSignIn = async () => {
+    try {
+      await signInWithGoogle();
+      navigate("/");
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
   return (
     <div className="register-page-container">
       <div className="register-container">
@@ -143,7 +157,7 @@ const TestRegister = () => {
             <button
               type="button"
               className="google-btn"
-              onClick={() => signInWithGoogle()}
+              onClick={handleGoogleSignIn}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

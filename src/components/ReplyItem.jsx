@@ -12,7 +12,7 @@ const ReplyItem = ({reply}) => {
         </div>
         <div className="detail-right">
           <div className="top-detail">
-            <p className="user-name">{reply.user.name}</p>
+            <p className="user-name">{reply.user.name||reply.user.email}</p>
             <p className="comment-date">
               {moment(reply.date.toDate()).fromNow()}
             </p>

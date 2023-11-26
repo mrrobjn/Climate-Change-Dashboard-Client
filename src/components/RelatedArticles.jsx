@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import axios from "../api/axios";
-import Slider from "react-slick";
 import "../assets/scss/components/RelatedArticles.scss";
 
 const NextArrow = (props) => {
