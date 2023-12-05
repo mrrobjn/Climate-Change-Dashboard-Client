@@ -6,7 +6,7 @@ import { auth, db } from "../config/firebase";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { toast } from "react-toastify";
 
-const CommentItem = ({ comment, fetchData }) => {
+const CommentItem = ({ comment, fetchData, authorId }) => {
   const [replyExpand, setReplyExpand] = useState(false);
   const [reply, setReply] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -30,7 +30,7 @@ const CommentItem = ({ comment, fetchData }) => {
         setIsLoading(false);
       }
     } else {
-      toast.error("Reply is empty");
+      toast.error("Please input");
     }
     setIsLoading(false);
   };
@@ -49,7 +49,14 @@ const CommentItem = ({ comment, fetchData }) => {
         </div>
         <div className="detail-right">
           <div className="top-detail">
-            <p className="user-name">{comment.user.name}</p>
+            <p
+              className={`user-name ${
+                authorId === comment.user_uid ? "author-tag" : null
+              }`}
+            >
+              {comment.user.name || comment.user.email}
+              {authorId === comment.user_uid && <i className="fa-solid fa-circle-check fa-xs"></i>}
+            </p>
             <p className="comment-date">
               {moment(comment.date.toDate()).fromNow()}
             </p>
@@ -78,7 +85,7 @@ const CommentItem = ({ comment, fetchData }) => {
             type="text"
             value={reply}
             onChange={(e) => setReply(e.target.value)}
-            placeholder={`Reply ${comment.user.name}`}
+            placeholder={`Reply ${comment.user.name||comment.user.email}`}
             required
             disabled={isLoading}
           />
@@ -86,7 +93,7 @@ const CommentItem = ({ comment, fetchData }) => {
       )}
       {comment.replies &&
         comment.replies.map((reply, replyIndex) => (
-          <ReplyItem reply={reply} key={replyIndex} />
+          <ReplyItem reply={reply} key={replyIndex} authorId={authorId}/>
         ))}
       {/* <form>
         <input type="text" placeholder="Write a reply" required />

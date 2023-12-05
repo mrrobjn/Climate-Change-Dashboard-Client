@@ -5,13 +5,14 @@ import { changeType } from "../redux/slides/ClimateDataFormSlice";
 import getInitialTheme from "../utility/getInitialTheme";
 import { useEffect, useState } from "react";
 const data = [
-  { class: "fa-solid fa-chart-line", value: "Line" },
-  { class: "fa-solid fa-chart-column", value: "Bar" },
+  { class: "fa-solid fa-chart-line", value: "line" },
+  { class: "fa-solid fa-chart-column", value: "bar" },
 ];
 const ChartSelect = () => {
   const dispatch = useDispatch();
   const chartType = useSelector(climateDataForm).chartType;
   const [theme, setTheme] = useState(getInitialTheme);
+  
   useEffect(() => {
     window.addEventListener("storage", () => {
       setTheme(JSON.parse(localStorage.getItem("darkTheme")) || false);

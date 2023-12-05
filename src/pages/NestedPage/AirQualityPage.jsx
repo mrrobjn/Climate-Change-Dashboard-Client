@@ -32,29 +32,36 @@ const checkBoxData = [
   { label: "Olive Pollen (*)", value: "olive_pollen" },
   { label: "Ragweed Pollen (*)", value: "ragweed_pollen" },
 ];
+
 const AirQualityPage = () => {
   const [locations, setLocations] = useState([]);
   const dataForm = useSelector(climateDataForm);
   const [theme, setTheme] = useState(getInitialTheme);
   const [jsonPlot, setJsonPlot] = useState([]);
+  
   useEffect(() => {
     window.addEventListener("storage", () => {
       setTheme(JSON.parse(localStorage.getItem("darkTheme")) || false);
     });
   }, []);
   const requestData = async () => {
-    const { currentLocation, hourly, startDate, endDate } = dataForm;
+    const { currentLocation, hourly, startDate, endDate, chartType } = dataForm;
     if (currentLocation.name !== "") {
-      const res = await axios.get("air-quality/get", {
-        params: {
-          latitude: currentLocation.latitude,
-          longitude: currentLocation.longitude,
-          hourly: hourly.join(","),
-          start_date: startDate,
-          end_date: endDate,
-        },
-      });
-      setJsonPlot(res.data);
+      try {
+        const res = await axios.get("air-quality/get", {
+          params: {
+            latitude: currentLocation.latitude,
+            longitude: currentLocation.longitude,
+            hourly: hourly.join(","),
+            start_date: startDate,
+            end_date: endDate,
+            chart_type: chartType,
+          },
+        });
+        setJsonPlot(res.data);
+      } catch (error) {
+        toast.error(error.response.data.message);
+      }
     } else {
       toast.error("PLEASE SELECT LOCATION");
     }
@@ -85,7 +92,7 @@ const AirQualityPage = () => {
       <div>
         <Plot data={jsonPlot} layout={{ width: 1000, height: 600 }} />
       </div>
-      {/* <CSVButton url={'air-quality/download'}/> */}
+      <CSVButton url={'air-quality/download'}/>
     </div>
   );
 };

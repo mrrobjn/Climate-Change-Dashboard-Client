@@ -8,6 +8,8 @@ import { climateDataForm } from "../../redux/selector";
 import { toast } from "react-toastify";
 import Plot from "react-plotly.js";
 import axios from "../../api/axios";
+import '../../assets/scss/pages/NestedPages/ForeCastPage.scss'
+import ChartSelect from "../../components/ChartSelect";
 
 const checkBoxData = [
   { label: "Temperature (2 m)", value: "temperature_2m" },
@@ -96,12 +98,11 @@ const checkBoxData2 = [
 
 const WeatherForcastPage = () => {
   const [locations, setLocations] = useState([]);
-  const [data, setData] = useState({});
   const [jsonPlot, setJsonPlot] = useState([]);
   const dataForm = useSelector(climateDataForm);
 
   const requestData = async () => {
-    const { currentLocation, hourly, daily } = dataForm;
+    const { currentLocation, hourly, daily, chartType } = dataForm;
     if (currentLocation.name !== "") {
       const res = await axios.get("forecast/get", {
         params: {
@@ -109,6 +110,7 @@ const WeatherForcastPage = () => {
           longitude: currentLocation.longitude,
           hourly: hourly.join(","),
           daily: daily.join(","),
+          chart_type: chartType,
         },
       });
       setJsonPlot(res.data);
@@ -117,7 +119,7 @@ const WeatherForcastPage = () => {
     }
   };
   return (
-    <div>
+    <div className="forecast-container">
       <HeadLine text={"Select Location"} />
       <div className="single-input-field">
         <TextInput
@@ -130,6 +132,8 @@ const WeatherForcastPage = () => {
       <CheckBox data={checkBoxData} type={"hourly"} />
       <HeadLine text={"Daily Weather Variables"} />
       <CheckBox data={checkBoxData2} type={"daily"} />
+      <HeadLine text={"Setting"} />
+      <ChartSelect />
       <HeadLine text={"Preview Chart"} />
       <button onClick={() => requestData()} className="primary-btn light">
         Reload Chart
@@ -137,6 +141,7 @@ const WeatherForcastPage = () => {
       <div>
         <Plot data={jsonPlot} layout={{ width: 1000, height: 600 }} />
       </div>
+      <CSVButton url={'forecast/download'}/>
     </div>
   );
 };

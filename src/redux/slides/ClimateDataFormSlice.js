@@ -11,7 +11,7 @@ const initialState = {
   daily: [],
   startDate: convertISOToYYYYMMDD(new Date),
   endDate: convertISOToYYYYMMDD(new Date),
-  chartType:"Line"
+  chartType:"line"
 };
 const climateDataFormSlice = createSlice({
   name: "climateDataForm",

@@ -9,6 +9,8 @@ import { climateDataForm } from "../../redux/selector";
 import { toast } from "react-toastify";
 import axios from "../../api/axios";
 import Plot from "react-plotly.js";
+import "../../assets/scss/pages/NestedPages/HistoricalPage.scss";
+import ChartSelect from "../../components/ChartSelect";
 
 const checkBoxData = [
   { label: "Temperature (2 m)", value: "temperature_2m" },
@@ -93,7 +95,8 @@ const HistoricalWeatherPage = () => {
   const [jsonPlot, setJsonPlot] = useState([]);
 
   const requestData = async () => {
-    const { currentLocation, hourly, daily, startDate, endDate } = dataForm;
+    const { currentLocation, hourly, daily, startDate, endDate, chartType } =
+      dataForm;
     if (currentLocation.name !== "") {
       const res = await axios.get("historical/get", {
         params: {
@@ -103,6 +106,7 @@ const HistoricalWeatherPage = () => {
           daily: daily.join(","),
           start_date: startDate,
           end_date: endDate,
+          chart_type: chartType,
         },
       });
       setJsonPlot(res.data);
@@ -111,7 +115,7 @@ const HistoricalWeatherPage = () => {
     }
   };
   return (
-    <div>
+    <div className="historical-container">
       <HeadLine text={"Select Location"} />
       <div className="single-input-field">
         <TextInput
@@ -126,6 +130,7 @@ const HistoricalWeatherPage = () => {
       <CheckBox data={checkBoxData2} type={"daily"} />
       <HeadLine text={"Setting"} />
       <TimeRangePicker />
+      <ChartSelect />
       <HeadLine text={"Preview Chart"} />
       <button onClick={() => requestData()} className="primary-btn light">
         Reload Chart
@@ -133,6 +138,7 @@ const HistoricalWeatherPage = () => {
       <div>
         <Plot data={jsonPlot} layout={{ width: 1000, height: 600 }} />
       </div>
+      <CSVButton url={"historical/download"} />
     </div>
   );
 };

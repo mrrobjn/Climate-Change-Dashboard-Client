@@ -62,7 +62,7 @@ const SingleArticlePage = () => {
         })}
       </div>
       <RelatedArticles/>
-      <CommentSection />
+      <CommentSection authorId={article.author_id}/>
     </div>
   );
 };

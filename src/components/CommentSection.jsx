@@ -15,7 +15,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import CommentItem from "./CommentItem";
 import { toast } from "react-toastify";
 
-const CommentSection = () => {
+const CommentSection = ({authorId}) => {
   const [comments, setComments] = useState([]);
   const [comment, setComment] = useState("");
   const { article_id } = useParams();
@@ -120,7 +120,7 @@ const CommentSection = () => {
       <div className="comments-container">
         {comments.length > 0 &&
           comments.map((comment, index) => (
-            <CommentItem comment={comment} key={index} fetchData={fetchData}/>
+            <CommentItem authorId={authorId} comment={comment} key={index} fetchData={fetchData}/>
           ))}
       </div>
     </div>

@@ -1,6 +1,6 @@
 import moment from "moment";
 
-const ReplyItem = ({reply}) => {
+const ReplyItem = ({ reply, authorId }) => {
   return (
     <div className="reply-item">
       <div className="reply-content">
@@ -12,7 +12,14 @@ const ReplyItem = ({reply}) => {
         </div>
         <div className="detail-right">
           <div className="top-detail">
-            <p className="user-name">{reply.user.name||reply.user.email}</p>
+            <p
+              className={`user-name ${
+                authorId === reply.user_uid ? "author-tag" : null
+              }`}
+            >
+              {reply.user.name || reply.user.email}
+              {authorId === reply.user_uid && <i className="fa-solid fa-circle-check fa-xs"></i>}
+            </p>
             <p className="comment-date">
               {moment(reply.date.toDate()).fromNow()}
             </p>

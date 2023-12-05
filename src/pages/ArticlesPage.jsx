@@ -64,6 +64,10 @@ const ArticlesPage = () => {
   const handlePageClick = (data) => {
     let selected = data.selected;
     setPage(selected + 1);
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
   const handleIncreaseView = async (_id) => {
     try {

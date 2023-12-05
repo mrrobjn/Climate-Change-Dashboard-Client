@@ -8,6 +8,7 @@ import {
   orderBy,
   query,
   startAfter,
+  where,
 } from "firebase/firestore";
 import ReactPaginate from "react-paginate";
 import Select from "react-select";
@@ -52,7 +53,8 @@ const UserListPage = () => {
         collection(db, "users"),
         orderBy(sort.value1, sort.value2),
         startAfter(page !== 0 ? lastVisible : null),
-        limit(itemsPerPage)
+        limit(itemsPerPage),
+        where("role", "==", "user")
       );
 
       onSnapshot(q, (querySnapshot) => {
