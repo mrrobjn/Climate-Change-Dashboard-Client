@@ -17,6 +17,7 @@ import {
 } from "../../../redux/slides/VisualizeFormSlice.js";
 import CreateArticleForm from "../../../components/admin/CreateArticleForm.jsx";
 import { toast } from "react-toastify";
+import axios from "../../../api/axios.jsx";
 
 const CreateArticlePage = () => {
   const [goal, setGoal] = useState("");
@@ -34,8 +35,8 @@ const CreateArticlePage = () => {
       try {
         const formData = new FormData();
         formData.append("file", e.target.files[0]);
-        const res = await uploadCSV(formData);
-        dispatch(getSummary(res));
+        const res = await axios.post("lida/post", formData);
+        dispatch(getSummary(res.data));
       } catch (error) {
         toast.error(error.response.data.message);
         setIsLoading(false);
@@ -62,7 +63,7 @@ const CreateArticlePage = () => {
           type="file"
           accept=".csv"
           id="csv_input"
-          onChange={(e) => handleCSVInput(e)}
+          onChange={handleCSVInput}
           disabled={isLoading}
         />
         <label htmlFor="csv_input" className={`${isLoading ? "loading" : ""}`}>

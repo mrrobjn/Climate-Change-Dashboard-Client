@@ -1,14 +1,9 @@
 @import "../GlobalStyle.scss";
 .modal-container {
-//   .rodal {
-//    .rodal-zoom-enter {
-//         height: fit-content !important;
-//     }
-//   }
-display: flex;
-flex-direction: column;
-justify-content: space-between;
-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
   h2 {
     padding-bottom: 10px;
     border-bottom: 1px solid $main-border-color;

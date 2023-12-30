@@ -3,6 +3,11 @@ import "rodal/lib/rodal.css";
 import "../assets/scss/components/Modal.scss";
 
 const Modal = ({ title, message, visible, setVisible, customFunction }) => {
+  const handleFunction = () => {
+    customFunction();
+    setVisible(false);
+  };
+
   return (
     <Rodal visible={visible} onClose={() => setVisible(false)}>
       <div className="modal-container">
@@ -16,7 +21,7 @@ const Modal = ({ title, message, visible, setVisible, customFunction }) => {
           >
             Cancel
           </button>
-          <button type="button" className="delete-btn" onClick={customFunction}>
+          <button type="button" className="delete-btn" onClick={handleFunction}>
             Delete
           </button>
         </div>

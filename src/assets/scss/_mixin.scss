@@ -1,0 +1,10 @@
+@mixin primaryButton{
+    padding: 10px;
+    border: none;
+    border-radius: $main-border-radius;
+    color: #fff;
+    background-color: $primary-button-color;
+    transition: 0.4s;
+    cursor: pointer;
+    font-size: 16px;
+}

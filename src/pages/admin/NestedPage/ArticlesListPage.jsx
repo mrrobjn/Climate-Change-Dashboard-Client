@@ -8,8 +8,16 @@ import ReactPaginate from "react-paginate";
 import ReactLoading from "react-loading";
 import Modal from "../../../components/Modal";
 import { deleteObject, ref } from "firebase/storage";
-import { storage } from "../../../config/firebase";
+import { db, storage } from "../../../config/firebase";
 import { toast } from "react-toastify";
+import {
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
 
 const options = [
   {
@@ -53,9 +61,15 @@ const ArticlesListPages = () => {
   const fetchData = async () => {
     setIsLoading(true);
     try {
-      const res = await axios.get(
-        `/articles/get?limit=10&page=${page}&field=${sort.field}&order=${sort.order}&search=${search}`
-      );
+      const res = await axios.get(`/articles/get`, {
+        params: {
+          limit: 10,
+          page: page,
+          field: sort.field,
+          order: sort.order,
+          search: search,
+        },
+      });
       setArticles(res.data.articles);
       setPageCount(res.data.totalPages);
     } catch (error) {
@@ -82,20 +96,51 @@ const ArticlesListPages = () => {
     try {
       let img_urls = [];
 
+      // Get article and details
       const res = await axios.get(`articles/find?id=${id}`);
       const res2 = await axios.get(`articles/find_detail?id=${id}`);
 
+      // Store image URLs
       img_urls.push(res.data.img_url);
       res2.data.forEach((doc) => img_urls.push(doc.chartURL));
 
+      // Delete images from storage
       img_urls.forEach((url) => {
         const imgRef = ref(storage, url);
-        deleteObject(imgRef)
+        deleteObject(imgRef);
       });
 
-      const res3 = await axios.delete(`/articles/delete`, { data: { _id: id } });
+      // Delete comments and replies from Firestore
+      // Delete comments
+      const commentsQuery = query(
+        collection(db, "comments"),
+        where("article_id", "==", id)
+      );
+      const commentsSnapshot = await getDocs(commentsQuery);
+      commentsSnapshot.forEach(async (docu) => {
+        const docRef = doc(db, "comments", docu.id);
+        await deleteDoc(docRef);
+      });
+
+      // Delete replies
+      const repliesQuery = query(
+        collection(db, "replies"),
+        where("article_id", "==", id)
+      );
+      const repliesSnapshot = await getDocs(repliesQuery);
+      repliesSnapshot.forEach(async (docu) => {
+        const docRef = doc(db, "replies", docu.id);
+        await deleteDoc(docRef);
+      });
+
+      // Delete article from database
+      const res3 = await axios.delete(`/articles/delete`, {
+        data: { _id: id },
+      });
       toast.success(res3.data.message);
 
+      setVisible(false);
+      // Fetch updated data
       fetchData();
     } catch (error) {
       console.log(error);

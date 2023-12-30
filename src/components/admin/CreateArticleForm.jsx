@@ -9,6 +9,7 @@ import { auth, storage } from "../../config/firebase";
 import { v4 } from "uuid";
 import base64ToBlob from "../../utility/base64ToBlob";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { useNavigate } from "react-router-dom";
 
 const initState = {
   title: "",
@@ -21,6 +22,7 @@ const CreateArticleForm = () => {
   const charts = useSelector(visualizeForm).charts;
   const [user] = useAuthState(auth);
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate()
 
   const handleInsertArticle = async (e) => {
     e.preventDefault();
@@ -58,6 +60,7 @@ const CreateArticleForm = () => {
 
       const res = await axios.post("articles/insert", data);
       toast.success(res.data.message);
+      navigate('/articles/list')
     } catch (e) {
       console.error(e);
       setIsLoading(false);

@@ -6,23 +6,44 @@ import { formatDate } from "../utility/formatDateTime";
 import getInitialTheme from "../utility/getInitialTheme";
 import CommentSection from "../components/CommentSection";
 import RelatedArticles from "../components/RelatedArticles";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { db } from "../config/firebase";
 const SingleArticlePage = () => {
   const [article, setArticle] = useState({});
   const [detail, setDetail] = useState([]);
   const [theme, setTheme] = useState(getInitialTheme);
+  const [authorName, setAuthorName] = useState(null);
   const { article_id } = useParams();
+
   useEffect(() => {
     const fetchData = async () => {
       setArticle(await getSingleArticle(article_id));
       setDetail(await getArticleDetail(article_id));
+      if (article.author_id) await getAuthor();
     };
+
+    const getAuthor = async () => {
+      const q = query(
+        collection(db, "users"),
+        where("uid", "==", article.author_id)
+      );
+      const querySnapshot = await getDocs(q);
+      let author;
+      querySnapshot.forEach((doc) => {
+        author = doc.data().name || doc.data().email;
+      });
+      setAuthorName(author);
+    };
+
     fetchData();
-  }, []);
+  }, [article.author_id]);
+
   useEffect(() => {
     window.addEventListener("storage", () => {
       setTheme(JSON.parse(localStorage.getItem("darkTheme")) || false);
     });
   }, []);
+
   return (
     <div className={`single-article-container ${theme ? "dark" : "light"}`}>
       <div className="article-header">
@@ -40,6 +61,7 @@ const SingleArticlePage = () => {
               <i className="fa-regular fa-eye"></i> {article.view}
             </p>
           </div>
+          <p>By: {authorName}</p>
         </div>
         <div className="article-bg">
           <img src={article.img_url} alt="" />
@@ -61,8 +83,8 @@ const SingleArticlePage = () => {
           );
         })}
       </div>
-      <RelatedArticles/>
-      <CommentSection authorId={article.author_id}/>
+      <RelatedArticles />
+      <CommentSection authorId={article.author_id} />
     </div>
   );
 };

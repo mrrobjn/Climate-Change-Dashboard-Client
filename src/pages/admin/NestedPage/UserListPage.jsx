@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { db } from "../../../config/firebase";
 import {
   collection,
+  deleteDoc,
+  doc,
   getDocs,
   limit,
   onSnapshot,
@@ -13,6 +15,10 @@ import {
 import ReactPaginate from "react-paginate";
 import Select from "react-select";
 import "../../../assets/scss/pages/admin/UserListPage.scss";
+import UserEditModal from "../../../components/admin/UserEditModal";
+import ReactLoading from "react-loading";
+import Modal from "../../../components/Modal";
+import { toast } from "react-toastify";
 
 const options = [
   {
@@ -36,53 +42,102 @@ const options = [
   },
 ];
 
+const initState = {
+  users: [],
+  page: 0,
+  pageCount: 0,
+  isLoading: false,
+  sort: options[0],
+  visible: false,
+  edit: false,
+  delete: false,
+  userID: null,
+};
+
 const UserListPage = () => {
-  const [users, setUsers] = useState([]);
-  const [page, setPage] = useState(0);
-  const [pageCount, setPageCount] = useState(0);
-  const [sort, setSort] = useState(options[0]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [pageState, setPageState] = useState(initState);
 
-  let lastVisible = null;
+  let LAST_VISIBLE = null;
 
-  const itemsPerPage = 10; // The number of items per page
+  const USERS_PER_PAGE = 10;
 
   useEffect(() => {
     const fetchData = async () => {
       const q = query(
         collection(db, "users"),
-        orderBy(sort.value1, sort.value2),
-        startAfter(page !== 0 ? lastVisible : null),
-        limit(itemsPerPage),
-        where("role", "==", "user")
+        orderBy(pageState.sort.value1, pageState.sort.value2),
+        startAfter(pageState.page !== 0 ? LAST_VISIBLE : null),
+        limit(USERS_PER_PAGE)
+        // where("role", "==", "user")
       );
 
       onSnapshot(q, (querySnapshot) => {
-        setUsers(querySnapshot.docs.map((doc) => doc.data()));
-        lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
+        handleChange(
+          "users",
+          querySnapshot.docs.map((doc) => doc.data())
+        );
+        LAST_VISIBLE = querySnapshot.docs[querySnapshot.docs.length - 1];
       });
 
       const totalDocs = await getDocs(collection(db, "users"));
-      setPageCount(Math.ceil(totalDocs.size / itemsPerPage));
+      handleChange("pageCount", Math.ceil(totalDocs.size / USERS_PER_PAGE));
     };
     fetchData();
-  }, [page, sort]);
+  }, [pageState.page, pageState.sort]);
+
+  const handleChange = (name, value) => {
+    setPageState((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
 
   const handlePageClick = (data) => {
-    let selected = data.selected;
-    setPage(selected);
+    handleChange("page", data.selected);
+  };
+
+  const handleOpenEditForm = (userID) => {
+    handleChange("edit", true);
+    handleChange("userID", userID);
+  };
+
+  const handleOpenDeleteForm = (userID) => {
+    handleChange("delete", true);
+    handleChange("userID", userID);
+  };
+
+  const handleDeleteUser = async () => {
+    const q = query(
+      collection(db, "users"),
+      where("uid", "==", pageState.userID)
+    );
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach(async (docc) => {
+      await deleteDoc(doc(db, "users", docc.id));
+    });
+    toast.success("Delete user successfully");
   };
 
   return (
     <div className="users-list-container">
+      <UserEditModal
+        visible={pageState.edit}
+        setVisible={() => handleChange("edit", false)}
+        userID={pageState.userID}
+      />
+      <Modal
+        customFunction={handleDeleteUser}
+        visible={pageState.delete}
+        setVisible={() => handleChange("delete", false)}
+      />
       <div className="control-container">
         <div className="left-control">
           <div style={{ width: 200 }}>
             <Select
               options={options}
               placeholder="Sort by"
-              value={sort}
-              onChange={(e) => setSort(e)}
+              value={pageState.sort}
+              onChange={(e) => handleChange("sort", e)}
             />
           </div>
           <input
@@ -91,14 +146,14 @@ const UserListPage = () => {
             placeholder="Search for users"
           />
         </div>
-        <div className="right-control">
-          {/* <Link to={"/articles/create"} className="primary-btn">
-              <i className="fa-solid fa-plus"></i>Create
-            </Link> */}
-        </div>
+        <div className="right-control"></div>
       </div>
-      <div className={`users-table-container ${isLoading ? "loading" : null}`}>
-        {isLoading ? (
+      <div
+        className={`users-table-container ${
+          pageState.isLoading ? "loading" : null
+        }`}
+      >
+        {pageState.isLoading ? (
           <ReactLoading type="bars" color="#f2f2f2" />
         ) : (
           <table>
@@ -106,17 +161,36 @@ const UserListPage = () => {
               <tr>
                 <th>email</th>
                 <th>name</th>
+                <th>auth provider</th>
                 <th>role</th>
+                <th>actions</th>
               </tr>
             </thead>
             <tbody>
-              {users.length > 0 &&
-                users.map((user, i) => {
+              {pageState.users.length > 0 &&
+                pageState.users.map((user, i) => {
                   return (
                     <tr key={i}>
                       <td>{user.email}</td>
                       <td>{user.name}</td>
+                      <td>{user.authProvider}</td>
                       <td>{user.role}</td>
+                      <td>
+                        <button
+                          className="edit-btn"
+                          type="button"
+                          onClick={() => handleOpenEditForm(user.uid)}
+                        >
+                          <i className="fa-solid fa-pen-to-square"></i>
+                        </button>
+                        {/* <button
+                          className="delete-btn"
+                          type="button"
+                          onClick={() => handleOpenDeleteForm(user.uid)}
+                        >
+                          <i className="fa-solid fa-trash"></i>
+                        </button> */}
+                      </td>
                     </tr>
                   );
                 })}
@@ -130,7 +204,7 @@ const UserListPage = () => {
           nextLabel={"next"}
           breakLabel={"..."}
           breakClassName={"break-me"}
-          pageCount={pageCount}
+          pageCount={pageState.pageCount}
           marginPagesDisplayed={2}
           pageRangeDisplayed={5}
           onPageChange={handlePageClick}

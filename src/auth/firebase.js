@@ -34,7 +34,13 @@ export const signUp = async (name, email, password) => {
 };
 export const signIn = async (email, password) => {
   try {
-    await signInWithEmailAndPassword(auth, email, password);
+    const res = await signInWithEmailAndPassword(auth, email, password);
+    const user = res.user;
+
+    // Get the ID token of the user
+    const idToken = await user.getIdToken(true);
+    // Set the ID token to local storage
+    localStorage.setItem("idToken", idToken);
   } catch (err) {
     throw err;
   }
@@ -53,16 +59,20 @@ export const signInWithGoogle = async () => {
         role: "user",
       });
     }
+    // Get the ID token of the user
+    const idToken = await user.getIdToken(true);
+    // Set the ID token to local storage
+    localStorage.setItem("idToken", idToken);
   } catch (err) {
     throw err;
   }
 };
+
 export const sendPasswordReset = async (email) => {
   try {
     await sendPasswordResetEmail(auth, email);
     successToast("Password reset link sent!");
   } catch (err) {
-    console.error(err);
     errorToast(err.message);
   }
 };

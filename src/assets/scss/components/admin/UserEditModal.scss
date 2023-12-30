@@ -1,0 +1,24 @@
+@import "../../GlobalStyle.scss";
+@import "../../mixin";
+
+.edit-user-form {
+  h3 {
+    margin-bottom: 10px;
+  }
+  form {
+    .input-field {
+      margin-bottom: 10px;
+      input {
+        padding: 10px;
+        width: 100%;
+      }
+      select {
+        padding: 10px;
+        width: 100%;
+      }
+    }
+    button {
+      @include primaryButton();
+    }
+  }
+}

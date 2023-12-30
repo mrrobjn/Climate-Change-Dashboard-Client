@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import "../../assets/scss/layout/AdminSidebar.scss";
 
 const paths = [
@@ -59,12 +59,11 @@ const AdminSidebar = () => {
         })}
       </div>
       <div className="bottom">
-        <NavLink
-          to="/setting"
-          className={({ isActive }) => (isActive ? "link-active" : "link")}
+        <Link
+          to="/articles/list"
         >
           <i className="fa-solid fa-gear"></i>Settings
-        </NavLink>
+        </Link>
       </div>
     </div>
   );

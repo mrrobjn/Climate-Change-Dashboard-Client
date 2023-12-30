@@ -29,10 +29,11 @@ const CSVButton = ({ url }) => {
           end_date: endDate,
         },
       });
-      if (res.data.daily) console.log(formatData(res.data.daily));
+      if (res.data.daily) downloadCSV(formatData(res.data.daily));
       else downloadCSV(formatData(res.data.hourly));
     } catch (error) {
-      toast.error(error.response.data.message);
+      console.error(error);
+      toast.error(error.message||error.response.data.message);
     }
   };
 
