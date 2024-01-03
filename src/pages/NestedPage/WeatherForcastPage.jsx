@@ -8,7 +8,7 @@ import { climateDataForm } from "../../redux/selector";
 import { toast } from "react-toastify";
 import Plot from "react-plotly.js";
 import axios from "../../api/axios";
-import '../../assets/scss/pages/NestedPages/ForeCastPage.scss'
+import "../../assets/scss/pages/NestedPages/ForeCastPage.scss";
 import ChartSelect from "../../components/ChartSelect";
 
 const checkBoxData = [
@@ -104,16 +104,20 @@ const WeatherForcastPage = () => {
   const requestData = async () => {
     const { currentLocation, hourly, daily, chartType } = dataForm;
     if (currentLocation.name !== "") {
-      const res = await axios.get("forecast/get", {
-        params: {
-          latitude: currentLocation.latitude,
-          longitude: currentLocation.longitude,
-          hourly: hourly.join(","),
-          daily: daily.join(","),
-          chart_type: chartType,
-        },
-      });
-      setJsonPlot(res.data);
+      try {
+        const res = await axios.get("forecast/get", {
+          params: {
+            latitude: currentLocation.latitude,
+            longitude: currentLocation.longitude,
+            hourly: hourly.join(","),
+            daily: daily.join(","),
+            chart_type: chartType,
+          },
+        });
+        setJsonPlot(res.data);
+      } catch (error) {
+        toast.error(error.response.data.message);
+      }
     } else {
       toast.error("PLEASE SELECT LOCATION");
     }
@@ -141,7 +145,7 @@ const WeatherForcastPage = () => {
       <div>
         <Plot data={jsonPlot} layout={{ width: 1000, height: 600 }} />
       </div>
-      <CSVButton url={'forecast/download'}/>
+      <CSVButton url={"forecast/download"} />
     </div>
   );
 };

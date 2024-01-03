@@ -32,8 +32,7 @@ const CSVButton = ({ url }) => {
       if (res.data.daily) downloadCSV(formatData(res.data.daily));
       else downloadCSV(formatData(res.data.hourly));
     } catch (error) {
-      console.error(error);
-      toast.error(error.message||error.response.data.message);
+      toast.error(error.response.data.message);
     }
   };
 

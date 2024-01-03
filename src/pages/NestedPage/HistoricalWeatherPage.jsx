@@ -98,18 +98,22 @@ const HistoricalWeatherPage = () => {
     const { currentLocation, hourly, daily, startDate, endDate, chartType } =
       dataForm;
     if (currentLocation.name !== "") {
-      const res = await axios.get("historical/get", {
-        params: {
-          latitude: currentLocation.latitude,
-          longitude: currentLocation.longitude,
-          hourly: hourly.join(","),
-          daily: daily.join(","),
-          start_date: startDate,
-          end_date: endDate,
-          chart_type: chartType,
-        },
-      });
-      setJsonPlot(res.data);
+      try {
+        const res = await axios.get("historical/get", {
+          params: {
+            latitude: currentLocation.latitude,
+            longitude: currentLocation.longitude,
+            hourly: hourly.join(","),
+            daily: daily.join(","),
+            start_date: startDate,
+            end_date: endDate,
+            chart_type: chartType,
+          },
+        });
+        setJsonPlot(res.data);
+      } catch (error) {
+        toast.error(error.response.data.message);
+      }
     } else {
       toast.error("PLEASE SELECT LOCATION");
     }

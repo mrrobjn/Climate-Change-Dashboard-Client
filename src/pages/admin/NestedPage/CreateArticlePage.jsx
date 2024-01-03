@@ -84,7 +84,7 @@ const CreateArticlePage = () => {
             <h2>Data Summary</h2>
           </div>
           <div className="summary-header">
-            <i className="fa-solid fa-angle-up"></i> data summary | filename.csv
+            <i className="fa-solid fa-angle-up"></i> Data summary
           </div>
           <div className="summary-container">
             {data.summary.fields.map((field, i) => {
